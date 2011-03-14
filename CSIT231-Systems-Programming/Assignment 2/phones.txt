@@ -1,0 +1,14 @@
+Smith : Ellen: (414)555-8414
+Van Buren: Henry: (373)555-1222
+Jefferson: Ellen: (414)555-0887
+Adams:   John: (414)555-4149
+Franklin:Ellen: (888)555-4140
+Jimmy:  Judy: (373)555-6262
+Judy: Judy: (414)555-2622
+Chicago:   Judy: (312)555-1262
+Denver: John: (906)555-1444
+Boutros: Ellen: (414)555-2622
+Henry: Henry: (373)555-4444
+Conan:   Ellen: (906)555-4144
+Denver:Judy: (888)555-1333
+Dunlop: Mike: (414)555-2623
