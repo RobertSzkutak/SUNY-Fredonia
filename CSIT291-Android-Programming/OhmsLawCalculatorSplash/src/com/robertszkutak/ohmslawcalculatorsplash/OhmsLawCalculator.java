@@ -114,7 +114,10 @@ public class OhmsLawCalculator extends Activity {
         text2.setTextSize(20f);
         
         volt = new EditText(this);
-        volt.setText(Double.toString(voltage));
+        if(voltage != -1.0)
+        	volt.setText(Double.toString(voltage));
+        else
+        	volt.setText("Unknown");
         volt.setInputType(2);
         
         text3 = new TextView(this);
@@ -124,7 +127,10 @@ public class OhmsLawCalculator extends Activity {
         text3.setTextSize(20f);
         
         amp = new EditText(this);
-        amp.setText(Double.toString(current));
+        if(current != -1.0)
+        	amp.setText(Double.toString(current));
+        else
+        	amp.setText("Unknown");
         amp.setInputType(2);
         
         text4 = new TextView(this);
@@ -134,7 +140,10 @@ public class OhmsLawCalculator extends Activity {
         text4.setTextSize(20f);
         
         res = new EditText(this);
-        res.setText(Double.toString(resistance));
+        if(resistance != -1.0)
+        	res.setText(Double.toString(resistance));
+        else
+        	res.setText("Unknown");
         res.setInputType(2);
         
         text5 = new TextView(this);
@@ -157,7 +166,10 @@ public class OhmsLawCalculator extends Activity {
         		resistortext[i].setGravity(Gravity.LEFT);
         		resistortext[i].setTextSize(20f);
         		resistoredittext[i] = new EditText(this);
-        		resistoredittext[i].setText(Double.toString(resistorvalues[i]));
+        		if(resistorvalues[i] != -1.0)
+        			resistoredittext[i].setText(Double.toString(resistorvalues[i]));
+        		else
+        			resistoredittext[i].setText("Unknown");
         		resistoredittext[i].setInputType(2);
         	}
         }
@@ -206,13 +218,17 @@ public class OhmsLawCalculator extends Activity {
         addresistor.setOnClickListener(new View.OnClickListener() {
     		public void onClick(View v){
     			
-    			voltage = Double.parseDouble(volt.getText().toString());
-    			current = Double.parseDouble(amp.getText().toString());
-    			resistance = Double.parseDouble(res.getText().toString());
+    			if(saneString(volt.getText().toString()) == true)
+    				voltage = Double.parseDouble(volt.getText().toString());
+    			if(saneString(amp.getText().toString()) == true)
+    				current = Double.parseDouble(amp.getText().toString());
+    			if(saneString(res.getText().toString()) == true)
+    				resistance = Double.parseDouble(res.getText().toString());
     			
     			if(resistors > 0){
     				for(int i = 0; i < resistors; i++){
-    					resistorvalues[i] = Double.parseDouble(resistoredittext[i].getText().toString());
+    					if(saneString(resistoredittext[i].getText().toString()) == true)
+    						resistorvalues[i] = Double.parseDouble(resistoredittext[i].getText().toString());
     				}
     				
     				pors = rg.getCheckedRadioButtonId();
@@ -229,13 +245,17 @@ public class OhmsLawCalculator extends Activity {
         calculate.setOnClickListener(new View.OnClickListener() {
     		public void onClick(View v){
     			
-    			voltage = Double.parseDouble(volt.getText().toString());
-    			current = Double.parseDouble(amp.getText().toString());
-    			resistance = Double.parseDouble(res.getText().toString());
+    			if(saneString(volt.getText().toString()) == true)
+    				voltage = Double.parseDouble(volt.getText().toString());
+    			if(saneString(amp.getText().toString()) == true)
+    				current = Double.parseDouble(amp.getText().toString());
+    			if(saneString(res.getText().toString()) == true)
+    				resistance = Double.parseDouble(res.getText().toString());
     			
     			if(resistors > 0){
     				for(int i = 0; i < resistors; i++){
-    					resistorvalues[i] = Double.parseDouble(resistoredittext[i].getText().toString());
+    					if(saneString(resistoredittext[i].getText().toString()) == true)
+    						resistorvalues[i] = Double.parseDouble(resistoredittext[i].getText().toString());
     				}
     				
     				pors = rg.getCheckedRadioButtonId();
@@ -278,6 +298,13 @@ public class OhmsLawCalculator extends Activity {
     	if((voltage == -1 && current == -1 && resistors == 0) || (voltage == -1 && resistance == -1 && resistors == 0) || 
     			(current == -1 && resistance == -1 && resistors == 0))
     		return;
+    	
+    	if(resistance == -1 && resistors > 0){
+    		for(int i = 0; i < resistors; i++){
+    			if(resistorvalues[i] == -1 && (current == -1 || voltage == -1))
+    				return;//We can't have a missing resistor with no way to calculate resistance
+    		}
+    	}
     	
     	if(voltage == -1)
     		state = 1;
@@ -369,5 +396,30 @@ public class OhmsLawCalculator extends Activity {
     	}
     	
     	return;
+    }
+    
+    public boolean saneString ( String sanity ) { 
+
+    	for (int i=0; i < sanity.length(); i++) {
+    		
+    		if(sanity.charAt(i) != '0' &&		
+    		   sanity.charAt(i) != '1' &&	
+    		   sanity.charAt(i) != '2' &&	
+    		   sanity.charAt(i) != '3' &&	
+    		   sanity.charAt(i) != '4' &&	
+    		   sanity.charAt(i) != '5' &&	
+    		   sanity.charAt(i) != '6' &&		
+    		   sanity.charAt(i) != '7' &&	
+    		   sanity.charAt(i) != '8' &&	
+    		   sanity.charAt(i) != '9' &&	
+    		   sanity.charAt(i) != '.' &&
+    		   sanity.charAt(i) != '-'   )
+
+    			return false;
+
+    	}
+
+    	return true;
+
     }
 }
