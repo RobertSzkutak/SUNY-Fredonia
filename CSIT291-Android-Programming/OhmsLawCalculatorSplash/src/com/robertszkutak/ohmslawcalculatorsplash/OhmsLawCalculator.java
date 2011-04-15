@@ -117,7 +117,7 @@ public class OhmsLawCalculator extends Activity {
         if(voltage != -1.0)
         	volt.setText(Double.toString(voltage));
         else
-        	volt.setText("Unknown");
+        	volt.setHint("Unknown");
         volt.setInputType(2);
         
         text3 = new TextView(this);
@@ -130,7 +130,7 @@ public class OhmsLawCalculator extends Activity {
         if(current != -1.0)
         	amp.setText(Double.toString(current));
         else
-        	amp.setText("Unknown");
+        	amp.setHint("Unknown");
         amp.setInputType(2);
         
         text4 = new TextView(this);
@@ -143,7 +143,7 @@ public class OhmsLawCalculator extends Activity {
         if(resistance != -1.0)
         	res.setText(Double.toString(resistance));
         else
-        	res.setText("Unknown");
+        	res.setHint("Unknown");
         res.setInputType(2);
         
         text5 = new TextView(this);
@@ -169,7 +169,7 @@ public class OhmsLawCalculator extends Activity {
         		if(resistorvalues[i] != -1.0)
         			resistoredittext[i].setText(Double.toString(resistorvalues[i]));
         		else
-        			resistoredittext[i].setText("Unknown");
+        			resistoredittext[i].setHint("Unknown");
         		resistoredittext[i].setInputType(2);
         	}
         }
@@ -318,6 +318,13 @@ public class OhmsLawCalculator extends Activity {
     	if(resistance == -1 && resistors == 0)
     		state = 3;
     	
+    	if(resistance == -1 && resistors > 0){
+    		for(int i = 0; i < resistors; i++){
+    			if(resistorvalues[i] == -1)
+    				return;//Make sure we dont have missing resistors and missing resistance
+    		}
+    	}
+    	
     	if(resistance != -1 && resistors > 0){
     		for(int i = 0; i < resistors; i++){
     			if(resistorvalues[i] == -1)
@@ -399,6 +406,9 @@ public class OhmsLawCalculator extends Activity {
     }
     
     public boolean saneString ( String sanity ) { 
+    	
+    	if(sanity.length() <= 0)
+    		return false;
 
     	for (int i=0; i < sanity.length(); i++) {
     		
