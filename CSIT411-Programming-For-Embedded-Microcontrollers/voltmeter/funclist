@@ -1,0 +1,12 @@
+i1_pulse: CODE, 1044 0 14
+_compare: CODE, 288 0 205
+_main: CODE, 828 0 55
+___lwdiv: CODE, 680 0 80
+_isr: CODE, 883 0 50
+_sprintf: CODE, 38 0 250
+_printvoltage: CODE, 493 0 187
+_pulse: CODE, 1030 0 14
+___lwmod: CODE, 760 0 68
+_initLCD: CODE, 970 0 37
+_clearLCD: CODE, 1007 0 23
+Total: 983

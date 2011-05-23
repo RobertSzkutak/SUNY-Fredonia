@@ -1,0 +1,3018 @@
+
+
+HI-TECH Software PIC LITE Macro Assembler V9.80 build 6738 
+                                                                                               Tue May 03 10:49:16 2011
+
+HI-TECH Software Omniscient Code Generator (Lite mode) build 6738
+     1  0000                     opt subtitle "HI-TECH Software Omniscient Code Generator (Lite mode) build 6738"
+     2                           
+     3                           opt pagewidth 120
+     4                           
+     5                           	opt lm
+     6                           
+     7                           	processor	16F690
+     8                           clrc	macro
+     9                           	bcf	3,0
+    10  0000                     	endm
+    11                           clrz	macro
+    12                           	bcf	3,2
+    13  0000                     	endm
+    14                           setc	macro
+    15                           	bsf	3,0
+    16  0000                     	endm
+    17                           setz	macro
+    18                           	bsf	3,2
+    19  0000                     	endm
+    20                           skipc	macro
+    21                           	btfss	3,0
+    22  0000                     	endm
+    23                           skipz	macro
+    24                           	btfss	3,2
+    25  0000                     	endm
+    26                           skipnc	macro
+    27                           	btfsc	3,0
+    28  0000                     	endm
+    29                           skipnz	macro
+    30                           	btfsc	3,2
+    31  0000                     	endm
+    32  0000                     indf	equ	0
+    33  0000                     indf0	equ	0
+    34  0002                     pc	equ	2
+    35  0002                     pcl	equ	2
+    36  0003                     status	equ	3
+    37  0004                     fsr	equ	4
+    38  0004                     fsr0	equ	4
+    39  0001                     c	equ	1
+    40  0000                     z	equ	0
+    41  000A                     pclath	equ	10
+    42                           # 6 "C:\projects\PIC\voltmeter\voltmeter.c"
+    43                           	psect config,class=CONFIG,delta=2 ;#
+    44                           # 6 "C:\projects\PIC\voltmeter\voltmeter.c"
+    45  2007  3CC4               	dw 0x3FFF & 0x3CFF & 0x3FDF & 0x3FEF & 0x3FFC & 0x3FF7 ;#
+    46                           	FNCALL	_main,_initLCD
+    47                           	FNCALL	_initLCD,_pulse
+    48                           	FNROOT	_main
+    49                           	FNCALL	_isr,_compare
+    50                           	FNCALL	_isr,_printvoltage
+    51                           	FNCALL	_printvoltage,_clearLCD
+    52                           	FNCALL	_printvoltage,i1_pulse
+    53                           	FNCALL	_compare,_sprintf
+    54                           	FNCALL	_clearLCD,i1_pulse
+    55                           	FNCALL	_sprintf,___lwdiv
+    56                           	FNCALL	_sprintf,___lwmod
+    57                           	FNCALL	intlevel1,_isr
+    58                           	global	intlevel1
+    59                           	FNROOT	intlevel1
+    60                           	global	_storage
+    61                           	global	_volts
+    62                           psect	idataBANK0,class=CODE,space=0,delta=2
+    63                           global __pidataBANK0
+    64  0422                     __pidataBANK0:
+    65                           	file	"C:\projects\PIC\voltmeter\voltmeter.c"
+    66                           	line	9
+    67                           
+    68                           ;initializer for _storage
+    69  0422  3478               	retlw	078h
+    70  0423  342E               	retlw	02Eh
+    71  0424  3478               	retlw	078h
+    72  0425  3456               	retlw	056h
+    73                           	line	8
+    74                           
+    75                           ;initializer for _volts
+    76  0426  3478               	retlw	078h
+    77  0427  342E               	retlw	02Eh
+    78  0428  3478               	retlw	078h
+    79  0429  3456               	retlw	056h
+    80                           	global	_dpowers
+    81                           psect	strings,class=STRING,delta=2
+    82                           global __pstrings
+    83  0013                     __pstrings:
+    84                           ;	global	stringdir,stringtab,__stringbase
+    85  0013                     stringtab:
+    86                           ;	String table - string pointers are 1 byte each
+    87  0013                     stringcode:stringdir:
+      + 0013                     stringdir:	
+    88  0013  3000               movlw high(stringdir)
+    89  0014  008A               movwf pclath
+    90  0015  0804               movf fsr,w
+    91  0016  0A84               incf fsr
+    92  0017  0782               	addwf pc
+    93  0018                     __stringbase:
+    94  0018  3400               	retlw	0
+    95                           psect	strings
+    96                           	file	"C:\Program Files (x86)\HI-TECH Software\PICC\9.80\sources\doprnt.c"
+    97                           	line	350
+    98  0019                     _dpowers:
+    99  0019  3401               	retlw	01h
+   100  001A  3400               	retlw	0
+   101                           
+   102  001B  340A               	retlw	0Ah
+   103  001C  3400               	retlw	0
+   104                           
+   105  001D  3464               	retlw	064h
+   106  001E  3400               	retlw	0
+   107                           
+   108  001F  34E8               	retlw	0E8h
+   109  0020  3403               	retlw	03h
+   110                           
+   111  0021  3410               	retlw	010h
+   112  0022  3427               	retlw	027h
+   113                           
+   114                           	global	_dpowers
+   115                           	global	_totalvolt
+   116                           	global	_ADCON0
+   117  001F                     _ADCON0	set	31
+   118                           	global	_ADRESH
+   119  001E                     _ADRESH	set	30
+   120                           	global	_INTCON
+   121  000B                     _INTCON	set	11
+   122                           	global	_PORTC
+   123  0007                     _PORTC	set	7
+   124                           	global	_ADIF
+   125  0066                     _ADIF	set	102
+   126                           	global	_GIE
+   127  005F                     _GIE	set	95
+   128                           	global	_GODONE
+   129  00F9                     _GODONE	set	249
+   130                           	global	_RB6
+   131  0036                     _RB6	set	54
+   132                           	global	_RB7
+   133  0037                     _RB7	set	55
+   134                           	global	_ADCON1
+   135  009F                     _ADCON1	set	159
+   136                           	global	_ADRESL
+   137  009E                     _ADRESL	set	158
+   138                           	global	_TRISA
+   139  0085                     _TRISA	set	133
+   140                           	global	_TRISB
+   141  0086                     _TRISB	set	134
+   142                           	global	_TRISC
+   143  0087                     _TRISC	set	135
+   144                           	global	_ADIE
+   145  0466                     _ADIE	set	1126
+   146                           	global	_ANSEL
+   147  011E                     _ANSEL	set	286
+   148                           	global	_ANSELH
+   149  011F                     _ANSELH	set	287
+   150                           	
+   151  0023                     STR_1:	
+   152  0023  3425               	retlw	37	;'%'
+   153  0024  3464               	retlw	100	;'d'
+   154  0025  3400               	retlw	0
+   155                           psect	strings
+   156                           	file	"voltmeter.as"
+   157                           	line	#
+   158                           psect cinit,class=CODE,delta=2
+   159                           global start_initialization
+   160  03A5                     start_initialization:
+   161                           
+   162                           psect	bssBANK0,class=BANK0,space=1
+   163                           global __pbssBANK0
+   164  004D                     __pbssBANK0:
+   165  004D                     _totalvolt:
+   166  004D                            ds      2
+   167                           
+   168                           psect	dataBANK0,class=BANK0,space=1
+   169                           global __pdataBANK0
+   170  0045                     __pdataBANK0:
+   171                           	file	"C:\projects\PIC\voltmeter\voltmeter.c"
+   172                           	line	9
+   173  0045                     _storage:
+   174  0045                            ds      4
+   175                           
+   176                           psect	dataBANK0
+   177                           	file	"C:\projects\PIC\voltmeter\voltmeter.c"
+   178                           	line	8
+   179  0049                     _volts:
+   180  0049                            ds      4
+   181                           
+   182                           ; Clear objects allocated to BANK0
+   183                           psect cinit,class=CODE,delta=2
+   184  03A5  01CD               	clrf	((__pbssBANK0)+0)&07Fh
+   185  03A6  01CE               	clrf	((__pbssBANK0)+1)&07Fh
+   186                           ; Initialize objects allocated to BANK0
+   187                           	global __pidataBANK0
+   188                           psect cinit,class=CODE,delta=2
+   189  03A7  118A  2422  118A   	fcall	__pidataBANK0+0		;fetch initializer
+   190  03AA  00C5               	movwf	__pdataBANK0+0&07fh		
+   191  03AB  118A  2423  118A   	fcall	__pidataBANK0+1		;fetch initializer
+   192  03AE  00C6               	movwf	__pdataBANK0+1&07fh		
+   193  03AF  118A  2424  118A   	fcall	__pidataBANK0+2		;fetch initializer
+   194  03B2  00C7               	movwf	__pdataBANK0+2&07fh		
+   195  03B3  118A  2425  118A   	fcall	__pidataBANK0+3		;fetch initializer
+   196  03B6  00C8               	movwf	__pdataBANK0+3&07fh		
+   197  03B7  118A  2426  118A   	fcall	__pidataBANK0+4		;fetch initializer
+   198  03BA  00C9               	movwf	__pdataBANK0+4&07fh		
+   199  03BB  118A  2427  118A   	fcall	__pidataBANK0+5		;fetch initializer
+   200  03BE  00CA               	movwf	__pdataBANK0+5&07fh		
+   201  03BF  118A  2428  118A   	fcall	__pidataBANK0+6		;fetch initializer
+   202  03C2  00CB               	movwf	__pdataBANK0+6&07fh		
+   203  03C3  118A  2429  118A   	fcall	__pidataBANK0+7		;fetch initializer
+   204  03C6  00CC               	movwf	__pdataBANK0+7&07fh		
+   205                           psect cinit,class=CODE,delta=2
+   206                           global end_of_initialization
+   207                           
+   208                           ;End of C runtime variable initialization code
+   209                           
+   210  03C7                     end_of_initialization:
+   211  03C7  0183               clrf status
+   212  03C8  118A  2B3C         ljmp _main	;jump to C main() function
+   213                           psect	cstackCOMMON,class=COMMON,space=1
+   214                           global __pcstackCOMMON
+   215  0070                     __pcstackCOMMON:
+   216                           	global	?_pulse
+   217  0070                     ?_pulse:	; 0 bytes @ 0x0
+   218                           	global	?_clearLCD
+   219  0070                     ?_clearLCD:	; 0 bytes @ 0x0
+   220                           	global	?_printvoltage
+   221  0070                     ?_printvoltage:	; 0 bytes @ 0x0
+   222                           	global	?_isr
+   223  0070                     ?_isr:	; 0 bytes @ 0x0
+   224                           	global	?_initLCD
+   225  0070                     ?_initLCD:	; 0 bytes @ 0x0
+   226                           	global	?_main
+   227  0070                     ?_main:	; 0 bytes @ 0x0
+   228                           	global	?i1_pulse
+   229  0070                     ?i1_pulse:	; 0 bytes @ 0x0
+   230                           	global	??i1_pulse
+   231  0070                     ??i1_pulse:	; 0 bytes @ 0x0
+   232                           	global	?___lwdiv
+   233  0070                     ?___lwdiv:	; 2 bytes @ 0x0
+   234                           	global	___lwdiv@divisor
+   235  0070                     ___lwdiv@divisor:	; 2 bytes @ 0x0
+   236  0070                     	ds	2
+   237                           	global	??_clearLCD
+   238  0072                     ??_clearLCD:	; 0 bytes @ 0x2
+   239                           	global	___lwdiv@dividend
+   240  0072                     ___lwdiv@dividend:	; 2 bytes @ 0x2
+   241  0072                     	ds	2
+   242                           	global	??_printvoltage
+   243  0074                     ??_printvoltage:	; 0 bytes @ 0x4
+   244                           	global	??___lwdiv
+   245  0074                     ??___lwdiv:	; 0 bytes @ 0x4
+   246  0074                     	ds	1
+   247                           	global	printvoltage@refresh
+   248  0075                     printvoltage@refresh:	; 1 bytes @ 0x5
+   249                           	global	___lwdiv@quotient
+   250  0075                     ___lwdiv@quotient:	; 2 bytes @ 0x5
+   251  0075                     	ds	1
+   252                           	global	printvoltage@digit
+   253  0076                     printvoltage@digit:	; 1 bytes @ 0x6
+   254  0076                     	ds	1
+   255                           	global	printvoltage@i
+   256  0077                     printvoltage@i:	; 1 bytes @ 0x7
+   257                           	global	___lwdiv@counter
+   258  0077                     ___lwdiv@counter:	; 1 bytes @ 0x7
+   259  0077                     	ds	1
+   260                           	global	?___lwmod
+   261  0078                     ?___lwmod:	; 2 bytes @ 0x8
+   262                           	global	___lwmod@divisor
+   263  0078                     ___lwmod@divisor:	; 2 bytes @ 0x8
+   264  0078                     	ds	2
+   265                           	global	___lwmod@dividend
+   266  007A                     ___lwmod@dividend:	; 2 bytes @ 0xA
+   267  007A                     	ds	2
+   268                           	global	??___lwmod
+   269  007C                     ??___lwmod:	; 0 bytes @ 0xC
+   270  007C                     	ds	1
+   271                           	global	___lwmod@counter
+   272  007D                     ___lwmod@counter:	; 1 bytes @ 0xD
+   273  007D                     	ds	1
+   274                           psect	cstackBANK0,class=BANK0,space=1
+   275                           global __pcstackBANK0
+   276  0020                     __pcstackBANK0:
+   277                           	global	?_sprintf
+   278  0020                     ?_sprintf:	; 2 bytes @ 0x0
+   279                           	global	sprintf@f
+   280  0020                     sprintf@f:	; 1 bytes @ 0x0
+   281  0020                     	ds	3
+   282                           	global	??_sprintf
+   283  0023                     ??_sprintf:	; 0 bytes @ 0x3
+   284  0023                     	ds	3
+   285                           	global	sprintf@ap
+   286  0026                     sprintf@ap:	; 1 bytes @ 0x6
+   287  0026                     	ds	1
+   288                           	global	sprintf@flag
+   289  0027                     sprintf@flag:	; 1 bytes @ 0x7
+   290  0027                     	ds	1
+   291                           	global	sprintf@prec
+   292  0028                     sprintf@prec:	; 1 bytes @ 0x8
+   293  0028                     	ds	1
+   294                           	global	sprintf@_val
+   295  0029                     sprintf@_val:	; 4 bytes @ 0x9
+   296  0029                     	ds	4
+   297                           	global	sprintf@sp
+   298  002D                     sprintf@sp:	; 1 bytes @ 0xD
+   299  002D                     	ds	1
+   300                           	global	sprintf@c
+   301  002E                     sprintf@c:	; 1 bytes @ 0xE
+   302  002E                     	ds	1
+   303                           	global	?_compare
+   304  002F                     ?_compare:	; 1 bytes @ 0xF
+   305                           	global	compare@low
+   306  002F                     compare@low:	; 1 bytes @ 0xF
+   307  002F                     	ds	1
+   308                           	global	??_compare
+   309  0030                     ??_compare:	; 0 bytes @ 0x10
+   310  0030                     	ds	1
+   311                           	global	compare@v
+   312  0031                     compare@v:	; 5 bytes @ 0x11
+   313  0031                     	ds	5
+   314                           	global	compare@temp
+   315  0036                     compare@temp:	; 1 bytes @ 0x16
+   316  0036                     	ds	1
+   317                           	global	compare@high
+   318  0037                     compare@high:	; 1 bytes @ 0x17
+   319  0037                     	ds	1
+   320                           	global	??_isr
+   321  0038                     ??_isr:	; 0 bytes @ 0x18
+   322  0038                     	ds	6
+   323                           	global	isr@volt
+   324  003E                     isr@volt:	; 1 bytes @ 0x1E
+   325  003E                     	ds	1
+   326                           	global	??_pulse
+   327  003F                     ??_pulse:	; 0 bytes @ 0x1F
+   328  003F                     	ds	2
+   329                           	global	??_initLCD
+   330  0041                     ??_initLCD:	; 0 bytes @ 0x21
+   331  0041                     	ds	2
+   332                           	global	??_main
+   333  0043                     ??_main:	; 0 bytes @ 0x23
+   334  0043                     	ds	2
+   335 ;;Data sizes: Strings 3, constant 10, data 8, bss 2, persistent 0 stack 0
+   336 ;;Auto spaces:   Size  Autos    Used
+   337 ;; COMMON          14     14      14
+   338 ;; BANK0           80     37      47
+   339 ;; BANK1           80      0       0
+   340 ;; BANK2           80      0       0
+   341                           
+   342 ;;
+   343 ;; Pointer list with targets:
+   344                           
+   345 ;; ?___lwdiv	unsigned int  size(1) Largest target is 0
+   346 ;;
+   347 ;; ?___lwmod	unsigned int  size(1) Largest target is 0
+   348 ;;
+   349 ;; ?_compare	PTR unsigned char  size(1) Largest target is 5
+   350 ;;		 -> compare@v(BANK0[5]), 
+   351 ;;
+   352 ;; sprintf@f	PTR const unsigned char  size(1) Largest target is 3
+   353 ;;		 -> STR_1(CODE[3]), 
+   354 ;;
+   355 ;; sprintf@sp	PTR unsigned char  size(1) Largest target is 5
+   356 ;;		 -> compare@v(BANK0[5]), 
+   357 ;;
+   358 ;; ?_sprintf	int  size(1) Largest target is 0
+   359 ;;
+   360 ;; sprintf@ap	PTR void [1] size(1) Largest target is 2
+   361 ;;		 -> ?_sprintf(BANK0[2]), 
+   362 ;;
+   363 ;; S421$_cp	PTR const unsigned char  size(1) Largest target is 0
+   364 ;;
+   365 ;; _val._str._cp	PTR const unsigned char  size(1) Largest target is 0
+   366 ;;
+   367 ;; isr@volt	PTR unsigned char  size(1) Largest target is 5
+   368 ;;		 -> compare@v(BANK0[5]), 
+   369 ;;
+   370 ;; sp__compare	PTR unsigned char  size(1) Largest target is 5
+   371 ;;		 -> compare@v(BANK0[5]), 
+   372 ;;
+   373 ;; printvoltage@digit	PTR unsigned char  size(1) Largest target is 5
+   374 ;;		 -> compare@v(BANK0[5]), 
+   375 ;;
+   376                           
+   377                           
+   378 ;;
+   379 ;; Critical Paths under _main in COMMON
+   380 ;;
+   381 ;;   None.
+   382 ;;
+   383 ;; Critical Paths under _isr in COMMON
+   384 ;;
+   385 ;;   _printvoltage->_clearLCD
+   386 ;;   _clearLCD->i1_pulse
+   387 ;;   _sprintf->___lwmod
+   388 ;;   ___lwmod->___lwdiv
+   389 ;;
+   390 ;; Critical Paths under _main in BANK0
+   391 ;;
+   392 ;;   _main->_initLCD
+   393 ;;   _initLCD->_pulse
+   394 ;;
+   395 ;; Critical Paths under _isr in BANK0
+   396 ;;
+   397 ;;   _isr->_compare
+   398 ;;   _compare->_sprintf
+   399 ;;
+   400 ;; Critical Paths under _main in BANK1
+   401 ;;
+   402 ;;   None.
+   403 ;;
+   404 ;; Critical Paths under _isr in BANK1
+   405 ;;
+   406 ;;   None.
+   407 ;;
+   408 ;; Critical Paths under _main in BANK2
+   409 ;;
+   410 ;;   None.
+   411 ;;
+   412 ;; Critical Paths under _isr in BANK2
+   413 ;;
+   414 ;;   None.
+   415                           
+   416 ;;
+   417 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
+   418 ;;
+   419                           
+   420 ;;
+   421 ;;Call Graph Tables:
+   422 ;;
+   423 ;; ---------------------------------------------------------------------------------
+   424 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   425 ;; ---------------------------------------------------------------------------------
+   426 ;; (0) _main                                                 2     2      0       0
+   427 ;;                                             35 BANK0      2     2      0
+   428 ;;                            _initLCD
+   429 ;; ---------------------------------------------------------------------------------
+   430 ;; (1) _initLCD                                              2     2      0       0
+   431 ;;                                             33 BANK0      2     2      0
+   432 ;;                              _pulse
+   433 ;; ---------------------------------------------------------------------------------
+   434 ;; (2) _pulse                                                2     2      0       0
+   435 ;;                                             31 BANK0      2     2      0
+   436 ;; ---------------------------------------------------------------------------------
+   437 ;; Estimated maximum stack depth 2
+   438 ;; ---------------------------------------------------------------------------------
+   439 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   440 ;; ---------------------------------------------------------------------------------
+   441 ;; (3) _isr                                                  7     7      0    1467
+   442 ;;                                             24 BANK0      7     7      0
+   443 ;;                            _compare
+   444 ;;                       _printvoltage
+   445 ;; ---------------------------------------------------------------------------------
+   446 ;; (4) _printvoltage                                         4     4      0     338
+   447 ;;                                              4 COMMON     4     4      0
+   448 ;;                           _clearLCD
+   449 ;;                            i1_pulse
+   450 ;; ---------------------------------------------------------------------------------
+   451 ;; (4) _compare                                              9     8      1    1106
+   452 ;;                                             15 BANK0      9     8      1
+   453 ;;                            _sprintf
+   454 ;; ---------------------------------------------------------------------------------
+   455 ;; (5) _clearLCD                                             2     2      0       0
+   456 ;;                                              2 COMMON     2     2      0
+   457 ;;                            i1_pulse
+   458 ;; ---------------------------------------------------------------------------------
+   459 ;; (5) i1_pulse                                              2     2      0       0
+   460 ;;                                              0 COMMON     2     2      0
+   461 ;; ---------------------------------------------------------------------------------
+   462 ;; (5) _sprintf                                             15    12      3     798
+   463 ;;                                              0 BANK0     15    12      3
+   464 ;;                            ___lwdiv
+   465 ;;                            ___lwmod
+   466 ;; ---------------------------------------------------------------------------------
+   467 ;; (6) ___lwmod                                              6     2      4     159
+   468 ;;                                              8 COMMON     6     2      4
+   469 ;;                            ___lwdiv (ARG)
+   470 ;; ---------------------------------------------------------------------------------
+   471 ;; (6) ___lwdiv                                              8     4      4     162
+   472 ;;                                              0 COMMON     8     4      4
+   473 ;; ---------------------------------------------------------------------------------
+   474 ;; Estimated maximum stack depth 6
+   475 ;; ---------------------------------------------------------------------------------
+   476                           
+   477 ;; Call Graph Graphs:
+   478                           
+   479 ;; _main (ROOT)
+   480 ;;   _initLCD
+   481 ;;     _pulse
+   482 ;;
+   483 ;; _isr (ROOT)
+   484 ;;   _compare
+   485 ;;     _sprintf
+   486 ;;       ___lwdiv
+   487 ;;       ___lwmod
+   488 ;;         ___lwdiv (ARG)
+   489 ;;   _printvoltage
+   490 ;;     _clearLCD
+   491 ;;       i1_pulse
+   492 ;;     i1_pulse
+   493 ;;
+   494                           
+   495 ;; Address spaces:
+   496                           
+   497 ;;Name               Size   Autos  Total    Cost      Usage
+   498 ;;SFR3                 0      0       0       4        0.0%
+   499 ;;BITSFR3              0      0       0       4        0.0%
+   500 ;;BANK2               50      0       0       7        0.0%
+   501 ;;BITBANK2            50      0       0       6        0.0%
+   502 ;;SFR2                 0      0       0       5        0.0%
+   503 ;;BITSFR2              0      0       0       5        0.0%
+   504 ;;SFR1                 0      0       0       2        0.0%
+   505 ;;BITSFR1              0      0       0       2        0.0%
+   506 ;;BANK1               50      0       0       5        0.0%
+   507 ;;BITBANK1            50      0       0       4        0.0%
+   508 ;;CODE                 0      0       0       0        0.0%
+   509 ;;DATA                 0      0      47      10        0.0%
+   510 ;;ABS                  0      0      3D       8        0.0%
+   511 ;;NULL                 0      0       0       0        0.0%
+   512 ;;STACK                0      0       A       2        0.0%
+   513 ;;BANK0               50     25      2F       3       58.8%
+   514 ;;BITBANK0            50      0       0       9        0.0%
+   515 ;;SFR0                 0      0       0       1        0.0%
+   516 ;;BITSFR0              0      0       0       1        0.0%
+   517 ;;COMMON               E      E       E       1      100.0%
+   518 ;;BITCOMMON            E      0       0       0        0.0%
+   519 ;;EEDATA             100      0       0       0        0.0%
+   520                           
+   521                           	global	_main
+   522                           psect	maintext,global,class=CODE,delta=2
+   523                           global __pmaintext
+   524  033C                     __pmaintext:
+   525                           
+   526 ;; *************** function _main *****************
+   527 ;; Defined at:
+   528 ;;		line 153 in file "C:\projects\PIC\voltmeter\voltmeter.c"
+   529 ;; Parameters:    Size  Location     Type
+   530 ;;		None
+   531 ;; Auto vars:     Size  Location     Type
+   532 ;;		None
+   533 ;; Return value:  Size  Location     Type
+   534 ;;		None               void
+   535 ;; Registers used:
+   536 ;;		wreg, status,2, status,0, pclath, cstack
+   537 ;; Tracked objects:
+   538 ;;		On entry : 17F/0
+   539 ;;		On exit  : 0/0
+   540 ;;		Unchanged: 0/0
+   541 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   542 ;;      Params:         0       0       0       0
+   543 ;;      Locals:         0       0       0       0
+   544 ;;      Temps:          0       2       0       0
+   545 ;;      Totals:         0       2       0       0
+   546 ;;Total ram usage:        2 bytes
+   547 ;; Hardware stack levels required when called:    6
+   548 ;; This function calls:
+   549 ;;		_initLCD
+   550 ;; This function is called by:
+   551 ;;		Startup code after reset
+   552 ;; This function uses a non-reentrant model
+   553 ;;
+   554                           psect	maintext
+   555                           	file	"C:\projects\PIC\voltmeter\voltmeter.c"
+   556                           	line	153
+   557                           	global	__size_of_main
+   558  0037                     	__size_of_main	equ	__end_of_main-_main
+   559                           	
+   560  033C                     _main:	
+   561                           	opt	stack 2
+   562                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
+   563                           	line	155
+   564                           	
+   565  033C                     l2484:	
+   566                           ;voltmeter.c: 155: TRISC = 0;
+   567  033C  1683               	bsf	status, 5	;RP0=1, select bank1
+   568  033D  1303               	bcf	status, 6	;RP1=0, select bank1
+   569  033E  0187               	clrf	(135)^080h	;volatile
+   570                           	line	156
+   571                           ;voltmeter.c: 156: TRISB = 0;
+   572  033F  0186               	clrf	(134)^080h	;volatile
+   573                           	line	157
+   574                           	
+   575  0340                     l2486:	
+   576                           ;voltmeter.c: 157: TRISA = 0b00000100;
+   577  0340  3004               	movlw	(04h)
+   578  0341  0085               	movwf	(133)^080h	;volatile
+   579                           	line	158
+   580                           	
+   581  0342                     l2488:	
+   582                           ;voltmeter.c: 158: ANSEL = 0b00000100;
+   583  0342  3004               	movlw	(04h)
+   584  0343  1283               	bcf	status, 5	;RP0=0, select bank2
+   585  0344  1703               	bsf	status, 6	;RP1=1, select bank2
+   586  0345  009E               	movwf	(286)^0100h	;volatile
+   587                           	line	159
+   588                           ;voltmeter.c: 159: ANSELH = 0;
+   589  0346  019F               	clrf	(287)^0100h	;volatile
+   590                           	line	160
+   591                           	
+   592  0347                     l2490:	
+   593                           ;voltmeter.c: 160: _delay((unsigned long)((5)*(4000000/4000.0)));
+   594                           	opt asmopt_off
+   595  0347  3007               movlw	7
+   596  0348  1283               	bcf	status, 5	;RP0=0, select bank0
+   597  0349  1303               	bcf	status, 6	;RP1=0, select bank0
+   598  034A  00C4               movwf	((??_main+0)+0+1),f
+   599  034B  307D               	movlw	125
+   600  034C  00C3               movwf	((??_main+0)+0),f
+   601  034D                     u2857:
+   602  034D  0BC3               	decfsz	((??_main+0)+0),f
+   603  034E  2B4D               	goto	u2857
+   604  034F  0BC4               	decfsz	((??_main+0)+0+1),f
+   605  0350  2B4D               	goto	u2857
+   606                           opt asmopt_on
+   607                           
+   608                           	line	161
+   609                           	
+   610  0351                     l2492:	
+   611                           ;voltmeter.c: 161: initLCD();
+   612  0351  118A  23CA  118A   	fcall	_initLCD
+   613                           	line	162
+   614                           	
+   615  0354                     l2494:	
+   616                           ;voltmeter.c: 162: _delay((unsigned long)((5)*(4000000/4000.0)));
+   617                           	opt asmopt_off
+   618  0354  3007               movlw	7
+   619  0355  1283               	bcf	status, 5	;RP0=0, select bank0
+   620  0356  1303               	bcf	status, 6	;RP1=0, select bank0
+   621  0357  00C4               movwf	((??_main+0)+0+1),f
+   622  0358  307D               	movlw	125
+   623  0359  00C3               movwf	((??_main+0)+0),f
+   624  035A                     u2867:
+   625  035A  0BC3               	decfsz	((??_main+0)+0),f
+   626  035B  2B5A               	goto	u2867
+   627  035C  0BC4               	decfsz	((??_main+0)+0+1),f
+   628  035D  2B5A               	goto	u2867
+   629                           opt asmopt_on
+   630                           
+   631                           	line	163
+   632                           	
+   633  035E                     l2496:	
+   634                           ;voltmeter.c: 163: GIE = 1;
+   635  035E  178B               	bsf	(95/8),(95)&7
+   636                           	line	164
+   637                           	
+   638  035F                     l2498:	
+   639                           ;voltmeter.c: 164: ADIE = 1;
+   640  035F  1683               	bsf	status, 5	;RP0=1, select bank1
+   641  0360  1303               	bcf	status, 6	;RP1=0, select bank1
+   642  0361  170C               	bsf	(1126/8)^080h,(1126)&7
+   643                           	line	165
+   644                           	
+   645  0362                     l2500:	
+   646                           ;voltmeter.c: 165: INTCON = 0b11000000;
+   647  0362  30C0               	movlw	(0C0h)
+   648  0363  008B               	movwf	(11)	;volatile
+   649                           	line	166
+   650                           	
+   651  0364                     l2502:	
+   652                           ;voltmeter.c: 166: ADCON0 = 0b10001001;
+   653  0364  3089               	movlw	(089h)
+   654  0365  1283               	bcf	status, 5	;RP0=0, select bank0
+   655  0366  1303               	bcf	status, 6	;RP1=0, select bank0
+   656  0367  009F               	movwf	(31)	;volatile
+   657                           	line	167
+   658                           	
+   659  0368                     l2504:	
+   660                           ;voltmeter.c: 167: ADCON1 = 0b00010000;
+   661  0368  3010               	movlw	(010h)
+   662  0369  1683               	bsf	status, 5	;RP0=1, select bank1
+   663  036A  1303               	bcf	status, 6	;RP1=0, select bank1
+   664  036B  009F               	movwf	(159)^080h	;volatile
+   665                           	line	168
+   666                           	
+   667  036C                     l2506:	
+   668                           ;voltmeter.c: 168: GODONE = 1;
+   669  036C  1283               	bcf	status, 5	;RP0=0, select bank0
+   670  036D  1303               	bcf	status, 6	;RP1=0, select bank0
+   671  036E  149F               	bsf	(249/8),(249)&7
+   672  036F  2B70               	goto	l761
+   673                           	line	170
+   674                           ;voltmeter.c: 170: while (1);
+   675                           	
+   676  0370                     l760:	
+   677                           	
+   678  0370                     l761:	
+   679  0370  2B70               	goto	l761
+   680                           	
+   681  0371                     l762:	
+   682                           	line	172
+   683                           	
+   684  0371                     l763:	
+   685                           	global	start
+   686  0371  118A  2811         	ljmp	start
+   687                           	opt stack 0
+   688                           GLOBAL	__end_of_main
+   689  0373                     	__end_of_main:
+   690 ;; =============== function _main ends ============
+   691                           
+   692                           	signat	_main,88
+   693                           	global	_initLCD
+   694                           psect	text277,local,class=CODE,delta=2
+   695                           global __ptext277
+   696  03CA                     __ptext277:
+   697                           
+   698 ;; *************** function _initLCD *****************
+   699 ;; Defined at:
+   700 ;;		line 137 in file "C:\projects\PIC\voltmeter\voltmeter.c"
+   701 ;; Parameters:    Size  Location     Type
+   702 ;;		None
+   703 ;; Auto vars:     Size  Location     Type
+   704 ;;		None
+   705 ;; Return value:  Size  Location     Type
+   706 ;;		None               void
+   707 ;; Registers used:
+   708 ;;		wreg, status,2, status,0, pclath, cstack
+   709 ;; Tracked objects:
+   710 ;;		On entry : 0/0
+   711 ;;		On exit  : 0/0
+   712 ;;		Unchanged: 0/0
+   713 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   714 ;;      Params:         0       0       0       0
+   715 ;;      Locals:         0       0       0       0
+   716 ;;      Temps:          0       2       0       0
+   717 ;;      Totals:         0       2       0       0
+   718 ;;Total ram usage:        2 bytes
+   719 ;; Hardware stack levels used:    1
+   720 ;; Hardware stack levels required when called:    5
+   721 ;; This function calls:
+   722 ;;		_pulse
+   723 ;; This function is called by:
+   724 ;;		_main
+   725 ;; This function uses a non-reentrant model
+   726 ;;
+   727                           psect	text277
+   728                           	file	"C:\projects\PIC\voltmeter\voltmeter.c"
+   729                           	line	137
+   730                           	global	__size_of_initLCD
+   731  0025                     	__size_of_initLCD	equ	__end_of_initLCD-_initLCD
+   732                           	
+   733  03CA                     _initLCD:	
+   734                           	opt	stack 2
+   735                           ; Regs used in _initLCD: [wreg+status,2+status,0+pclath+cstack]
+   736                           	line	139
+   737                           	
+   738  03CA                     l2470:	
+   739                           ;voltmeter.c: 139: RB6 = 0;
+   740  03CA  1283               	bcf	status, 5	;RP0=0, select bank0
+   741  03CB  1303               	bcf	status, 6	;RP1=0, select bank0
+   742  03CC  1306               	bcf	(54/8),(54)&7
+   743                           	line	140
+   744                           ;voltmeter.c: 140: RB7 = 0;
+   745  03CD  1386               	bcf	(55/8),(55)&7
+   746                           	line	141
+   747                           	
+   748  03CE                     l2472:	
+   749                           ;voltmeter.c: 141: _delay((unsigned long)((125)*(4000000/4000.0)));
+   750                           	opt asmopt_off
+   751  03CE  30A3               movlw	163
+   752  03CF  00C2               movwf	((??_initLCD+0)+0+1),f
+   753  03D0  3055               	movlw	85
+   754  03D1  00C1               movwf	((??_initLCD+0)+0),f
+   755  03D2                     u2877:
+   756  03D2  0BC1               	decfsz	((??_initLCD+0)+0),f
+   757  03D3  2BD2               	goto	u2877
+   758  03D4  0BC2               	decfsz	((??_initLCD+0)+0+1),f
+   759  03D5  2BD2               	goto	u2877
+   760                           opt asmopt_on
+   761                           
+   762                           	line	142
+   763                           ;voltmeter.c: 142: PORTC = 0x38;
+   764  03D6  3038               	movlw	(038h)
+   765  03D7  1283               	bcf	status, 5	;RP0=0, select bank0
+   766  03D8  1303               	bcf	status, 6	;RP1=0, select bank0
+   767  03D9  0087               	movwf	(7)	;volatile
+   768                           	line	143
+   769                           	
+   770  03DA                     l2474:	
+   771                           ;voltmeter.c: 143: pulse();
+   772  03DA  118A  2406  118A   	fcall	_pulse
+   773                           	line	144
+   774                           	
+   775  03DD                     l2476:	
+   776                           ;voltmeter.c: 144: PORTC = 0x0F;
+   777  03DD  300F               	movlw	(0Fh)
+   778  03DE  1283               	bcf	status, 5	;RP0=0, select bank0
+   779  03DF  1303               	bcf	status, 6	;RP1=0, select bank0
+   780  03E0  0087               	movwf	(7)	;volatile
+   781                           	line	145
+   782                           ;voltmeter.c: 145: pulse();
+   783  03E1  118A  2406  118A   	fcall	_pulse
+   784                           	line	146
+   785                           	
+   786  03E4                     l2478:	
+   787                           ;voltmeter.c: 146: PORTC = 1;
+   788  03E4  3001               	movlw	(01h)
+   789  03E5  1283               	bcf	status, 5	;RP0=0, select bank0
+   790  03E6  1303               	bcf	status, 6	;RP1=0, select bank0
+   791  03E7  0087               	movwf	(7)	;volatile
+   792                           	line	147
+   793                           	
+   794  03E8                     l2480:	
+   795                           ;voltmeter.c: 147: pulse();
+   796  03E8  118A  2406  118A   	fcall	_pulse
+   797                           	line	148
+   798                           	
+   799  03EB                     l2482:	
+   800                           ;voltmeter.c: 148: RB7 = 1;
+   801  03EB  1283               	bcf	status, 5	;RP0=0, select bank0
+   802  03EC  1303               	bcf	status, 6	;RP1=0, select bank0
+   803  03ED  1786               	bsf	(55/8),(55)&7
+   804                           	line	150
+   805                           	
+   806  03EE                     l757:	
+   807  03EE  0008               	return
+   808                           	opt stack 0
+   809                           GLOBAL	__end_of_initLCD
+   810  03EF                     	__end_of_initLCD:
+   811 ;; =============== function _initLCD ends ============
+   812                           
+   813                           	signat	_initLCD,88
+   814                           	global	_pulse
+   815                           psect	text278,local,class=CODE,delta=2
+   816                           global __ptext278
+   817  0406                     __ptext278:
+   818                           
+   819 ;; *************** function _pulse *****************
+   820 ;; Defined at:
+   821 ;;		line 14 in file "C:\projects\PIC\voltmeter\voltmeter.c"
+   822 ;; Parameters:    Size  Location     Type
+   823 ;;		None
+   824 ;; Auto vars:     Size  Location     Type
+   825 ;;		None
+   826 ;; Return value:  Size  Location     Type
+   827 ;;		None               void
+   828 ;; Registers used:
+   829 ;;		wreg
+   830 ;; Tracked objects:
+   831 ;;		On entry : 0/0
+   832 ;;		On exit  : 0/0
+   833 ;;		Unchanged: 0/0
+   834 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   835 ;;      Params:         0       0       0       0
+   836 ;;      Locals:         0       0       0       0
+   837 ;;      Temps:          0       2       0       0
+   838 ;;      Totals:         0       2       0       0
+   839 ;;Total ram usage:        2 bytes
+   840 ;; Hardware stack levels used:    1
+   841 ;; Hardware stack levels required when called:    4
+   842 ;; This function calls:
+   843 ;;		Nothing
+   844 ;; This function is called by:
+   845 ;;		_initLCD
+   846 ;; This function uses a non-reentrant model
+   847 ;;
+   848                           psect	text278
+   849                           	file	"C:\projects\PIC\voltmeter\voltmeter.c"
+   850                           	line	14
+   851                           	global	__size_of_pulse
+   852  000E                     	__size_of_pulse	equ	__end_of_pulse-_pulse
+   853                           	
+   854  0406                     _pulse:	
+   855                           	opt	stack 2
+   856                           ; Regs used in _pulse: [wreg]
+   857                           	line	16
+   858                           	
+   859  0406                     l2466:	
+   860                           ;voltmeter.c: 16: RB6 = 1;
+   861  0406  1283               	bcf	status, 5	;RP0=0, select bank0
+   862  0407  1303               	bcf	status, 6	;RP1=0, select bank0
+   863  0408  1706               	bsf	(54/8),(54)&7
+   864                           	line	17
+   865                           ;voltmeter.c: 17: RB6 = 0;
+   866  0409  1306               	bcf	(54/8),(54)&7
+   867                           	line	18
+   868                           	
+   869  040A                     l2468:	
+   870                           ;voltmeter.c: 18: _delay((unsigned long)((2)*(4000000/4000.0)));
+   871                           	opt asmopt_off
+   872  040A  3003               movlw	3
+   873  040B  00C0               movwf	((??_pulse+0)+0+1),f
+   874  040C  3097               	movlw	151
+   875  040D  00BF               movwf	((??_pulse+0)+0),f
+   876  040E                     u2887:
+   877  040E  0BBF               	decfsz	((??_pulse+0)+0),f
+   878  040F  2C0E               	goto	u2887
+   879  0410  0BC0               	decfsz	((??_pulse+0)+0+1),f
+   880  0411  2C0E               	goto	u2887
+   881  0412  2C13               	nop2
+   882                           opt asmopt_on
+   883                           
+   884                           	line	20
+   885                           	
+   886  0413                     l719:	
+   887  0413  0008               	return
+   888                           	opt stack 0
+   889                           GLOBAL	__end_of_pulse
+   890  0414                     	__end_of_pulse:
+   891 ;; =============== function _pulse ends ============
+   892                           
+   893                           	signat	_pulse,88
+   894                           	global	_isr
+   895                           psect	text279,local,class=CODE,delta=2
+   896                           global __ptext279
+   897  0373                     __ptext279:
+   898                           
+   899 ;; *************** function _isr *****************
+   900 ;; Defined at:
+   901 ;;		line 122 in file "C:\projects\PIC\voltmeter\voltmeter.c"
+   902 ;; Parameters:    Size  Location     Type
+   903 ;;		None
+   904 ;; Auto vars:     Size  Location     Type
+   905 ;;  volt            1   30[BANK0 ] PTR unsigned char 
+   906 ;;		 -> compare@v(5), 
+   907 ;; Return value:  Size  Location     Type
+   908 ;;		None               void
+   909 ;; Registers used:
+   910 ;;		wreg, fsr0l, fsr0h, fsr1l, fsr1h, status,2, status,0, btemp+1, pclath, cstack
+   911 ;; Tracked objects:
+   912 ;;		On entry : 0/0
+   913 ;;		On exit  : 0/0
+   914 ;;		Unchanged: 0/0
+   915 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   916 ;;      Params:         0       0       0       0
+   917 ;;      Locals:         0       1       0       0
+   918 ;;      Temps:          0       6       0       0
+   919 ;;      Totals:         0       7       0       0
+   920 ;;Total ram usage:        7 bytes
+   921 ;; Hardware stack levels used:    1
+   922 ;; Hardware stack levels required when called:    3
+   923 ;; This function calls:
+   924 ;;		_compare
+   925 ;;		_printvoltage
+   926 ;; This function is called by:
+   927 ;;		Interrupt level 1
+   928 ;; This function uses a non-reentrant model
+   929 ;;
+   930                           psect	text279
+   931                           	file	"C:\projects\PIC\voltmeter\voltmeter.c"
+   932                           	line	122
+   933                           	global	__size_of_isr
+   934  0032                     	__size_of_isr	equ	__end_of_isr-_isr
+   935                           	
+   936  0373                     _isr:	
+   937                           	opt	stack 2
+   938                           ; Regs used in _isr: [allreg]
+   939                           psect	intentry,class=CODE,delta=2
+   940                           global __pintentry
+   941  0004                     __pintentry:
+   942                           global interrupt_function
+   943  0004                     interrupt_function:
+   944                           	global saved_w
+   945  007E                     	saved_w	set	btemp+0
+   946  0004  00FE               	movwf	saved_w
+   947  0005  0803               	movf	status,w
+   948  0006  1283               	bcf	status, 5	;RP0=0, select bank0
+   949  0007  1303               	bcf	status, 6	;RP1=0, select bank0
+   950  0008  00BA               	movwf	(??_isr+2)
+   951  0009  0804               	movf	fsr0,w
+   952  000A  00BB               	movwf	(??_isr+3)
+   953  000B  080A               	movf	pclath,w
+   954  000C  00BC               	movwf	(??_isr+4)
+   955  000D  087F               	movf	btemp+1,w
+   956  000E  00BD               	movwf	(??_isr+5)
+   957  000F  118A  2B73         	ljmp	_isr
+   958                           psect	text279
+   959                           	line	126
+   960                           	
+   961  0373                     i1l2404:	
+   962                           ;voltmeter.c: 124: char *volt;
+   963                           ;voltmeter.c: 126: ADIF = 0;
+   964  0373  130C               	bcf	(102/8),(102)&7
+   965                           	line	127
+   966                           	
+   967  0374                     i1l2406:	
+   968                           ;voltmeter.c: 127: totalvolt = 0;
+   969  0374  3000               	movlw	low(0)
+   970  0375  00CD               	movwf	(_totalvolt)
+   971  0376  3000               	movlw	high(0)
+   972  0377  00CE               	movwf	((_totalvolt))+1
+   973                           	line	128
+   974                           	
+   975  0378                     i1l2408:	
+   976                           ;voltmeter.c: 128: volt = compare(ADRESH, ADRESL);
+   977  0378  1683               	bsf	status, 5	;RP0=1, select bank1
+   978  0379  1303               	bcf	status, 6	;RP1=0, select bank1
+   979  037A  081E               	movf	(158)^080h,w	;volatile
+   980  037B  1283               	bcf	status, 5	;RP0=0, select bank0
+   981  037C  1303               	bcf	status, 6	;RP1=0, select bank0
+   982  037D  00B8               	movwf	(??_isr+0)+0
+   983  037E  0838               	movf	(??_isr+0)+0,w
+   984  037F  00AF               	movwf	(?_compare)
+   985  0380  081E               	movf	(30),w	;volatile
+   986  0381  118A  2120  118A   	fcall	_compare
+   987  0384  1283               	bcf	status, 5	;RP0=0, select bank0
+   988  0385  1303               	bcf	status, 6	;RP1=0, select bank0
+   989  0386  00B9               	movwf	(??_isr+1)+0
+   990  0387  0839               	movf	(??_isr+1)+0,w
+   991  0388  00BE               	movwf	(isr@volt)
+   992                           	line	129
+   993                           	
+   994  0389                     i1l2410:	
+   995                           ;voltmeter.c: 129: printvoltage(volt);
+   996  0389  083E               	movf	(isr@volt),w
+   997  038A  118A  21ED  118A   	fcall	_printvoltage
+   998                           	line	130
+   999                           	
+  1000  038D                     i1l2412:	
+  1001                           ;voltmeter.c: 130: _delay((unsigned long)((30)*(4000000/4000.0)));
+  1002                           	opt asmopt_off
+  1003  038D  3027               movlw	39
+  1004  038E  1283               	bcf	status, 5	;RP0=0, select bank0
+  1005  038F  1303               	bcf	status, 6	;RP1=0, select bank0
+  1006  0390  00B9               movwf	((??_isr+0)+0+1),f
+  1007  0391  30F5               	movlw	245
+  1008  0392  00B8               movwf	((??_isr+0)+0),f
+  1009  0393                     u289_27:
+  1010  0393  0BB8               	decfsz	((??_isr+0)+0),f
+  1011  0394  2B93               	goto	u289_27
+  1012  0395  0BB9               	decfsz	((??_isr+0)+0+1),f
+  1013  0396  2B93               	goto	u289_27
+  1014                           opt asmopt_on
+  1015                           
+  1016                           	line	131
+  1017                           	
+  1018  0397                     i1l2414:	
+  1019                           ;voltmeter.c: 131: GODONE = 1;
+  1020  0397  1283               	bcf	status, 5	;RP0=0, select bank0
+  1021  0398  1303               	bcf	status, 6	;RP1=0, select bank0
+  1022  0399  149F               	bsf	(249/8),(249)&7
+  1023                           	line	133
+  1024                           	
+  1025  039A                     i1l754:	
+  1026  039A  083D               	movf	(??_isr+5),w
+  1027  039B  00FF               	movwf	btemp+1
+  1028  039C  083C               	movf	(??_isr+4),w
+  1029  039D  008A               	movwf	pclath
+  1030  039E  083B               	movf	(??_isr+3),w
+  1031  039F  0084               	movwf	fsr0
+  1032  03A0  083A               	movf	(??_isr+2),w
+  1033  03A1  0083               	movwf	status
+  1034  03A2  0EFE               	swapf	saved_w,f
+  1035  03A3  0E7E               	swapf	saved_w,w
+  1036  03A4  0009               	retfie
+  1037                           	opt stack 0
+  1038                           GLOBAL	__end_of_isr
+  1039  03A5                     	__end_of_isr:
+  1040 ;; =============== function _isr ends ============
+  1041                           
+  1042                           	signat	_isr,88
+  1043                           	global	_printvoltage
+  1044                           psect	text280,local,class=CODE,delta=2
+  1045                           global __ptext280
+  1046  01ED                     __ptext280:
+  1047                           
+  1048 ;; *************** function _printvoltage *****************
+  1049 ;; Defined at:
+  1050 ;;		line 36 in file "C:\projects\PIC\voltmeter\voltmeter.c"
+  1051 ;; Parameters:    Size  Location     Type
+  1052 ;;  digit           1    wreg     PTR unsigned char 
+  1053 ;;		 -> compare@v(5), 
+  1054 ;; Auto vars:     Size  Location     Type
+  1055 ;;  digit           1    6[COMMON] PTR unsigned char 
+  1056 ;;		 -> compare@v(5), 
+  1057 ;;  i               1    7[COMMON] unsigned char 
+  1058 ;;  refresh         1    5[COMMON] unsigned char 
+  1059 ;; Return value:  Size  Location     Type
+  1060 ;;		None               void
+  1061 ;; Registers used:
+  1062 ;;		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
+  1063 ;; Tracked objects:
+  1064 ;;		On entry : 0/0
+  1065 ;;		On exit  : 0/0
+  1066 ;;		Unchanged: 0/0
+  1067 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1068 ;;      Params:         0       0       0       0
+  1069 ;;      Locals:         3       0       0       0
+  1070 ;;      Temps:          1       0       0       0
+  1071 ;;      Totals:         4       0       0       0
+  1072 ;;Total ram usage:        4 bytes
+  1073 ;; Hardware stack levels used:    1
+  1074 ;; Hardware stack levels required when called:    2
+  1075 ;; This function calls:
+  1076 ;;		_clearLCD
+  1077 ;;		i1_pulse
+  1078 ;; This function is called by:
+  1079 ;;		_isr
+  1080 ;; This function uses a non-reentrant model
+  1081 ;;
+  1082                           psect	text280
+  1083                           	file	"C:\projects\PIC\voltmeter\voltmeter.c"
+  1084                           	line	36
+  1085                           	global	__size_of_printvoltage
+  1086  00BB                     	__size_of_printvoltage	equ	__end_of_printvoltage-_printvoltage
+  1087                           	
+  1088  01ED                     _printvoltage:	
+  1089                           	opt	stack 2
+  1090                           ; Regs used in _printvoltage: [wreg-fsr0h+status,2+status,0+pclath+cstack]
+  1091                           ;printvoltage@digit stored from wreg
+  1092                           	line	39
+  1093  01ED  00F6               	movwf	(printvoltage@digit)
+  1094                           	
+  1095  01EE                     i1l2236:	
+  1096                           ;voltmeter.c: 38: char i;
+  1097                           ;voltmeter.c: 39: char refresh = 0;
+  1098  01EE  1003               	clrc
+  1099  01EF  3000               	movlw	0
+  1100  01F0  1803               	btfsc	status,0
+  1101  01F1  3001               	movlw	1
+  1102  01F2  00F5               	movwf	(printvoltage@refresh)
+  1103                           	line	41
+  1104                           	
+  1105  01F3                     i1l2238:	
+  1106                           ;voltmeter.c: 41: if(totalvolt > 100)
+  1107  01F3  3000               	movlw	high(065h)
+  1108  01F4  1283               	bcf	status, 5	;RP0=0, select bank0
+  1109  01F5  1303               	bcf	status, 6	;RP1=0, select bank0
+  1110  01F6  024E               	subwf	(_totalvolt+1),w
+  1111  01F7  3065               	movlw	low(065h)
+  1112  01F8  1903               	skipnz
+  1113  01F9  024D               	subwf	(_totalvolt),w
+  1114  01FA  1C03               	skipc
+  1115  01FB  29FD               	goto	u243_21
+  1116  01FC  29FE               	goto	u243_20
+  1117  01FD                     u243_21:
+  1118  01FD  2A0D               	goto	i1l2242
+  1119  01FE                     u243_20:
+  1120                           	line	43
+  1121                           	
+  1122  01FE                     i1l2240:	
+  1123                           ;voltmeter.c: 42: {
+  1124                           ;voltmeter.c: 43: volts[0] = digit[0];
+  1125  01FE  0876               	movf	(printvoltage@digit),w
+  1126  01FF  0084               	movwf	fsr0
+  1127  0200  1383               	bcf	status, 7	;select IRP bank0
+  1128  0201  0800               	movf	indf,w
+  1129  0202  00F4               	movwf	(??_printvoltage+0)+0
+  1130  0203  0874               	movf	(??_printvoltage+0)+0,w
+  1131  0204  00C9               	movwf	(_volts)
+  1132                           	line	44
+  1133                           ;voltmeter.c: 44: volts[2] = digit[1];
+  1134  0205  0876               	movf	(printvoltage@digit),w
+  1135  0206  3E01               	addlw	01h
+  1136  0207  0084               	movwf	fsr0
+  1137  0208  0800               	movf	indf,w
+  1138  0209  00F4               	movwf	(??_printvoltage+0)+0
+  1139  020A  0874               	movf	(??_printvoltage+0)+0,w
+  1140  020B  00CB               	movwf	0+(_volts)+02h
+  1141                           	line	45
+  1142                           ;voltmeter.c: 45: }
+  1143  020C  2A2C               	goto	i1l2250
+  1144                           	line	47
+  1145                           	
+  1146  020D                     i1l725:	
+  1147                           	
+  1148  020D                     i1l2242:	
+  1149                           ;voltmeter.c: 47: else if(totalvolt > 10)
+  1150  020D  3000               	movlw	high(0Bh)
+  1151  020E  024E               	subwf	(_totalvolt+1),w
+  1152  020F  300B               	movlw	low(0Bh)
+  1153  0210  1903               	skipnz
+  1154  0211  024D               	subwf	(_totalvolt),w
+  1155  0212  1C03               	skipc
+  1156  0213  2A15               	goto	u244_21
+  1157  0214  2A16               	goto	u244_20
+  1158  0215                     u244_21:
+  1159  0215  2A22               	goto	i1l2248
+  1160  0216                     u244_20:
+  1161                           	line	49
+  1162                           	
+  1163  0216                     i1l2244:	
+  1164                           ;voltmeter.c: 48: {
+  1165                           ;voltmeter.c: 49: volts[0] = '0';
+  1166  0216  3030               	movlw	(030h)
+  1167  0217  00F4               	movwf	(??_printvoltage+0)+0
+  1168  0218  0874               	movf	(??_printvoltage+0)+0,w
+  1169  0219  00C9               	movwf	(_volts)
+  1170                           	line	50
+  1171                           	
+  1172  021A                     i1l2246:	
+  1173                           ;voltmeter.c: 50: volts[2] = digit[0];
+  1174  021A  0876               	movf	(printvoltage@digit),w
+  1175  021B  0084               	movwf	fsr0
+  1176  021C  1383               	bcf	status, 7	;select IRP bank0
+  1177  021D  0800               	movf	indf,w
+  1178  021E  00F4               	movwf	(??_printvoltage+0)+0
+  1179  021F  0874               	movf	(??_printvoltage+0)+0,w
+  1180  0220  00CB               	movwf	0+(_volts)+02h
+  1181                           	line	51
+  1182                           ;voltmeter.c: 51: }
+  1183  0221  2A2C               	goto	i1l2250
+  1184                           	line	53
+  1185                           	
+  1186  0222                     i1l727:	
+  1187                           	line	55
+  1188                           	
+  1189  0222                     i1l2248:	
+  1190                           ;voltmeter.c: 53: else
+  1191                           ;voltmeter.c: 54: {
+  1192                           ;voltmeter.c: 55: volts[0] = '0';
+  1193  0222  3030               	movlw	(030h)
+  1194  0223  00F4               	movwf	(??_printvoltage+0)+0
+  1195  0224  0874               	movf	(??_printvoltage+0)+0,w
+  1196  0225  00C9               	movwf	(_volts)
+  1197                           	line	56
+  1198                           ;voltmeter.c: 56: volts[2] = '0';
+  1199  0226  3030               	movlw	(030h)
+  1200  0227  00F4               	movwf	(??_printvoltage+0)+0
+  1201  0228  0874               	movf	(??_printvoltage+0)+0,w
+  1202  0229  00CB               	movwf	0+(_volts)+02h
+  1203  022A  2A2C               	goto	i1l2250
+  1204                           	line	57
+  1205                           	
+  1206  022B                     i1l728:	
+  1207  022B  2A2C               	goto	i1l2250
+  1208                           	
+  1209  022C                     i1l726:	
+  1210                           	line	59
+  1211                           	
+  1212  022C                     i1l2250:	
+  1213                           ;voltmeter.c: 57: }
+  1214                           ;voltmeter.c: 59: for(i=0;i<4;i++)
+  1215  022C  1003               	clrc
+  1216  022D  3000               	movlw	0
+  1217  022E  1803               	btfsc	status,0
+  1218  022F  3001               	movlw	1
+  1219  0230  00F7               	movwf	(printvoltage@i)
+  1220                           	
+  1221  0231                     i1l2252:	
+  1222  0231  3004               	movlw	(04h)
+  1223  0232  0277               	subwf	(printvoltage@i),w
+  1224  0233  1C03               	skipc
+  1225  0234  2A36               	goto	u245_21
+  1226  0235  2A37               	goto	u245_20
+  1227  0236                     u245_21:
+  1228  0236  2A39               	goto	i1l2256
+  1229  0237                     u245_20:
+  1230  0237  2A57               	goto	i1l2264
+  1231                           	
+  1232  0238                     i1l2254:	
+  1233  0238  2A57               	goto	i1l2264
+  1234                           	line	60
+  1235                           	
+  1236  0239                     i1l729:	
+  1237                           	line	61
+  1238                           	
+  1239  0239                     i1l2256:	
+  1240                           ;voltmeter.c: 60: {
+  1241                           ;voltmeter.c: 61: if(storage[i] != volts[i])
+  1242  0239  0877               	movf	(printvoltage@i),w
+  1243  023A  3E49               	addlw	_volts&0ffh
+  1244  023B  0084               	movwf	fsr
+  1245  023C  1383               	bcf	status, 7	;select IRP bank0
+  1246  023D  0800               	movf	indf,w
+  1247  023E  00F4               	movwf	(??_printvoltage+0)+0
+  1248  023F  0877               	movf	(printvoltage@i),w
+  1249  0240  3E45               	addlw	_storage&0ffh
+  1250  0241  0084               	movwf	fsr0
+  1251  0242  0800               	movf	indf,w
+  1252  0243  0674               	xorwf	(??_printvoltage+0)+0,w
+  1253  0244  1903               	skipnz
+  1254  0245  2A47               	goto	u246_21
+  1255  0246  2A48               	goto	u246_20
+  1256  0247                     u246_21:
+  1257  0247  2A4C               	goto	i1l2260
+  1258  0248                     u246_20:
+  1259                           	line	63
+  1260                           	
+  1261  0248                     i1l2258:	
+  1262                           ;voltmeter.c: 62: {
+  1263                           ;voltmeter.c: 63: refresh = 1;
+  1264  0248  01F5               	clrf	(printvoltage@refresh)
+  1265  0249  1403               	bsf	status,0
+  1266  024A  0DF5               	rlf	(printvoltage@refresh),f
+  1267                           	line	64
+  1268                           ;voltmeter.c: 64: break;
+  1269  024B  2A57               	goto	i1l2264
+  1270                           	line	65
+  1271                           	
+  1272  024C                     i1l731:	
+  1273                           	line	59
+  1274                           	
+  1275  024C                     i1l2260:	
+  1276  024C  3001               	movlw	(01h)
+  1277  024D  00F4               	movwf	(??_printvoltage+0)+0
+  1278  024E  0874               	movf	(??_printvoltage+0)+0,w
+  1279  024F  07F7               	addwf	(printvoltage@i),f
+  1280                           	
+  1281  0250                     i1l2262:	
+  1282  0250  3004               	movlw	(04h)
+  1283  0251  0277               	subwf	(printvoltage@i),w
+  1284  0252  1C03               	skipc
+  1285  0253  2A55               	goto	u247_21
+  1286  0254  2A56               	goto	u247_20
+  1287  0255                     u247_21:
+  1288  0255  2A39               	goto	i1l2256
+  1289  0256                     u247_20:
+  1290  0256  2A57               	goto	i1l2264
+  1291                           	
+  1292  0257                     i1l730:	
+  1293                           	line	68
+  1294                           	
+  1295  0257                     i1l2264:	
+  1296                           ;voltmeter.c: 65: }
+  1297                           ;voltmeter.c: 66: }
+  1298                           ;voltmeter.c: 68: if(refresh == 1)
+  1299  0257  0875               	movf	(printvoltage@refresh),w
+  1300  0258  3A01               	xorlw	01h
+  1301  0259  1D03               	skipz
+  1302  025A  2A5C               	goto	u248_21
+  1303  025B  2A5D               	goto	u248_20
+  1304  025C                     u248_21:
+  1305  025C  2A84               	goto	i1l2282
+  1306  025D                     u248_20:
+  1307                           	line	70
+  1308                           	
+  1309  025D                     i1l2266:	
+  1310                           ;voltmeter.c: 69: {
+  1311                           ;voltmeter.c: 70: clearLCD();
+  1312  025D  118A  23EF  118A   	fcall	_clearLCD
+  1313                           	line	71
+  1314                           	
+  1315  0260                     i1l2268:	
+  1316                           ;voltmeter.c: 71: for(i=0;i<4;i++)
+  1317  0260  1003               	clrc
+  1318  0261  3000               	movlw	0
+  1319  0262  1803               	btfsc	status,0
+  1320  0263  3001               	movlw	1
+  1321  0264  00F7               	movwf	(printvoltage@i)
+  1322                           	
+  1323  0265                     i1l2270:	
+  1324  0265  3004               	movlw	(04h)
+  1325  0266  0277               	subwf	(printvoltage@i),w
+  1326  0267  1C03               	skipc
+  1327  0268  2A6A               	goto	u249_21
+  1328  0269  2A6B               	goto	u249_20
+  1329  026A                     u249_21:
+  1330  026A  2A6D               	goto	i1l2274
+  1331  026B                     u249_20:
+  1332  026B  2A84               	goto	i1l2282
+  1333                           	
+  1334  026C                     i1l2272:	
+  1335  026C  2A84               	goto	i1l2282
+  1336                           	line	72
+  1337                           	
+  1338  026D                     i1l733:	
+  1339                           	line	73
+  1340                           	
+  1341  026D                     i1l2274:	
+  1342                           ;voltmeter.c: 72: {
+  1343                           ;voltmeter.c: 73: PORTC = volts[i];
+  1344  026D  0877               	movf	(printvoltage@i),w
+  1345  026E  3E49               	addlw	_volts&0ffh
+  1346  026F  0084               	movwf	fsr0
+  1347  0270  1383               	bcf	status, 7	;select IRP bank0
+  1348  0271  0800               	movf	indf,w
+  1349  0272  1283               	bcf	status, 5	;RP0=0, select bank0
+  1350  0273  1303               	bcf	status, 6	;RP1=0, select bank0
+  1351  0274  0087               	movwf	(7)	;volatile
+  1352                           	line	74
+  1353                           	
+  1354  0275                     i1l2276:	
+  1355                           ;voltmeter.c: 74: pulse();
+  1356  0275  118A  2414  118A   	fcall	i1_pulse
+  1357                           	line	71
+  1358                           	
+  1359  0278                     i1l2278:	
+  1360  0278  3001               	movlw	(01h)
+  1361  0279  00F4               	movwf	(??_printvoltage+0)+0
+  1362  027A  0874               	movf	(??_printvoltage+0)+0,w
+  1363  027B  07F7               	addwf	(printvoltage@i),f
+  1364                           	
+  1365  027C                     i1l2280:	
+  1366  027C  3004               	movlw	(04h)
+  1367  027D  0277               	subwf	(printvoltage@i),w
+  1368  027E  1C03               	skipc
+  1369  027F  2A81               	goto	u250_21
+  1370  0280  2A82               	goto	u250_20
+  1371  0281                     u250_21:
+  1372  0281  2A6D               	goto	i1l2274
+  1373  0282                     u250_20:
+  1374  0282  2A84               	goto	i1l2282
+  1375                           	
+  1376  0283                     i1l734:	
+  1377  0283  2A84               	goto	i1l2282
+  1378                           	line	76
+  1379                           	
+  1380  0284                     i1l732:	
+  1381                           	line	78
+  1382                           	
+  1383  0284                     i1l2282:	
+  1384                           ;voltmeter.c: 75: }
+  1385                           ;voltmeter.c: 76: }
+  1386                           ;voltmeter.c: 78: for(i=0;i<4;i++)
+  1387  0284  1003               	clrc
+  1388  0285  3000               	movlw	0
+  1389  0286  1803               	btfsc	status,0
+  1390  0287  3001               	movlw	1
+  1391  0288  00F7               	movwf	(printvoltage@i)
+  1392                           	
+  1393  0289                     i1l2284:	
+  1394  0289  3004               	movlw	(04h)
+  1395  028A  0277               	subwf	(printvoltage@i),w
+  1396  028B  1C03               	skipc
+  1397  028C  2A8E               	goto	u251_21
+  1398  028D  2A8F               	goto	u251_20
+  1399  028E                     u251_21:
+  1400  028E  2A91               	goto	i1l2288
+  1401  028F                     u251_20:
+  1402  028F  2AA7               	goto	i1l737
+  1403                           	
+  1404  0290                     i1l2286:	
+  1405  0290  2AA7               	goto	i1l737
+  1406                           	line	79
+  1407                           	
+  1408  0291                     i1l735:	
+  1409                           	line	80
+  1410                           	
+  1411  0291                     i1l2288:	
+  1412                           ;voltmeter.c: 79: {
+  1413                           ;voltmeter.c: 80: storage[i] = volts[i];
+  1414  0291  0877               	movf	(printvoltage@i),w
+  1415  0292  3E49               	addlw	_volts&0ffh
+  1416  0293  0084               	movwf	fsr0
+  1417  0294  1383               	bcf	status, 7	;select IRP bank0
+  1418  0295  0800               	movf	indf,w
+  1419  0296  00F4               	movwf	(??_printvoltage+0)+0
+  1420  0297  0877               	movf	(printvoltage@i),w
+  1421  0298  3E45               	addlw	_storage&0ffh
+  1422  0299  0084               	movwf	fsr0
+  1423  029A  0874               	movf	(??_printvoltage+0)+0,w
+  1424  029B  0080               	movwf	indf
+  1425                           	line	78
+  1426                           	
+  1427  029C                     i1l2290:	
+  1428  029C  3001               	movlw	(01h)
+  1429  029D  00F4               	movwf	(??_printvoltage+0)+0
+  1430  029E  0874               	movf	(??_printvoltage+0)+0,w
+  1431  029F  07F7               	addwf	(printvoltage@i),f
+  1432                           	
+  1433  02A0                     i1l2292:	
+  1434  02A0  3004               	movlw	(04h)
+  1435  02A1  0277               	subwf	(printvoltage@i),w
+  1436  02A2  1C03               	skipc
+  1437  02A3  2AA5               	goto	u252_21
+  1438  02A4  2AA6               	goto	u252_20
+  1439  02A5                     u252_21:
+  1440  02A5  2A91               	goto	i1l2288
+  1441  02A6                     u252_20:
+  1442  02A6  2AA7               	goto	i1l737
+  1443                           	
+  1444  02A7                     i1l736:	
+  1445                           	line	83
+  1446                           	
+  1447  02A7                     i1l737:	
+  1448  02A7  0008               	return
+  1449                           	opt stack 0
+  1450                           GLOBAL	__end_of_printvoltage
+  1451  02A8                     	__end_of_printvoltage:
+  1452 ;; =============== function _printvoltage ends ============
+  1453                           
+  1454                           	signat	_printvoltage,4216
+  1455                           	global	_compare
+  1456                           psect	text281,local,class=CODE,delta=2
+  1457                           global __ptext281
+  1458  0120                     __ptext281:
+  1459                           
+  1460 ;; *************** function _compare *****************
+  1461 ;; Defined at:
+  1462 ;;		line 88 in file "C:\projects\PIC\voltmeter\voltmeter.c"
+  1463 ;; Parameters:    Size  Location     Type
+  1464 ;;  high            1    wreg     unsigned char 
+  1465 ;;  low             1   15[BANK0 ] unsigned char 
+  1466 ;; Auto vars:     Size  Location     Type
+  1467 ;;  high            1   23[BANK0 ] unsigned char 
+  1468 ;;  v               5   17[BANK0 ] unsigned char [5]
+  1469 ;;  temp            1   22[BANK0 ] unsigned char 
+  1470 ;; Return value:  Size  Location     Type
+  1471 ;;                  1    wreg      PTR unsigned char 
+  1472 ;; Registers used:
+  1473 ;;		wreg, fsr0l, fsr0h, fsr1l, fsr1h, status,2, status,0, btemp+1, pclath, cstack
+  1474 ;; Tracked objects:
+  1475 ;;		On entry : 0/0
+  1476 ;;		On exit  : 0/0
+  1477 ;;		Unchanged: 0/0
+  1478 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1479 ;;      Params:         0       1       0       0
+  1480 ;;      Locals:         0       7       0       0
+  1481 ;;      Temps:          0       1       0       0
+  1482 ;;      Totals:         0       9       0       0
+  1483 ;;Total ram usage:        9 bytes
+  1484 ;; Hardware stack levels used:    1
+  1485 ;; Hardware stack levels required when called:    2
+  1486 ;; This function calls:
+  1487 ;;		_sprintf
+  1488 ;; This function is called by:
+  1489 ;;		_isr
+  1490 ;; This function uses a non-reentrant model
+  1491 ;;
+  1492                           psect	text281
+  1493                           	file	"C:\projects\PIC\voltmeter\voltmeter.c"
+  1494                           	line	88
+  1495                           	global	__size_of_compare
+  1496  00CD                     	__size_of_compare	equ	__end_of_compare-_compare
+  1497                           	
+  1498  0120                     _compare:	
+  1499                           	opt	stack 2
+  1500                           ; Regs used in _compare: [allreg]
+  1501                           ;compare@high stored from wreg
+  1502                           	line	91
+  1503  0120  1283               	bcf	status, 5	;RP0=0, select bank0
+  1504  0121  1303               	bcf	status, 6	;RP1=0, select bank0
+  1505  0122  00B7               	movwf	(compare@high)
+  1506                           	
+  1507  0123                     i1l2294:	
+  1508                           ;voltmeter.c: 90: char v[5];
+  1509                           ;voltmeter.c: 91: char temp = high;
+  1510  0123  0837               	movf	(compare@high),w
+  1511  0124  00B0               	movwf	(??_compare+0)+0
+  1512  0125  0830               	movf	(??_compare+0)+0,w
+  1513  0126  00B6               	movwf	(compare@temp)
+  1514                           	line	93
+  1515                           	
+  1516  0127                     i1l2296:	
+  1517                           ;voltmeter.c: 93: if((temp=(high & 0b00000010)) == 0b00000010)
+  1518  0127  0837               	movf	(compare@high),w
+  1519  0128  3902               	andlw	02h
+  1520  0129  00B6               	movwf	(compare@temp)
+  1521  012A  3A02               	xorlw	02h
+  1522  012B  1D03               	skipz
+  1523  012C  292E               	goto	u253_21
+  1524  012D  292F               	goto	u253_20
+  1525  012E                     u253_21:
+  1526  012E  2938               	goto	i1l2300
+  1527  012F                     u253_20:
+  1528                           	line	94
+  1529                           	
+  1530  012F                     i1l2298:	
+  1531                           ;voltmeter.c: 94: totalvolt = totalvolt + 250;
+  1532  012F  084D               	movf	(_totalvolt),w
+  1533  0130  3EFA               	addlw	low(0FAh)
+  1534  0131  00CD               	movwf	(_totalvolt)
+  1535  0132  084E               	movf	(_totalvolt+1),w
+  1536  0133  1803               	skipnc
+  1537  0134  3E01               	addlw	1
+  1538  0135  3E00               	addlw	high(0FAh)
+  1539  0136  00CE               	movwf	1+(_totalvolt)
+  1540  0137  2938               	goto	i1l2300
+  1541                           	
+  1542  0138                     i1l740:	
+  1543                           	line	95
+  1544                           	
+  1545  0138                     i1l2300:	
+  1546                           ;voltmeter.c: 95: if((temp=(high & 0b00000001)) == 0b00000001)
+  1547  0138  0837               	movf	(compare@high),w
+  1548  0139  3901               	andlw	01h
+  1549  013A  00B6               	movwf	(compare@temp)
+  1550  013B  3A01               	xorlw	01h
+  1551  013C  1D03               	skipz
+  1552  013D  293F               	goto	u254_21
+  1553  013E  2940               	goto	u254_20
+  1554  013F                     u254_21:
+  1555  013F  2949               	goto	i1l2304
+  1556  0140                     u254_20:
+  1557                           	line	96
+  1558                           	
+  1559  0140                     i1l2302:	
+  1560                           ;voltmeter.c: 96: totalvolt = totalvolt + 125;
+  1561  0140  084D               	movf	(_totalvolt),w
+  1562  0141  3E7D               	addlw	low(07Dh)
+  1563  0142  00CD               	movwf	(_totalvolt)
+  1564  0143  084E               	movf	(_totalvolt+1),w
+  1565  0144  1803               	skipnc
+  1566  0145  3E01               	addlw	1
+  1567  0146  3E00               	addlw	high(07Dh)
+  1568  0147  00CE               	movwf	1+(_totalvolt)
+  1569  0148  2949               	goto	i1l2304
+  1570                           	
+  1571  0149                     i1l741:	
+  1572                           	line	97
+  1573                           	
+  1574  0149                     i1l2304:	
+  1575                           ;voltmeter.c: 97: if((temp=(low & 0b10000000)) == 0b10000000)
+  1576  0149  082F               	movf	(compare@low),w
+  1577  014A  3980               	andlw	080h
+  1578  014B  00B6               	movwf	(compare@temp)
+  1579  014C  3A80               	xorlw	080h
+  1580  014D  1D03               	skipz
+  1581  014E  2950               	goto	u255_21
+  1582  014F  2951               	goto	u255_20
+  1583  0150                     u255_21:
+  1584  0150  295A               	goto	i1l2308
+  1585  0151                     u255_20:
+  1586                           	line	98
+  1587                           	
+  1588  0151                     i1l2306:	
+  1589                           ;voltmeter.c: 98: totalvolt = totalvolt + 62;
+  1590  0151  084D               	movf	(_totalvolt),w
+  1591  0152  3E3E               	addlw	low(03Eh)
+  1592  0153  00CD               	movwf	(_totalvolt)
+  1593  0154  084E               	movf	(_totalvolt+1),w
+  1594  0155  1803               	skipnc
+  1595  0156  3E01               	addlw	1
+  1596  0157  3E00               	addlw	high(03Eh)
+  1597  0158  00CE               	movwf	1+(_totalvolt)
+  1598  0159  295A               	goto	i1l2308
+  1599                           	
+  1600  015A                     i1l742:	
+  1601                           	line	99
+  1602                           	
+  1603  015A                     i1l2308:	
+  1604                           ;voltmeter.c: 99: if((temp=(low & 0b01000000)) == 0b01000000)
+  1605  015A  082F               	movf	(compare@low),w
+  1606  015B  3940               	andlw	040h
+  1607  015C  00B6               	movwf	(compare@temp)
+  1608  015D  3A40               	xorlw	040h
+  1609  015E  1D03               	skipz
+  1610  015F  2961               	goto	u256_21
+  1611  0160  2962               	goto	u256_20
+  1612  0161                     u256_21:
+  1613  0161  296B               	goto	i1l2312
+  1614  0162                     u256_20:
+  1615                           	line	100
+  1616                           	
+  1617  0162                     i1l2310:	
+  1618                           ;voltmeter.c: 100: totalvolt = totalvolt + 31;
+  1619  0162  084D               	movf	(_totalvolt),w
+  1620  0163  3E1F               	addlw	low(01Fh)
+  1621  0164  00CD               	movwf	(_totalvolt)
+  1622  0165  084E               	movf	(_totalvolt+1),w
+  1623  0166  1803               	skipnc
+  1624  0167  3E01               	addlw	1
+  1625  0168  3E00               	addlw	high(01Fh)
+  1626  0169  00CE               	movwf	1+(_totalvolt)
+  1627  016A  296B               	goto	i1l2312
+  1628                           	
+  1629  016B                     i1l743:	
+  1630                           	line	101
+  1631                           	
+  1632  016B                     i1l2312:	
+  1633                           ;voltmeter.c: 101: if((temp=(low & 0b00100000)) == 0b00100000)
+  1634  016B  082F               	movf	(compare@low),w
+  1635  016C  3920               	andlw	020h
+  1636  016D  00B6               	movwf	(compare@temp)
+  1637  016E  3A20               	xorlw	020h
+  1638  016F  1D03               	skipz
+  1639  0170  2972               	goto	u257_21
+  1640  0171  2973               	goto	u257_20
+  1641  0172                     u257_21:
+  1642  0172  297C               	goto	i1l2316
+  1643  0173                     u257_20:
+  1644                           	line	102
+  1645                           	
+  1646  0173                     i1l2314:	
+  1647                           ;voltmeter.c: 102: totalvolt = totalvolt + 15;
+  1648  0173  084D               	movf	(_totalvolt),w
+  1649  0174  3E0F               	addlw	low(0Fh)
+  1650  0175  00CD               	movwf	(_totalvolt)
+  1651  0176  084E               	movf	(_totalvolt+1),w
+  1652  0177  1803               	skipnc
+  1653  0178  3E01               	addlw	1
+  1654  0179  3E00               	addlw	high(0Fh)
+  1655  017A  00CE               	movwf	1+(_totalvolt)
+  1656  017B  297C               	goto	i1l2316
+  1657                           	
+  1658  017C                     i1l744:	
+  1659                           	line	103
+  1660                           	
+  1661  017C                     i1l2316:	
+  1662                           ;voltmeter.c: 103: if((temp=(low & 0b00010000)) == 0b00010000)
+  1663  017C  082F               	movf	(compare@low),w
+  1664  017D  3910               	andlw	010h
+  1665  017E  00B6               	movwf	(compare@temp)
+  1666  017F  3A10               	xorlw	010h
+  1667  0180  1D03               	skipz
+  1668  0181  2983               	goto	u258_21
+  1669  0182  2984               	goto	u258_20
+  1670  0183                     u258_21:
+  1671  0183  298D               	goto	i1l2320
+  1672  0184                     u258_20:
+  1673                           	line	104
+  1674                           	
+  1675  0184                     i1l2318:	
+  1676                           ;voltmeter.c: 104: totalvolt = totalvolt + 8;
+  1677  0184  084D               	movf	(_totalvolt),w
+  1678  0185  3E08               	addlw	low(08h)
+  1679  0186  00CD               	movwf	(_totalvolt)
+  1680  0187  084E               	movf	(_totalvolt+1),w
+  1681  0188  1803               	skipnc
+  1682  0189  3E01               	addlw	1
+  1683  018A  3E00               	addlw	high(08h)
+  1684  018B  00CE               	movwf	1+(_totalvolt)
+  1685  018C  298D               	goto	i1l2320
+  1686                           	
+  1687  018D                     i1l745:	
+  1688                           	line	105
+  1689                           	
+  1690  018D                     i1l2320:	
+  1691                           ;voltmeter.c: 105: if((temp=(low & 0b00001000)) == 0b00001000)
+  1692  018D  082F               	movf	(compare@low),w
+  1693  018E  3908               	andlw	08h
+  1694  018F  00B6               	movwf	(compare@temp)
+  1695  0190  3A08               	xorlw	08h
+  1696  0191  1D03               	skipz
+  1697  0192  2994               	goto	u259_21
+  1698  0193  2995               	goto	u259_20
+  1699  0194                     u259_21:
+  1700  0194  299E               	goto	i1l2324
+  1701  0195                     u259_20:
+  1702                           	line	106
+  1703                           	
+  1704  0195                     i1l2322:	
+  1705                           ;voltmeter.c: 106: totalvolt = totalvolt + 4;
+  1706  0195  084D               	movf	(_totalvolt),w
+  1707  0196  3E04               	addlw	low(04h)
+  1708  0197  00CD               	movwf	(_totalvolt)
+  1709  0198  084E               	movf	(_totalvolt+1),w
+  1710  0199  1803               	skipnc
+  1711  019A  3E01               	addlw	1
+  1712  019B  3E00               	addlw	high(04h)
+  1713  019C  00CE               	movwf	1+(_totalvolt)
+  1714  019D  299E               	goto	i1l2324
+  1715                           	
+  1716  019E                     i1l746:	
+  1717                           	line	107
+  1718                           	
+  1719  019E                     i1l2324:	
+  1720                           ;voltmeter.c: 107: if((temp=(low & 0b00000100)) == 0b00000100)
+  1721  019E  082F               	movf	(compare@low),w
+  1722  019F  3904               	andlw	04h
+  1723  01A0  00B6               	movwf	(compare@temp)
+  1724  01A1  3A04               	xorlw	04h
+  1725  01A2  1D03               	skipz
+  1726  01A3  29A5               	goto	u260_21
+  1727  01A4  29A6               	goto	u260_20
+  1728  01A5                     u260_21:
+  1729  01A5  29AF               	goto	i1l2328
+  1730  01A6                     u260_20:
+  1731                           	line	108
+  1732                           	
+  1733  01A6                     i1l2326:	
+  1734                           ;voltmeter.c: 108: totalvolt = totalvolt +2;
+  1735  01A6  084D               	movf	(_totalvolt),w
+  1736  01A7  3E02               	addlw	low(02h)
+  1737  01A8  00CD               	movwf	(_totalvolt)
+  1738  01A9  084E               	movf	(_totalvolt+1),w
+  1739  01AA  1803               	skipnc
+  1740  01AB  3E01               	addlw	1
+  1741  01AC  3E00               	addlw	high(02h)
+  1742  01AD  00CE               	movwf	1+(_totalvolt)
+  1743  01AE  29AF               	goto	i1l2328
+  1744                           	
+  1745  01AF                     i1l747:	
+  1746                           	line	109
+  1747                           	
+  1748  01AF                     i1l2328:	
+  1749                           ;voltmeter.c: 109: if((temp=(low & 0b00000010)) == 0b00000010)
+  1750  01AF  082F               	movf	(compare@low),w
+  1751  01B0  3902               	andlw	02h
+  1752  01B1  00B6               	movwf	(compare@temp)
+  1753  01B2  3A02               	xorlw	02h
+  1754  01B3  1D03               	skipz
+  1755  01B4  29B6               	goto	u261_21
+  1756  01B5  29B7               	goto	u261_20
+  1757  01B6                     u261_21:
+  1758  01B6  29C0               	goto	i1l2332
+  1759  01B7                     u261_20:
+  1760                           	line	110
+  1761                           	
+  1762  01B7                     i1l2330:	
+  1763                           ;voltmeter.c: 110: totalvolt = totalvolt + 1;
+  1764  01B7  084D               	movf	(_totalvolt),w
+  1765  01B8  3E01               	addlw	low(01h)
+  1766  01B9  00CD               	movwf	(_totalvolt)
+  1767  01BA  084E               	movf	(_totalvolt+1),w
+  1768  01BB  1803               	skipnc
+  1769  01BC  3E01               	addlw	1
+  1770  01BD  3E00               	addlw	high(01h)
+  1771  01BE  00CE               	movwf	1+(_totalvolt)
+  1772  01BF  29C0               	goto	i1l2332
+  1773                           	
+  1774  01C0                     i1l748:	
+  1775                           	line	112
+  1776                           	
+  1777  01C0                     i1l2332:	
+  1778                           ;voltmeter.c: 112: if(totalvolt == 499)
+  1779  01C0  3001               	movlw	high(01F3h)
+  1780  01C1  064E               	xorwf	(_totalvolt+1),w
+  1781  01C2  1D03               	skipz
+  1782  01C3  29C6               	goto	u262_25
+  1783  01C4  30F3               	movlw	low(01F3h)
+  1784  01C5  064D               	xorwf	(_totalvolt),w
+  1785  01C6                     u262_25:
+  1786                           
+  1787  01C6  1D03               	skipz
+  1788  01C7  29C9               	goto	u262_21
+  1789  01C8  29CA               	goto	u262_20
+  1790  01C9                     u262_21:
+  1791  01C9  29DC               	goto	i1l2338
+  1792  01CA                     u262_20:
+  1793                           	line	113
+  1794                           	
+  1795  01CA                     i1l2334:	
+  1796                           ;voltmeter.c: 113: if((temp=(low & 0b00000001)) == 0b00000001)
+  1797  01CA  082F               	movf	(compare@low),w
+  1798  01CB  3901               	andlw	01h
+  1799  01CC  00B6               	movwf	(compare@temp)
+  1800  01CD  3A01               	xorlw	01h
+  1801  01CE  1D03               	skipz
+  1802  01CF  29D1               	goto	u263_21
+  1803  01D0  29D2               	goto	u263_20
+  1804  01D1                     u263_21:
+  1805  01D1  29DC               	goto	i1l2338
+  1806  01D2                     u263_20:
+  1807                           	line	114
+  1808                           	
+  1809  01D2                     i1l2336:	
+  1810                           ;voltmeter.c: 114: totalvolt = totalvolt + 1;
+  1811  01D2  084D               	movf	(_totalvolt),w
+  1812  01D3  3E01               	addlw	low(01h)
+  1813  01D4  00CD               	movwf	(_totalvolt)
+  1814  01D5  084E               	movf	(_totalvolt+1),w
+  1815  01D6  1803               	skipnc
+  1816  01D7  3E01               	addlw	1
+  1817  01D8  3E00               	addlw	high(01h)
+  1818  01D9  00CE               	movwf	1+(_totalvolt)
+  1819  01DA  29DC               	goto	i1l2338
+  1820                           	
+  1821  01DB                     i1l750:	
+  1822  01DB  29DC               	goto	i1l2338
+  1823                           	line	116
+  1824                           	
+  1825  01DC                     i1l749:	
+  1826                           	
+  1827  01DC                     i1l2338:	
+  1828                           ;voltmeter.c: 116: sprintf(v, "%d", totalvolt);
+  1829  01DC  300B               	movlw	((STR_1-__stringbase))&0ffh
+  1830  01DD  00B0               	movwf	(??_compare+0)+0
+  1831  01DE  0830               	movf	(??_compare+0)+0,w
+  1832  01DF  00A0               	movwf	(?_sprintf)
+  1833  01E0  084E               	movf	(_totalvolt+1),w
+  1834  01E1  01A2               	clrf	1+(?_sprintf)+01h
+  1835  01E2  07A2               	addwf	1+(?_sprintf)+01h
+  1836  01E3  084D               	movf	(_totalvolt),w
+  1837  01E4  01A1               	clrf	0+(?_sprintf)+01h
+  1838  01E5  07A1               	addwf	0+(?_sprintf)+01h
+  1839                           
+  1840  01E6  3031               	movlw	(compare@v)&0ffh
+  1841  01E7  118A  2026  118A   	fcall	_sprintf
+  1842                           	line	118
+  1843                           	
+  1844  01EA                     i1l2340:	
+  1845                           ;voltmeter.c: 118: return v;
+  1846  01EA  3031               	movlw	(compare@v)&0ffh
+  1847  01EB  29EC               	goto	i1l751
+  1848                           	
+  1849  01EC                     i1l2342:	
+  1850                           	line	119
+  1851                           	
+  1852  01EC                     i1l751:	
+  1853  01EC  0008               	return
+  1854                           	opt stack 0
+  1855                           GLOBAL	__end_of_compare
+  1856  01ED                     	__end_of_compare:
+  1857 ;; =============== function _compare ends ============
+  1858                           
+  1859                           	signat	_compare,8313
+  1860                           	global	_clearLCD
+  1861                           psect	text282,local,class=CODE,delta=2
+  1862                           global __ptext282
+  1863  03EF                     __ptext282:
+  1864                           
+  1865 ;; *************** function _clearLCD *****************
+  1866 ;; Defined at:
+  1867 ;;		line 24 in file "C:\projects\PIC\voltmeter\voltmeter.c"
+  1868 ;; Parameters:    Size  Location     Type
+  1869 ;;		None
+  1870 ;; Auto vars:     Size  Location     Type
+  1871 ;;		None
+  1872 ;; Return value:  Size  Location     Type
+  1873 ;;		None               void
+  1874 ;; Registers used:
+  1875 ;;		wreg, status,2, status,0, pclath, cstack
+  1876 ;; Tracked objects:
+  1877 ;;		On entry : 0/0
+  1878 ;;		On exit  : 0/0
+  1879 ;;		Unchanged: 0/0
+  1880 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1881 ;;      Params:         0       0       0       0
+  1882 ;;      Locals:         0       0       0       0
+  1883 ;;      Temps:          2       0       0       0
+  1884 ;;      Totals:         2       0       0       0
+  1885 ;;Total ram usage:        2 bytes
+  1886 ;; Hardware stack levels used:    1
+  1887 ;; Hardware stack levels required when called:    1
+  1888 ;; This function calls:
+  1889 ;;		i1_pulse
+  1890 ;; This function is called by:
+  1891 ;;		_printvoltage
+  1892 ;; This function uses a non-reentrant model
+  1893 ;;
+  1894                           psect	text282
+  1895                           	file	"C:\projects\PIC\voltmeter\voltmeter.c"
+  1896                           	line	24
+  1897                           	global	__size_of_clearLCD
+  1898  0017                     	__size_of_clearLCD	equ	__end_of_clearLCD-_clearLCD
+  1899                           	
+  1900  03EF                     _clearLCD:	
+  1901                           	opt	stack 2
+  1902                           ; Regs used in _clearLCD: [wreg+status,2+status,0+pclath+cstack]
+  1903                           	line	26
+  1904                           	
+  1905  03EF                     i1l2228:	
+  1906                           ;voltmeter.c: 26: RB7 = 0;
+  1907  03EF  1283               	bcf	status, 5	;RP0=0, select bank0
+  1908  03F0  1303               	bcf	status, 6	;RP1=0, select bank0
+  1909  03F1  1386               	bcf	(55/8),(55)&7
+  1910                           	line	27
+  1911                           	
+  1912  03F2                     i1l2230:	
+  1913                           ;voltmeter.c: 27: _delay((unsigned long)((2)*(4000000/4000.0)));
+  1914                           	opt asmopt_off
+  1915  03F2  3003               movlw	3
+  1916  03F3  00F3               movwf	((??_clearLCD+0)+0+1),f
+  1917  03F4  3097               	movlw	151
+  1918  03F5  00F2               movwf	((??_clearLCD+0)+0),f
+  1919  03F6                     u290_27:
+  1920  03F6  0BF2               	decfsz	((??_clearLCD+0)+0),f
+  1921  03F7  2BF6               	goto	u290_27
+  1922  03F8  0BF3               	decfsz	((??_clearLCD+0)+0+1),f
+  1923  03F9  2BF6               	goto	u290_27
+  1924  03FA  2BFB               	nop2
+  1925                           opt asmopt_on
+  1926                           
+  1927                           	line	28
+  1928                           ;voltmeter.c: 28: PORTC = 1;
+  1929  03FB  3001               	movlw	(01h)
+  1930  03FC  1283               	bcf	status, 5	;RP0=0, select bank0
+  1931  03FD  1303               	bcf	status, 6	;RP1=0, select bank0
+  1932  03FE  0087               	movwf	(7)	;volatile
+  1933                           	line	29
+  1934                           	
+  1935  03FF                     i1l2232:	
+  1936                           ;voltmeter.c: 29: pulse();
+  1937  03FF  118A  2414  118A   	fcall	i1_pulse
+  1938                           	line	30
+  1939                           	
+  1940  0402                     i1l2234:	
+  1941                           ;voltmeter.c: 30: RB7 = 1;
+  1942  0402  1283               	bcf	status, 5	;RP0=0, select bank0
+  1943  0403  1303               	bcf	status, 6	;RP1=0, select bank0
+  1944  0404  1786               	bsf	(55/8),(55)&7
+  1945                           	line	32
+  1946                           	
+  1947  0405                     i1l722:	
+  1948  0405  0008               	return
+  1949                           	opt stack 0
+  1950                           GLOBAL	__end_of_clearLCD
+  1951  0406                     	__end_of_clearLCD:
+  1952 ;; =============== function _clearLCD ends ============
+  1953                           
+  1954                           	signat	_clearLCD,88
+  1955                           	global	i1_pulse
+  1956                           psect	text283,local,class=CODE,delta=2
+  1957                           global __ptext283
+  1958  0414                     __ptext283:
+  1959                           
+  1960 ;; *************** function i1_pulse *****************
+  1961 ;; Defined at:
+  1962 ;;		line 14 in file "C:\projects\PIC\voltmeter\voltmeter.c"
+  1963 ;; Parameters:    Size  Location     Type
+  1964 ;;		None
+  1965 ;; Auto vars:     Size  Location     Type
+  1966 ;;		None
+  1967 ;; Return value:  Size  Location     Type
+  1968 ;;		None               void
+  1969 ;; Registers used:
+  1970 ;;		wreg
+  1971 ;; Tracked objects:
+  1972 ;;		On entry : 0/0
+  1973 ;;		On exit  : 0/0
+  1974 ;;		Unchanged: 0/0
+  1975 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1976 ;;      Params:         0       0       0       0
+  1977 ;;      Locals:         0       0       0       0
+  1978 ;;      Temps:          2       0       0       0
+  1979 ;;      Totals:         2       0       0       0
+  1980 ;;Total ram usage:        2 bytes
+  1981 ;; Hardware stack levels used:    1
+  1982 ;; This function calls:
+  1983 ;;		Nothing
+  1984 ;; This function is called by:
+  1985 ;;		_clearLCD
+  1986 ;;		_printvoltage
+  1987 ;; This function uses a non-reentrant model
+  1988 ;;
+  1989                           psect	text283
+  1990                           	file	"C:\projects\PIC\voltmeter\voltmeter.c"
+  1991                           	line	14
+  1992                           	global	__size_ofi1_pulse
+  1993  000E                     	__size_ofi1_pulse	equ	__end_ofi1_pulse-i1_pulse
+  1994                           	
+  1995  0414                     i1_pulse:	
+  1996                           	opt	stack 3
+  1997                           ; Regs used in i1_pulse: [wreg]
+  1998                           	line	16
+  1999                           	
+  2000  0414                     i1l2462:	
+  2001                           ;voltmeter.c: 16: RB6 = 1;
+  2002  0414  1283               	bcf	status, 5	;RP0=0, select bank0
+  2003  0415  1303               	bcf	status, 6	;RP1=0, select bank0
+  2004  0416  1706               	bsf	(54/8),(54)&7
+  2005                           	line	17
+  2006                           ;voltmeter.c: 17: RB6 = 0;
+  2007  0417  1306               	bcf	(54/8),(54)&7
+  2008                           	line	18
+  2009                           	
+  2010  0418                     i1l2464:	
+  2011                           ;voltmeter.c: 18: _delay((unsigned long)((2)*(4000000/4000.0)));
+  2012                           	opt asmopt_off
+  2013  0418  3003               movlw	3
+  2014  0419  00F1               movwf	((??i1_pulse+0)+0+1),f
+  2015  041A  3097               	movlw	151
+  2016  041B  00F0               movwf	((??i1_pulse+0)+0),f
+  2017  041C                     u291_27:
+  2018  041C  0BF0               	decfsz	((??i1_pulse+0)+0),f
+  2019  041D  2C1C               	goto	u291_27
+  2020  041E  0BF1               	decfsz	((??i1_pulse+0)+0+1),f
+  2021  041F  2C1C               	goto	u291_27
+  2022  0420  2C21               	nop2
+  2023                           opt asmopt_on
+  2024                           
+  2025                           	line	20
+  2026                           	
+  2027  0421                     i1l719:	
+  2028  0421  0008               	return
+  2029                           	opt stack 0
+  2030                           GLOBAL	__end_ofi1_pulse
+  2031  0422                     	__end_ofi1_pulse:
+  2032 ;; =============== function i1_pulse ends ============
+  2033                           
+  2034                           	signat	i1_pulse,88
+  2035                           	global	_sprintf
+  2036                           psect	text284,local,class=CODE,delta=2
+  2037                           global __ptext284
+  2038  0026                     __ptext284:
+  2039                           
+  2040 ;; *************** function _sprintf *****************
+  2041 ;; Defined at:
+  2042 ;;		line 488 in file "C:\Program Files (x86)\HI-TECH Software\PICC\9.80\lib\doprnt.c"
+  2043 ;; Parameters:    Size  Location     Type
+  2044 ;;  sp              1    wreg     PTR unsigned char 
+  2045 ;;		 -> compare@v(5), 
+  2046 ;;  f               1    0[BANK0 ] PTR const unsigned char 
+  2047 ;;		 -> STR_1(3), 
+  2048 ;; Auto vars:     Size  Location     Type
+  2049 ;;  sp              1   13[BANK0 ] PTR unsigned char 
+  2050 ;;		 -> compare@v(5), 
+  2051 ;;  _val            4    9[BANK0 ] struct .
+  2052 ;;  c               1   14[BANK0 ] char 
+  2053 ;;  prec            1    8[BANK0 ] char 
+  2054 ;;  flag            1    7[BANK0 ] unsigned char 
+  2055 ;;  ap              1    6[BANK0 ] PTR void [1]
+  2056 ;;		 -> ?_sprintf(2), 
+  2057 ;; Return value:  Size  Location     Type
+  2058 ;;                  2    0[BANK0 ] int 
+  2059 ;; Registers used:
+  2060 ;;		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+  2061 ;; Tracked objects:
+  2062 ;;		On entry : 0/0
+  2063 ;;		On exit  : 0/0
+  2064 ;;		Unchanged: 0/0
+  2065 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2066 ;;      Params:         0       3       0       0
+  2067 ;;      Locals:         0       9       0       0
+  2068 ;;      Temps:          0       3       0       0
+  2069 ;;      Totals:         0      15       0       0
+  2070 ;;Total ram usage:       15 bytes
+  2071 ;; Hardware stack levels used:    1
+  2072 ;; Hardware stack levels required when called:    1
+  2073 ;; This function calls:
+  2074 ;;		___lwdiv
+  2075 ;;		___lwmod
+  2076 ;; This function is called by:
+  2077 ;;		_compare
+  2078 ;; This function uses a non-reentrant model
+  2079 ;;
+  2080                           psect	text284
+  2081                           	file	"C:\Program Files (x86)\HI-TECH Software\PICC\9.80\sources\doprnt.c"
+  2082                           	line	488
+  2083                           	global	__size_of_sprintf
+  2084  00FA                     	__size_of_sprintf	equ	__end_of_sprintf-_sprintf
+  2085                           	
+  2086  0026                     _sprintf:	
+  2087                           	opt	stack 2
+  2088                           ; Regs used in _sprintf: [wreg-fsr0h+status,2+status,0+btemp+1+pclath+cstack]
+  2089                           ;sprintf@sp stored from wreg
+  2090                           	line	537
+  2091  0026  1283               	bcf	status, 5	;RP0=0, select bank0
+  2092  0027  1303               	bcf	status, 6	;RP1=0, select bank0
+  2093  0028  00AD               	movwf	(sprintf@sp)
+  2094                           	
+  2095  0029                     i1l2344:	
+  2096  0029  3021               	movlw	(?_sprintf+01h)&0ffh
+  2097  002A  00A3               	movwf	(??_sprintf+0)+0
+  2098  002B  0823               	movf	(??_sprintf+0)+0,w
+  2099  002C  00A6               	movwf	(sprintf@ap)
+  2100                           	line	540
+  2101  002D  2902               	goto	i1l2398
+  2102                           	
+  2103  002E                     i1l773:	
+  2104                           	line	542
+  2105                           	
+  2106  002E                     i1l2346:	
+  2107  002E  082E               	movf	(sprintf@c),w
+  2108  002F  3A25               	xorlw	025h
+  2109  0030  1903               	skipnz
+  2110  0031  2833               	goto	u264_21
+  2111  0032  2834               	goto	u264_20
+  2112  0033                     u264_21:
+  2113  0033  2840               	goto	i1l2352
+  2114  0034                     u264_20:
+  2115                           	line	545
+  2116                           	
+  2117  0034                     i1l2348:	
+  2118  0034  082E               	movf	(sprintf@c),w
+  2119  0035  00A3               	movwf	(??_sprintf+0)+0
+  2120  0036  082D               	movf	(sprintf@sp),w
+  2121  0037  0084               	movwf	fsr0
+  2122  0038  0823               	movf	(??_sprintf+0)+0,w
+  2123  0039  1383               	bcf	status, 7	;select IRP bank0
+  2124  003A  0080               	movwf	indf
+  2125                           	
+  2126  003B                     i1l2350:	
+  2127  003B  3001               	movlw	(01h)
+  2128  003C  00A3               	movwf	(??_sprintf+0)+0
+  2129  003D  0823               	movf	(??_sprintf+0)+0,w
+  2130  003E  07AD               	addwf	(sprintf@sp),f
+  2131                           	line	546
+  2132  003F  2902               	goto	i1l2398
+  2133                           	line	547
+  2134                           	
+  2135  0040                     i1l774:	
+  2136                           	line	552
+  2137                           	
+  2138  0040                     i1l2352:	
+  2139  0040  1003               	clrc
+  2140  0041  3000               	movlw	0
+  2141  0042  1803               	btfsc	status,0
+  2142  0043  3001               	movlw	1
+  2143  0044  00A7               	movwf	(sprintf@flag)
+  2144                           	line	638
+  2145  0045  284B               	goto	i1l2356
+  2146                           	line	640
+  2147                           	
+  2148  0046                     i1l776:	
+  2149                           	line	641
+  2150  0046  2916               	goto	i1l2400
+  2151                           	line	700
+  2152                           	
+  2153  0047                     i1l778:	
+  2154  0047  2860               	goto	i1l2358
+  2155                           	line	701
+  2156                           	
+  2157  0048                     i1l779:	
+  2158                           	line	702
+  2159  0048  2860               	goto	i1l2358
+  2160                           	line	805
+  2161                           	
+  2162  0049                     i1l781:	
+  2163                           	line	816
+  2164  0049  2902               	goto	i1l2398
+  2165                           	line	825
+  2166                           	
+  2167  004A                     i1l2354:	
+  2168  004A  2860               	goto	i1l2358
+  2169                           	line	638
+  2170                           	
+  2171  004B                     i1l775:	
+  2172                           	
+  2173  004B                     i1l2356:	
+  2174  004B  0100               	clrw
+  2175  004C  3801               	iorlw	01h
+  2176  004D  07A0               	addwf	(sprintf@f),f
+  2177  004E  0100               	clrw
+  2178  004F  38FF               	iorlw	-01h
+  2179  0050  0720               	addwf	(sprintf@f),w
+  2180  0051  0084               	movwf	fsr0
+  2181  0052  118A  2013  118A   	fcall	stringdir
+  2182  0055  00AE               	movwf	(sprintf@c)
+  2183                           	; Switch size 1, requested type "space"
+  2184                           ; Number of cases is 3, Range of values is 0 to 105
+  2185                           ; switch strategies available:
+  2186                           ; Name         Bytes Cycles
+  2187                           ; simple_byte    10     6 (average)
+  2188                           ; direct_byte   228    16 (fixed)
+  2189                           ;	Chosen strategy is simple_byte
+  2190                           
+  2191  0056  3A00               	xorlw	0^0	; case 0
+  2192  0057  1903               	skipnz
+  2193  0058  2916               	goto	i1l2400
+  2194  0059  3A64               	xorlw	100^0	; case 100
+  2195  005A  1903               	skipnz
+  2196  005B  2860               	goto	i1l2358
+  2197  005C  3A0D               	xorlw	105^100	; case 105
+  2198  005D  1903               	skipnz
+  2199  005E  2860               	goto	i1l2358
+  2200  005F  2902               	goto	i1l2398
+  2201                           
+  2202                           	line	825
+  2203                           	
+  2204  0060                     i1l780:	
+  2205                           	line	1254
+  2206                           	
+  2207  0060                     i1l2358:	
+  2208  0060  0826               	movf	(sprintf@ap),w
+  2209  0061  0084               	movwf	fsr0
+  2210  0062  1383               	bcf	status, 7	;select IRP bank0
+  2211  0063  0800               	movf	indf,w
+  2212  0064  00A9               	movwf	(sprintf@_val)
+  2213  0065  0A84               	incf	fsr0,f
+  2214  0066  0800               	movf	indf,w
+  2215  0067  00AA               	movwf	(sprintf@_val+1)
+  2216                           	
+  2217  0068                     i1l2360:	
+  2218  0068  3002               	movlw	(02h)
+  2219  0069  00A3               	movwf	(??_sprintf+0)+0
+  2220  006A  0823               	movf	(??_sprintf+0)+0,w
+  2221  006B  07A6               	addwf	(sprintf@ap),f
+  2222                           	line	1256
+  2223                           	
+  2224  006C                     i1l2362:	
+  2225  006C  1FAA               	btfss	(sprintf@_val+1),7
+  2226  006D  286F               	goto	u265_21
+  2227  006E  2870               	goto	u265_20
+  2228  006F                     u265_21:
+  2229  006F  287A               	goto	i1l2368
+  2230  0070                     u265_20:
+  2231                           	line	1257
+  2232                           	
+  2233  0070                     i1l2364:	
+  2234  0070  3003               	movlw	(03h)
+  2235  0071  00A3               	movwf	(??_sprintf+0)+0
+  2236  0072  0823               	movf	(??_sprintf+0)+0,w
+  2237  0073  04A7               	iorwf	(sprintf@flag),f
+  2238                           	line	1258
+  2239                           	
+  2240  0074                     i1l2366:	
+  2241  0074  09A9               	comf	(sprintf@_val),f
+  2242  0075  09AA               	comf	(sprintf@_val+1),f
+  2243  0076  0AA9               	incf	(sprintf@_val),f
+  2244  0077  1903               	skipnz
+  2245  0078  0AAA               	incf	(sprintf@_val+1),f
+  2246  0079  287A               	goto	i1l2368
+  2247                           	line	1259
+  2248                           	
+  2249  007A                     i1l782:	
+  2250                           	line	1300
+  2251                           	
+  2252  007A                     i1l2368:	
+  2253  007A  01AE               	clrf	(sprintf@c)
+  2254  007B  1403               	bsf	status,0
+  2255  007C  0DAE               	rlf	(sprintf@c),f
+  2256                           	
+  2257  007D                     i1l2370:	
+  2258  007D  082E               	movf	(sprintf@c),w
+  2259  007E  3A05               	xorlw	05h
+  2260  007F  1D03               	skipz
+  2261  0080  2882               	goto	u266_21
+  2262  0081  2883               	goto	u266_20
+  2263  0082                     u266_21:
+  2264  0082  2885               	goto	i1l2374
+  2265  0083                     u266_20:
+  2266  0083  28A9               	goto	i1l2382
+  2267                           	
+  2268  0084                     i1l2372:	
+  2269  0084  28A9               	goto	i1l2382
+  2270                           	line	1301
+  2271                           	
+  2272  0085                     i1l783:	
+  2273                           	
+  2274  0085                     i1l2374:	
+  2275  0085  082E               	movf	(sprintf@c),w
+  2276  0086  00A3               	movwf	(??_sprintf+0)+0
+  2277  0087  0723               	addwf	(??_sprintf+0)+0,w
+  2278  0088  3E01               	addlw	low((_dpowers-__stringbase))
+  2279  0089  0084               	movwf	fsr0
+  2280  008A  118A  2013  118A   	fcall	stringdir
+  2281  008D  00A4               	movwf	(??_sprintf+1)+0
+  2282  008E  118A  2013  118A   	fcall	stringdir
+  2283  0091  00A5               	movwf	(??_sprintf+1)+0+1
+  2284  0092  0825               	movf	1+(??_sprintf+1)+0,w
+  2285  0093  022A               	subwf	(sprintf@_val+1),w
+  2286  0094  1D03               	skipz
+  2287  0095  2898               	goto	u267_25
+  2288  0096  0824               	movf	0+(??_sprintf+1)+0,w
+  2289  0097  0229               	subwf	(sprintf@_val),w
+  2290  0098                     u267_25:
+  2291  0098  1803               	skipnc
+  2292  0099  289B               	goto	u267_21
+  2293  009A  289C               	goto	u267_20
+  2294  009B                     u267_21:
+  2295  009B  289E               	goto	i1l2378
+  2296  009C                     u267_20:
+  2297  009C  28A9               	goto	i1l2382
+  2298                           	line	1302
+  2299                           	
+  2300  009D                     i1l2376:	
+  2301  009D  28A9               	goto	i1l2382
+  2302                           	
+  2303  009E                     i1l785:	
+  2304                           	line	1300
+  2305                           	
+  2306  009E                     i1l2378:	
+  2307  009E  3001               	movlw	(01h)
+  2308  009F  00A3               	movwf	(??_sprintf+0)+0
+  2309  00A0  0823               	movf	(??_sprintf+0)+0,w
+  2310  00A1  07AE               	addwf	(sprintf@c),f
+  2311                           	
+  2312  00A2                     i1l2380:	
+  2313  00A2  082E               	movf	(sprintf@c),w
+  2314  00A3  3A05               	xorlw	05h
+  2315  00A4  1D03               	skipz
+  2316  00A5  28A7               	goto	u268_21
+  2317  00A6  28A8               	goto	u268_20
+  2318  00A7                     u268_21:
+  2319  00A7  2885               	goto	i1l2374
+  2320  00A8                     u268_20:
+  2321  00A8  28A9               	goto	i1l2382
+  2322                           	
+  2323  00A9                     i1l784:	
+  2324                           	line	1433
+  2325                           	
+  2326  00A9                     i1l2382:	
+  2327  00A9  0827               	movf	(sprintf@flag),w
+  2328  00AA  3903               	andlw	03h
+  2329  00AB  1903               	btfsc	status,2
+  2330  00AC  28AE               	goto	u269_21
+  2331  00AD  28AF               	goto	u269_20
+  2332  00AE                     u269_21:
+  2333  00AE  28BB               	goto	i1l2388
+  2334  00AF                     u269_20:
+  2335                           	line	1434
+  2336                           	
+  2337  00AF                     i1l2384:	
+  2338  00AF  302D               	movlw	(02Dh)
+  2339  00B0  00A3               	movwf	(??_sprintf+0)+0
+  2340  00B1  082D               	movf	(sprintf@sp),w
+  2341  00B2  0084               	movwf	fsr0
+  2342  00B3  0823               	movf	(??_sprintf+0)+0,w
+  2343  00B4  1383               	bcf	status, 7	;select IRP bank0
+  2344  00B5  0080               	movwf	indf
+  2345                           	
+  2346  00B6                     i1l2386:	
+  2347  00B6  3001               	movlw	(01h)
+  2348  00B7  00A3               	movwf	(??_sprintf+0)+0
+  2349  00B8  0823               	movf	(??_sprintf+0)+0,w
+  2350  00B9  07AD               	addwf	(sprintf@sp),f
+  2351  00BA  28BB               	goto	i1l2388
+  2352                           	
+  2353  00BB                     i1l786:	
+  2354                           	line	1467
+  2355                           	
+  2356  00BB                     i1l2388:	
+  2357  00BB  082E               	movf	(sprintf@c),w
+  2358  00BC  00A3               	movwf	(??_sprintf+0)+0
+  2359  00BD  0823               	movf	(??_sprintf+0)+0,w
+  2360  00BE  00A8               	movwf	(sprintf@prec)
+  2361                           	line	1469
+  2362  00BF  28F6               	goto	i1l2396
+  2363                           	
+  2364  00C0                     i1l788:	
+  2365                           	line	1484
+  2366                           	
+  2367  00C0                     i1l2390:	
+  2368  00C0  300A               	movlw	low(0Ah)
+  2369  00C1  00F8               	movwf	(?___lwmod)
+  2370  00C2  3000               	movlw	high(0Ah)
+  2371  00C3  00F9               	movwf	((?___lwmod))+1
+  2372  00C4  0828               	movf	(sprintf@prec),w
+  2373  00C5  00A3               	movwf	(??_sprintf+0)+0
+  2374  00C6  0723               	addwf	(??_sprintf+0)+0,w
+  2375  00C7  3E01               	addlw	low((_dpowers-__stringbase))
+  2376  00C8  0084               	movwf	fsr0
+  2377  00C9  118A  2013  118A   	fcall	stringdir
+  2378  00CC  00F0               	movwf	(?___lwdiv)
+  2379  00CD  118A  2013  118A   	fcall	stringdir
+  2380  00D0  00F1               	movwf	(?___lwdiv+1)
+  2381  00D1  082A               	movf	(sprintf@_val+1),w
+  2382  00D2  01F3               	clrf	1+(?___lwdiv)+02h
+  2383  00D3  07F3               	addwf	1+(?___lwdiv)+02h
+  2384  00D4  0829               	movf	(sprintf@_val),w
+  2385  00D5  01F2               	clrf	0+(?___lwdiv)+02h
+  2386  00D6  07F2               	addwf	0+(?___lwdiv)+02h
+  2387                           
+  2388  00D7  118A  22A8  118A   	fcall	___lwdiv
+  2389  00DA  0871               	movf	(1+(?___lwdiv)),w
+  2390  00DB  01FB               	clrf	1+(?___lwmod)+02h
+  2391  00DC  07FB               	addwf	1+(?___lwmod)+02h
+  2392  00DD  0870               	movf	(0+(?___lwdiv)),w
+  2393  00DE  01FA               	clrf	0+(?___lwmod)+02h
+  2394  00DF  07FA               	addwf	0+(?___lwmod)+02h
+  2395                           
+  2396  00E0  118A  22F8  118A   	fcall	___lwmod
+  2397  00E3  0878               	movf	(0+(?___lwmod)),w
+  2398  00E4  3E30               	addlw	030h
+  2399  00E5  1283               	bcf	status, 5	;RP0=0, select bank0
+  2400  00E6  1303               	bcf	status, 6	;RP1=0, select bank0
+  2401  00E7  00A4               	movwf	(??_sprintf+1)+0
+  2402  00E8  0824               	movf	(??_sprintf+1)+0,w
+  2403  00E9  00AE               	movwf	(sprintf@c)
+  2404                           	line	1516
+  2405                           	
+  2406  00EA                     i1l2392:	
+  2407  00EA  082E               	movf	(sprintf@c),w
+  2408  00EB  00A3               	movwf	(??_sprintf+0)+0
+  2409  00EC  082D               	movf	(sprintf@sp),w
+  2410  00ED  0084               	movwf	fsr0
+  2411  00EE  0823               	movf	(??_sprintf+0)+0,w
+  2412  00EF  1383               	bcf	status, 7	;select IRP bank0
+  2413  00F0  0080               	movwf	indf
+  2414                           	
+  2415  00F1                     i1l2394:	
+  2416  00F1  3001               	movlw	(01h)
+  2417  00F2  00A3               	movwf	(??_sprintf+0)+0
+  2418  00F3  0823               	movf	(??_sprintf+0)+0,w
+  2419  00F4  07AD               	addwf	(sprintf@sp),f
+  2420  00F5  28F6               	goto	i1l2396
+  2421                           	line	1517
+  2422                           	
+  2423  00F6                     i1l787:	
+  2424                           	line	1469
+  2425                           	
+  2426  00F6                     i1l2396:	
+  2427  00F6  30FF               	movlw	(-1)
+  2428  00F7  00A3               	movwf	(??_sprintf+0)+0
+  2429  00F8  0823               	movf	(??_sprintf+0)+0,w
+  2430  00F9  07A8               	addwf	(sprintf@prec),f
+  2431  00FA  0828               	movf	((sprintf@prec)),w
+  2432  00FB  3AFF               	xorlw	-1
+  2433  00FC  1D03               	skipz
+  2434  00FD  28FF               	goto	u270_21
+  2435  00FE  2900               	goto	u270_20
+  2436  00FF                     u270_21:
+  2437  00FF  28C0               	goto	i1l2390
+  2438  0100                     u270_20:
+  2439  0100  2902               	goto	i1l2398
+  2440                           	
+  2441  0101                     i1l789:	
+  2442  0101  2902               	goto	i1l2398
+  2443                           	line	1525
+  2444                           	
+  2445  0102                     i1l772:	
+  2446                           	line	540
+  2447                           	
+  2448  0102                     i1l2398:	
+  2449  0102  0100               	clrw
+  2450  0103  3801               	iorlw	01h
+  2451  0104  07A0               	addwf	(sprintf@f),f
+  2452  0105  0100               	clrw
+  2453  0106  38FF               	iorlw	-01h
+  2454  0107  0720               	addwf	(sprintf@f),w
+  2455  0108  0084               	movwf	fsr0
+  2456  0109  118A  2013  118A   	fcall	stringdir
+  2457  010C  00A3               	movwf	(??_sprintf+0)+0
+  2458  010D  0823               	movf	(??_sprintf+0)+0,w
+  2459  010E  00AE               	movwf	(sprintf@c)
+  2460  010F  08AE               	movf	((sprintf@c)),f
+  2461  0110  1D03               	skipz
+  2462  0111  2913               	goto	u271_21
+  2463  0112  2914               	goto	u271_20
+  2464  0113                     u271_21:
+  2465  0113  282E               	goto	i1l2346
+  2466  0114                     u271_20:
+  2467  0114  2916               	goto	i1l2400
+  2468                           	
+  2469  0115                     i1l790:	
+  2470  0115  2916               	goto	i1l2400
+  2471                           	line	1527
+  2472                           	
+  2473  0116                     i1l777:	
+  2474                           	line	1530
+  2475                           	
+  2476  0116                     i1l2400:	
+  2477  0116  1003               	clrc
+  2478  0117  082D               	movf	(sprintf@sp),w
+  2479  0118  0084               	movwf	fsr0
+  2480  0119  3000               	movlw	0
+  2481  011A  1803               	btfsc	status,0
+  2482  011B  3001               	movlw	1
+  2483  011C  1383               	bcf	status, 7	;select IRP bank0
+  2484  011D  0080               	movwf	indf
+  2485  011E  291F               	goto	i1l791
+  2486                           	line	1532
+  2487                           	
+  2488  011F                     i1l2402:	
+  2489                           	line	1533
+  2490                           ;	Return value of _sprintf is never used
+  2491                           	
+  2492  011F                     i1l791:	
+  2493  011F  0008               	return
+  2494                           	opt stack 0
+  2495                           GLOBAL	__end_of_sprintf
+  2496  0120                     	__end_of_sprintf:
+  2497 ;; =============== function _sprintf ends ============
+  2498                           
+  2499                           	signat	_sprintf,4698
+  2500                           	global	___lwmod
+  2501                           psect	text285,local,class=CODE,delta=2
+  2502                           global __ptext285
+  2503  02F8                     __ptext285:
+  2504                           
+  2505 ;; *************** function ___lwmod *****************
+  2506 ;; Defined at:
+  2507 ;;		line 5 in file "C:\Program Files (x86)\HI-TECH Software\PICC\9.80\sources\lwmod.c"
+  2508 ;; Parameters:    Size  Location     Type
+  2509 ;;  divisor         2    8[COMMON] unsigned int 
+  2510 ;;  dividend        2   10[COMMON] unsigned int 
+  2511 ;; Auto vars:     Size  Location     Type
+  2512 ;;  counter         1   13[COMMON] unsigned char 
+  2513 ;; Return value:  Size  Location     Type
+  2514 ;;                  2    8[COMMON] unsigned int 
+  2515 ;; Registers used:
+  2516 ;;		wreg, status,2, status,0
+  2517 ;; Tracked objects:
+  2518 ;;		On entry : 0/0
+  2519 ;;		On exit  : 0/0
+  2520 ;;		Unchanged: 0/0
+  2521 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2522 ;;      Params:         4       0       0       0
+  2523 ;;      Locals:         1       0       0       0
+  2524 ;;      Temps:          1       0       0       0
+  2525 ;;      Totals:         6       0       0       0
+  2526 ;;Total ram usage:        6 bytes
+  2527 ;; Hardware stack levels used:    1
+  2528 ;; This function calls:
+  2529 ;;		Nothing
+  2530 ;; This function is called by:
+  2531 ;;		_sprintf
+  2532 ;; This function uses a non-reentrant model
+  2533 ;;
+  2534                           psect	text285
+  2535                           	file	"C:\Program Files (x86)\HI-TECH Software\PICC\9.80\sources\lwmod.c"
+  2536                           	line	5
+  2537                           	global	__size_of___lwmod
+  2538  0044                     	__size_of___lwmod	equ	__end_of___lwmod-___lwmod
+  2539                           	
+  2540  02F8                     ___lwmod:	
+  2541                           	opt	stack 2
+  2542                           ; Regs used in ___lwmod: [wreg+status,2+status,0]
+  2543                           	line	8
+  2544                           	
+  2545  02F8                     i1l2440:	
+  2546  02F8  0879               	movf	(___lwmod@divisor+1),w
+  2547  02F9  0478               	iorwf	(___lwmod@divisor),w
+  2548  02FA  1903               	skipnz
+  2549  02FB  2AFD               	goto	u279_21
+  2550  02FC  2AFE               	goto	u279_20
+  2551  02FD                     u279_21:
+  2552  02FD  2B34               	goto	i1l2458
+  2553  02FE                     u279_20:
+  2554                           	line	9
+  2555                           	
+  2556  02FE                     i1l2442:	
+  2557  02FE  01FD               	clrf	(___lwmod@counter)
+  2558  02FF  1403               	bsf	status,0
+  2559  0300  0DFD               	rlf	(___lwmod@counter),f
+  2560                           	line	10
+  2561  0301  2B0E               	goto	i1l2448
+  2562                           	
+  2563  0302                     i1l818:	
+  2564                           	line	11
+  2565                           	
+  2566  0302                     i1l2444:	
+  2567  0302  3001               	movlw	01h
+  2568                           	
+  2569  0303                     u280_25:
+  2570  0303  1003               	clrc
+  2571  0304  0DF8               	rlf	(___lwmod@divisor),f
+  2572  0305  0DF9               	rlf	(___lwmod@divisor+1),f
+  2573  0306  3EFF               	addlw	-1
+  2574  0307  1D03               	skipz
+  2575  0308  2B03               	goto	u280_25
+  2576                           	line	12
+  2577                           	
+  2578  0309                     i1l2446:	
+  2579  0309  3001               	movlw	(01h)
+  2580  030A  00FC               	movwf	(??___lwmod+0)+0
+  2581  030B  087C               	movf	(??___lwmod+0)+0,w
+  2582  030C  07FD               	addwf	(___lwmod@counter),f
+  2583  030D  2B0E               	goto	i1l2448
+  2584                           	line	13
+  2585                           	
+  2586  030E                     i1l817:	
+  2587                           	line	10
+  2588                           	
+  2589  030E                     i1l2448:	
+  2590  030E  1FF9               	btfss	(___lwmod@divisor+1),(15)&7
+  2591  030F  2B11               	goto	u281_21
+  2592  0310  2B12               	goto	u281_20
+  2593  0311                     u281_21:
+  2594  0311  2B02               	goto	i1l2444
+  2595  0312                     u281_20:
+  2596  0312  2B14               	goto	i1l2450
+  2597                           	
+  2598  0313                     i1l819:	
+  2599  0313  2B14               	goto	i1l2450
+  2600                           	line	14
+  2601                           	
+  2602  0314                     i1l820:	
+  2603                           	line	15
+  2604                           	
+  2605  0314                     i1l2450:	
+  2606  0314  0879               	movf	(___lwmod@divisor+1),w
+  2607  0315  027B               	subwf	(___lwmod@dividend+1),w
+  2608  0316  1D03               	skipz
+  2609  0317  2B1A               	goto	u282_25
+  2610  0318  0878               	movf	(___lwmod@divisor),w
+  2611  0319  027A               	subwf	(___lwmod@dividend),w
+  2612  031A                     u282_25:
+  2613  031A  1C03               	skipc
+  2614  031B  2B1D               	goto	u282_21
+  2615  031C  2B1E               	goto	u282_20
+  2616  031D                     u282_21:
+  2617  031D  2B25               	goto	i1l2454
+  2618  031E                     u282_20:
+  2619                           	line	16
+  2620                           	
+  2621  031E                     i1l2452:	
+  2622  031E  0878               	movf	(___lwmod@divisor),w
+  2623  031F  02FA               	subwf	(___lwmod@dividend),f
+  2624  0320  0879               	movf	(___lwmod@divisor+1),w
+  2625  0321  1C03               	skipc
+  2626  0322  03FB               	decf	(___lwmod@dividend+1),f
+  2627  0323  02FB               	subwf	(___lwmod@dividend+1),f
+  2628  0324  2B25               	goto	i1l2454
+  2629                           	
+  2630  0325                     i1l821:	
+  2631                           	line	17
+  2632                           	
+  2633  0325                     i1l2454:	
+  2634  0325  3001               	movlw	01h
+  2635                           	
+  2636  0326                     u283_25:
+  2637  0326  1003               	clrc
+  2638  0327  0CF9               	rrf	(___lwmod@divisor+1),f
+  2639  0328  0CF8               	rrf	(___lwmod@divisor),f
+  2640  0329  3EFF               	addlw	-1
+  2641  032A  1D03               	skipz
+  2642  032B  2B26               	goto	u283_25
+  2643                           	line	18
+  2644                           	
+  2645  032C                     i1l2456:	
+  2646  032C  3001               	movlw	low(01h)
+  2647  032D  02FD               	subwf	(___lwmod@counter),f
+  2648  032E  1D03               	btfss	status,2
+  2649  032F  2B31               	goto	u284_21
+  2650  0330  2B32               	goto	u284_20
+  2651  0331                     u284_21:
+  2652  0331  2B14               	goto	i1l2450
+  2653  0332                     u284_20:
+  2654  0332  2B34               	goto	i1l2458
+  2655                           	
+  2656  0333                     i1l822:	
+  2657  0333  2B34               	goto	i1l2458
+  2658                           	line	19
+  2659                           	
+  2660  0334                     i1l816:	
+  2661                           	line	20
+  2662                           	
+  2663  0334                     i1l2458:	
+  2664  0334  087B               	movf	(___lwmod@dividend+1),w
+  2665  0335  01F9               	clrf	(?___lwmod+1)
+  2666  0336  07F9               	addwf	(?___lwmod+1)
+  2667  0337  087A               	movf	(___lwmod@dividend),w
+  2668  0338  01F8               	clrf	(?___lwmod)
+  2669  0339  07F8               	addwf	(?___lwmod)
+  2670                           
+  2671  033A  2B3B               	goto	i1l823
+  2672                           	
+  2673  033B                     i1l2460:	
+  2674                           	line	21
+  2675                           	
+  2676  033B                     i1l823:	
+  2677  033B  0008               	return
+  2678                           	opt stack 0
+  2679                           GLOBAL	__end_of___lwmod
+  2680  033C                     	__end_of___lwmod:
+  2681 ;; =============== function ___lwmod ends ============
+  2682                           
+  2683                           	signat	___lwmod,8314
+  2684                           	global	___lwdiv
+  2685                           psect	text286,local,class=CODE,delta=2
+  2686                           global __ptext286
+  2687  02A8                     __ptext286:
+  2688                           
+  2689 ;; *************** function ___lwdiv *****************
+  2690 ;; Defined at:
+  2691 ;;		line 5 in file "C:\Program Files (x86)\HI-TECH Software\PICC\9.80\sources\lwdiv.c"
+  2692 ;; Parameters:    Size  Location     Type
+  2693 ;;  divisor         2    0[COMMON] unsigned int 
+  2694 ;;  dividend        2    2[COMMON] unsigned int 
+  2695 ;; Auto vars:     Size  Location     Type
+  2696 ;;  quotient        2    5[COMMON] unsigned int 
+  2697 ;;  counter         1    7[COMMON] unsigned char 
+  2698 ;; Return value:  Size  Location     Type
+  2699 ;;                  2    0[COMMON] unsigned int 
+  2700 ;; Registers used:
+  2701 ;;		wreg, status,2, status,0
+  2702 ;; Tracked objects:
+  2703 ;;		On entry : 0/0
+  2704 ;;		On exit  : 0/0
+  2705 ;;		Unchanged: 0/0
+  2706 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2707 ;;      Params:         4       0       0       0
+  2708 ;;      Locals:         3       0       0       0
+  2709 ;;      Temps:          1       0       0       0
+  2710 ;;      Totals:         8       0       0       0
+  2711 ;;Total ram usage:        8 bytes
+  2712 ;; Hardware stack levels used:    1
+  2713 ;; This function calls:
+  2714 ;;		Nothing
+  2715 ;; This function is called by:
+  2716 ;;		_sprintf
+  2717 ;; This function uses a non-reentrant model
+  2718 ;;
+  2719                           psect	text286
+  2720                           	file	"C:\Program Files (x86)\HI-TECH Software\PICC\9.80\sources\lwdiv.c"
+  2721                           	line	5
+  2722                           	global	__size_of___lwdiv
+  2723  0050                     	__size_of___lwdiv	equ	__end_of___lwdiv-___lwdiv
+  2724                           	
+  2725  02A8                     ___lwdiv:	
+  2726                           	opt	stack 2
+  2727                           ; Regs used in ___lwdiv: [wreg+status,2+status,0]
+  2728                           	line	9
+  2729                           	
+  2730  02A8                     i1l2416:	
+  2731  02A8  3000               	movlw	low(0)
+  2732  02A9  00F5               	movwf	(___lwdiv@quotient)
+  2733  02AA  3000               	movlw	high(0)
+  2734  02AB  00F6               	movwf	((___lwdiv@quotient))+1
+  2735                           	line	10
+  2736  02AC  0871               	movf	(___lwdiv@divisor+1),w
+  2737  02AD  0470               	iorwf	(___lwdiv@divisor),w
+  2738  02AE  1903               	skipnz
+  2739  02AF  2AB1               	goto	u272_21
+  2740  02B0  2AB2               	goto	u272_20
+  2741  02B1                     u272_21:
+  2742  02B1  2AF0               	goto	i1l2436
+  2743  02B2                     u272_20:
+  2744                           	line	11
+  2745                           	
+  2746  02B2                     i1l2418:	
+  2747  02B2  01F7               	clrf	(___lwdiv@counter)
+  2748  02B3  1403               	bsf	status,0
+  2749  02B4  0DF7               	rlf	(___lwdiv@counter),f
+  2750                           	line	12
+  2751  02B5  2AC2               	goto	i1l2424
+  2752                           	
+  2753  02B6                     i1l808:	
+  2754                           	line	13
+  2755                           	
+  2756  02B6                     i1l2420:	
+  2757  02B6  3001               	movlw	01h
+  2758                           	
+  2759  02B7                     u273_25:
+  2760  02B7  1003               	clrc
+  2761  02B8  0DF0               	rlf	(___lwdiv@divisor),f
+  2762  02B9  0DF1               	rlf	(___lwdiv@divisor+1),f
+  2763  02BA  3EFF               	addlw	-1
+  2764  02BB  1D03               	skipz
+  2765  02BC  2AB7               	goto	u273_25
+  2766                           	line	14
+  2767                           	
+  2768  02BD                     i1l2422:	
+  2769  02BD  3001               	movlw	(01h)
+  2770  02BE  00F4               	movwf	(??___lwdiv+0)+0
+  2771  02BF  0874               	movf	(??___lwdiv+0)+0,w
+  2772  02C0  07F7               	addwf	(___lwdiv@counter),f
+  2773  02C1  2AC2               	goto	i1l2424
+  2774                           	line	15
+  2775                           	
+  2776  02C2                     i1l807:	
+  2777                           	line	12
+  2778                           	
+  2779  02C2                     i1l2424:	
+  2780  02C2  1FF1               	btfss	(___lwdiv@divisor+1),(15)&7
+  2781  02C3  2AC5               	goto	u274_21
+  2782  02C4  2AC6               	goto	u274_20
+  2783  02C5                     u274_21:
+  2784  02C5  2AB6               	goto	i1l2420
+  2785  02C6                     u274_20:
+  2786  02C6  2AC8               	goto	i1l2426
+  2787                           	
+  2788  02C7                     i1l809:	
+  2789  02C7  2AC8               	goto	i1l2426
+  2790                           	line	16
+  2791                           	
+  2792  02C8                     i1l810:	
+  2793                           	line	17
+  2794                           	
+  2795  02C8                     i1l2426:	
+  2796  02C8  3001               	movlw	01h
+  2797                           	
+  2798  02C9                     u275_25:
+  2799  02C9  1003               	clrc
+  2800  02CA  0DF5               	rlf	(___lwdiv@quotient),f
+  2801  02CB  0DF6               	rlf	(___lwdiv@quotient+1),f
+  2802  02CC  3EFF               	addlw	-1
+  2803  02CD  1D03               	skipz
+  2804  02CE  2AC9               	goto	u275_25
+  2805                           	line	18
+  2806  02CF  0871               	movf	(___lwdiv@divisor+1),w
+  2807  02D0  0273               	subwf	(___lwdiv@dividend+1),w
+  2808  02D1  1D03               	skipz
+  2809  02D2  2AD5               	goto	u276_25
+  2810  02D3  0870               	movf	(___lwdiv@divisor),w
+  2811  02D4  0272               	subwf	(___lwdiv@dividend),w
+  2812  02D5                     u276_25:
+  2813  02D5  1C03               	skipc
+  2814  02D6  2AD8               	goto	u276_21
+  2815  02D7  2AD9               	goto	u276_20
+  2816  02D8                     u276_21:
+  2817  02D8  2AE1               	goto	i1l2432
+  2818  02D9                     u276_20:
+  2819                           	line	19
+  2820                           	
+  2821  02D9                     i1l2428:	
+  2822  02D9  0870               	movf	(___lwdiv@divisor),w
+  2823  02DA  02F2               	subwf	(___lwdiv@dividend),f
+  2824  02DB  0871               	movf	(___lwdiv@divisor+1),w
+  2825  02DC  1C03               	skipc
+  2826  02DD  03F3               	decf	(___lwdiv@dividend+1),f
+  2827  02DE  02F3               	subwf	(___lwdiv@dividend+1),f
+  2828                           	line	20
+  2829                           	
+  2830  02DF                     i1l2430:	
+  2831  02DF  1475               	bsf	(___lwdiv@quotient)+(0/8),(0)&7
+  2832  02E0  2AE1               	goto	i1l2432
+  2833                           	line	21
+  2834                           	
+  2835  02E1                     i1l811:	
+  2836                           	line	22
+  2837                           	
+  2838  02E1                     i1l2432:	
+  2839  02E1  3001               	movlw	01h
+  2840                           	
+  2841  02E2                     u277_25:
+  2842  02E2  1003               	clrc
+  2843  02E3  0CF1               	rrf	(___lwdiv@divisor+1),f
+  2844  02E4  0CF0               	rrf	(___lwdiv@divisor),f
+  2845  02E5  3EFF               	addlw	-1
+  2846  02E6  1D03               	skipz
+  2847  02E7  2AE2               	goto	u277_25
+  2848                           	line	23
+  2849                           	
+  2850  02E8                     i1l2434:	
+  2851  02E8  3001               	movlw	low(01h)
+  2852  02E9  02F7               	subwf	(___lwdiv@counter),f
+  2853  02EA  1D03               	btfss	status,2
+  2854  02EB  2AED               	goto	u278_21
+  2855  02EC  2AEE               	goto	u278_20
+  2856  02ED                     u278_21:
+  2857  02ED  2AC8               	goto	i1l2426
+  2858  02EE                     u278_20:
+  2859  02EE  2AF0               	goto	i1l2436
+  2860                           	
+  2861  02EF                     i1l812:	
+  2862  02EF  2AF0               	goto	i1l2436
+  2863                           	line	24
+  2864                           	
+  2865  02F0                     i1l806:	
+  2866                           	line	25
+  2867                           	
+  2868  02F0                     i1l2436:	
+  2869  02F0  0876               	movf	(___lwdiv@quotient+1),w
+  2870  02F1  01F1               	clrf	(?___lwdiv+1)
+  2871  02F2  07F1               	addwf	(?___lwdiv+1)
+  2872  02F3  0875               	movf	(___lwdiv@quotient),w
+  2873  02F4  01F0               	clrf	(?___lwdiv)
+  2874  02F5  07F0               	addwf	(?___lwdiv)
+  2875                           
+  2876  02F6  2AF7               	goto	i1l813
+  2877                           	
+  2878  02F7                     i1l2438:	
+  2879                           	line	26
+  2880                           	
+  2881  02F7                     i1l813:	
+  2882  02F7  0008               	return
+  2883                           	opt stack 0
+  2884                           GLOBAL	__end_of___lwdiv
+  2885  02F8                     	__end_of___lwdiv:
+  2886 ;; =============== function ___lwdiv ends ============
+  2887                           
+  2888                           	signat	___lwdiv,8314
+  2889                           psect	text287,local,class=CODE,delta=2
+  2890                           global __ptext287
+  2891  0000                     __ptext287:
+  2892                           	global	btemp
+  2893  007E                     	btemp set 07Eh
+  2894                           
+  2895                           	DABS	1,126,2	;btemp
+  2896                           	global	wtemp0
+  2897  007E                     	wtemp0 set btemp
+
+
+HI-TECH Software PICC Macro Assembler V9.80 build 6738 
+Symbol Table                                                                                   Tue May 03 10:49:16 2011
+
+                    pc 0002                     fsr 0004                    l719 0413                    l760 0370  
+                  l761 0370                    l762 0371                    l763 0371                    l757 03EE  
+                  _GIE 005F                    _RB6 0036                    _RB7 0037                    _isr 0373  
+                  fsr0 0004                    indf 0000                   l2500 0362                   l2502 0364  
+                 l2504 0368                   l2506 036C                   l2470 03CA                   l2480 03E8  
+                 l2472 03CE                   l2466 0406                   l2482 03EB                   l2474 03DA  
+                 l2490 0347                   l2468 040A                   l2476 03DD                   l2492 0351  
+                 l2484 033C                   l2478 03E4                   l2494 0354                   l2486 0340  
+                 l2496 035E                   l2488 0342                   l2498 035F                   _ADIE 0466  
+                 _ADIF 0066                   ?_isr 0070                   STR_1 0023                   u2857 034D  
+                 u2867 035A                   u2877 03D2                   u2887 040E            compare@high 0037  
+          compare@temp 0036                   _main 033C                   btemp 007E                   start 0011  
+      __end_ofi1_pulse 0422                  ??_isr 0038                  ?_main 0070                  _ANSEL 011E  
+      __end_of___lwdiv 02F8        __end_of___lwmod 033C                  i1l810 02C8                  i1l722 0405  
+                i1l730 0257                  i1l811 02E1                  i1l731 024C                  i1l812 02EF  
+                i1l820 0314                  i1l740 0138                  i1l732 0284                  i1l813 02F7  
+                i1l821 0325                  i1l741 0149                  i1l733 026D                  i1l725 020D  
+                i1l806 02F0                  i1l822 0333                  i1l750 01DB                  i1l742 015A  
+                i1l734 0283                  i1l726 022C                  i1l807 02C2                  i1l823 033B  
+                i1l719 0421                  i1l751 01EC                  i1l743 016B                  i1l735 0291  
+                i1l727 0222                  i1l808 02B6                  i1l816 0334                  i1l744 017C  
+                i1l736 02A7                  i1l728 022B                  i1l809 02C7                  i1l817 030E  
+                i1l745 018D                  i1l737 02A7                  i1l729 0239                  i1l818 0302  
+                i1l746 019E                  i1l754 039A                  i1l819 0313                  i1l747 01AF  
+                i1l772 0102                  i1l780 0060                  i1l748 01C0                  i1l781 0049  
+                i1l773 002E                  i1l749 01DC                  i1l790 0115                  i1l782 007A  
+                i1l774 0040                  i1l791 011F                  i1l783 0085                  i1l775 004B  
+                i1l784 00A9                  i1l776 0046                  i1l777 0116                  i1l785 009E  
+                i1l786 00BB                  i1l778 0047                  i1l787 00F6                  i1l779 0048  
+                i1l788 00C0                  i1l789 0101                  _PORTC 0007                  _TRISA 0085  
+                _TRISB 0086                  _TRISC 0087        __end_of_compare 01ED        __end_of_initLCD 03EF  
+                _pulse 0406                  _volts 0049                  pclath 000A                  status 0003  
+                wtemp0 007E        __end_of_sprintf 0120           __end_of_main 0373                 ??_main 0043  
+               _ADCON0 001F                 _ADCON1 009F                 _ADRESH 001E                 _ADRESL 009E  
+               ?_pulse 0070                 _ANSELH 011F                 _GODONE 00F9                 i1l2300 0138  
+               i1l2230 03F2                 i1l2310 0162                 i1l2302 0140                 i1l2400 0116  
+               i1l2232 03FF                 i1l2320 018D                 i1l2312 016B                 i1l2304 0149  
+               i1l2240 01FE                 i1l2402 011F                 i1l2234 0402                 i1l2330 01B7  
+               i1l2322 0195                 i1l2314 0173                 i1l2306 0151                 i1l2250 022C  
+               i1l2242 020D                 i1l2410 0389                 i1l2420 02B6                 i1l2228 03EF  
+               i1l2340 01EA                 i1l2332 01C0                 i1l2324 019E                 i1l2316 017C  
+               i1l2308 015A                 i1l2260 024C                 i1l2252 0231                 i1l2244 0216  
+               i1l2236 01EE                 i1l2412 038D                 i1l2404 0373                 i1l2430 02DF  
+               i1l2422 02BD                 i1l2350 003B                 i1l2342 01EC                 i1l2334 01CA  
+               i1l2326 01A6                 i1l2318 0184                 i1l2270 0265                 i1l2262 0250  
+               i1l2254 0238                 i1l2246 021A                 i1l2238 01F3                 i1l2414 0397  
+               i1l2406 0374                 i1l2432 02E1                 i1l2424 02C2                 i1l2416 02A8  
+               i1l2440 02F8                 i1l2360 0068                 i1l2352 0040                 i1l2344 0029  
+               i1l2336 01D2                 i1l2328 01AF                 i1l2280 027C                 i1l2272 026C  
+               i1l2264 0257                 i1l2256 0239                 i1l2248 0222                 i1l2408 0378  
+               i1l2434 02E8                 i1l2426 02C8                 i1l2418 02B2                 i1l2450 0314  
+               i1l2442 02FE                 i1l2370 007D                 i1l2362 006C                 i1l2354 004A  
+               i1l2346 002E                 i1l2338 01DC                 i1l2290 029C                 i1l2274 026D  
+               i1l2266 025D                 i1l2282 0284                 i1l2258 0248                 i1l2428 02D9  
+               i1l2436 02F0                 i1l2460 033B                 i1l2452 031E                 i1l2444 0302  
+               i1l2380 00A2                 i1l2372 0084                 i1l2364 0070                 i1l2356 004B  
+               i1l2348 0034                 i1l2292 02A0                 i1l2284 0289                 i1l2276 0275  
+               i1l2268 0260                 i1l2438 02F7                 i1l2454 0325                 i1l2446 0309  
+               i1l2390 00C0                 i1l2382 00A9                 i1l2374 0085                 i1l2366 0074  
+               i1l2358 0060                 i1l2462 0414                 i1l2294 0123                 i1l2286 0290  
+               i1l2278 0278                 i1l2456 032C                 i1l2448 030E                 i1l2392 00EA  
+               i1l2384 00AF                 i1l2376 009D                 i1l2368 007A                 i1l2464 0418  
+               i1l2296 0127                 i1l2288 0291                 i1l2458 0334                 i1l2394 00F1  
+               i1l2386 00B6                 i1l2378 009E                 i1l2298 012F                 i1l2396 00F6  
+               i1l2388 00BB                 i1l2398 0102                 _INTCON 000B                 u250_20 0282  
+               u250_21 0281                 u251_20 028F                 u243_20 01FE                 u251_21 028E  
+               u243_21 01FD                 u260_20 01A6                 u252_20 02A6                 u244_20 0216  
+               u260_21 01A5                 u252_21 02A5                 u244_21 0215                 u261_20 01B7  
+               u253_20 012F                 u245_20 0237                 u261_21 01B6                 u253_21 012E  
+               u245_21 0236                 u270_20 0100                 u262_20 01CA                 u254_20 0140  
+               u246_20 0248                 u270_21 00FF                 u262_21 01C9                 u254_21 013F  
+               u246_21 0247                 u262_25 01C6                 u271_20 0114                 u263_20 01D2  
+               u255_20 0151                 u247_20 0256                 u271_21 0113                 u263_21 01D1  
+               u255_21 0150                 u247_21 0255                 u272_20 02B2                 u264_20 0034  
+               u256_20 0162                 u248_20 025D                 u272_21 02B1                 u264_21 0033  
+               u256_21 0161                 u248_21 025C                 u280_25 0303                 u281_20 0312  
+               u265_20 0070                 u257_20 0173                 u249_20 026B                 u281_21 0311  
+               u265_21 006F                 u257_21 0172                 u249_21 026A                 u273_25 02B7  
+               u274_20 02C6                 u282_20 031E                 u266_20 0083                 u258_20 0184  
+               u274_21 02C5                 u282_21 031D                 u266_21 0082                 u258_21 0183  
+               u282_25 031A                 u290_27 03F6                 u267_20 009C                 u259_20 0195  
+               u267_21 009B                 u259_21 0194                 u275_25 02C9                 u283_25 0326  
+               u267_25 0098                 u291_27 041C                 u276_20 02D9                 u284_20 0332  
+               u268_20 00A8                 u276_21 02D8                 u284_21 0331                 u268_21 00A7  
+               u276_25 02D5                 u269_20 00AF                 u269_21 00AE                 u277_25 02E2  
+               u278_20 02EE                 u278_21 02ED                 u279_20 02FE                 u279_21 02FD  
+               u289_27 0393              ??i1_pulse 0070       __end_of_clearLCD 0406              ??___lwdiv 0074  
+            ??___lwmod 007C              ??_compare 0030              ??_initLCD 0041                 saved_w 007E  
+            ??_sprintf 0023          printvoltage@i 0077         __pcstackCOMMON 0070           __pidataBANK0 0422  
+        __end_of_pulse 0414                ??_pulse 003F             __pbssBANK0 004D             __pmaintext 033C  
+           __pintentry 0004              ?_clearLCD 0070                i1_pulse 0414                ___lwdiv 02A8  
+              ___lwmod 02F8                _compare 0120                _initLCD 03CA                _dpowers 0019  
+         __size_of_isr 0032             ??_clearLCD 0072                _sprintf 0026                _storage 0045  
+ end_of_initialization 03C7                isr@volt 003E          ?_printvoltage 0070             compare@low 002F  
+  start_initialization 03A5            __end_of_isr 03A5         ??_printvoltage 0074            __pdataBANK0 0045  
+        __pcstackBANK0 0020      __size_of_clearLCD 0017               ?i1_pulse 0070            sprintf@_val 0029  
+          sprintf@flag 0027            sprintf@prec 0028       ___lwdiv@dividend 0072              __ptext280 01ED  
+            __ptext281 0120              __ptext282 03EF              __ptext283 0414              __ptext284 0026  
+            __ptext285 02F8              __ptext277 03CA              __ptext286 02A8              __ptext278 0406  
+            __ptext287 0000              __ptext279 0373               ?___lwdiv 0070               ?___lwmod 0078  
+            __pstrings 0013               ?_compare 002F               ?_initLCD 0070       ___lwdiv@quotient 0075  
+             ?_sprintf 0020         __size_of_pulse 000E      interrupt_function 0004            __stringbase 0018  
+  printvoltage@refresh 0075   __end_of_printvoltage 02A8              _totalvolt 004D       __size_ofi1_pulse 000E  
+     __size_of___lwdiv 0050       __size_of___lwmod 0044       __size_of_compare 00CD       __size_of_initLCD 0025  
+             _clearLCD 03EF        ___lwdiv@divisor 0070        ___lwdiv@counter 0077       __size_of_sprintf 00FA  
+        __size_of_main 0037               compare@v 0031               intlevel1 0000              sprintf@ap 0026  
+            sprintf@sp 002D       ___lwmod@dividend 007A              stringcode 0013      printvoltage@digit 0076  
+__size_of_printvoltage 00BB               sprintf@c 002E               sprintf@f 0020        ___lwmod@divisor 0078  
+      ___lwmod@counter 007D               stringdir 0013               stringtab 0013           _printvoltage 01ED  

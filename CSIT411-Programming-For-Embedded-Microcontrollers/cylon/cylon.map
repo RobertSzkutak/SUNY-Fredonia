@@ -1,0 +1,40 @@
+MPLINK 4.38, Linker
+Linker Map File - Created Tue Feb 15 14:49:16 2011
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000068
+                   .cinit    romdata   0x000034    program   0x000004
+     .config_2007_CYLON.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000035      
+                            0x002007    0x002007      
+            55 out of 4359 program addresses used, program memory utilization is 1%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    DELAY   0x00002c    program     static C:\projects\PIC\cylon\cylon.asm
+                DELAYLOOP   0x00002f    program     static C:\projects\PIC\cylon\cylon.asm
+                  INITIAL   0x000020    program     static C:\projects\PIC\cylon\cylon.asm
+                     MAIN   0x000001    program     static C:\projects\PIC\cylon\cylon.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     MAIN   0x000001    program     static C:\projects\PIC\cylon\cylon.asm
+                  INITIAL   0x000020    program     static C:\projects\PIC\cylon\cylon.asm
+                    DELAY   0x00002c    program     static C:\projects\PIC\cylon\cylon.asm
+                DELAYLOOP   0x00002f    program     static C:\projects\PIC\cylon\cylon.asm
+
+

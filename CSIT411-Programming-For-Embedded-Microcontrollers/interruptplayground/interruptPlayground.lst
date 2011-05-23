@@ -1,0 +1,717 @@
+MPASM  5.39           INTERRUPTPLAYGROUND.ASM   3-21-2011  22:23:46         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001         radix hex
+                      00002         include "P16F690.INC"
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F690 processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2010 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+                      00739         LIST
+2007   3FC4           00003         __config _CP_OFF & _WDT_OFF & _BOR_ON & _PWRTE_ON & _INTOSCIO & _MCLRE_OFF
+                      00004         errorlevel -302
+                      00005         org 0
+0000   2???           00006         GOTO MAIN
+                      00007 
+                      00008     org 4                  ;interrupt code must be at program memory location 4
+0004   2???           00009     GOTO ISR
+                      00010 
+  00000020            00011 count equ 20
+  00000021            00012 count2 equ 21
+  00000022            00013 count3 equ 22
+  00000023            00014 count4 equ 23
+  00000024            00015 count5 equ 24
+  00000025            00016 count6 equ 25
+                      00017 
+0005                  00018 MAIN
+0005   2???           00019         CALL INITIAL
+                      00020 
+0006                  00021 LOOP     
+0006   2???           00022         GOTO LOOP       ;note: main program loop is empty!
+                      00023 
+0007                  00024 ISR
+0007   190B           00025         btfsc INTCON,T0IF
+0008   2???           00026     GOTO TIMER
+0009   188B           00027     btfsc INTCON,INTF
+000A   2???           00028     GOTO BUTTON
+000B   0009           00029     retfie
+                      00030 
+000C                  00031 TIMER
+000C   110B           00032         bcf INTCON,T0IF 
+000D   0BA0           00033         decfsz count,f
+000E   0009           00034         retfie 
+000F   3001           00035         movlw 1
+0010   00A0           00036         movwf count
+0011   2???           00037         call GREEN1OFF
+0012   2???           00038         call YELLOW1ON
+0013   0BA1           00039         decfsz count2, f
+0014   0009           00040         retfie
+0015   3001           00041         movlw 1
+0016   00A1           00042         movwf count2
+0017   2???           00043         call YELLOW1OFF
+0018   2???           00044         call RED1ON
+MPASM  5.39           INTERRUPTPLAYGROUND.ASM   3-21-2011  22:23:46         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0019   0BA2           00045         decfsz count3, f
+001A   0009           00046         retfie
+001B   3001           00047         movlw 1
+001C   00A2           00048         movwf count3
+001D   2???           00049         call GREEN2ON
+001E   2???           00050         call RED2OFF
+001F   0BA3           00051         decfsz count4, f
+0020   0009           00052         retfie
+0021   3001           00053         movlw 1
+0022   00A3           00054         movwf count4
+0023   2???           00055         call GREEN2OFF
+0024   2???           00056         call YELLOW2ON
+0025   0BA4           00057         decfsz count5, f
+0026   0009           00058         retfie
+0027   3001           00059         movlw 1
+0028   00A4           00060         movwf count5
+0029   2???           00061         call YELLOW2OFF
+002A   2???           00062         call RED2ON
+Message[305]: Using default destination of 1 (file).
+002B   0BA5           00063         decfsz count6
+002C   0009           00064         retfie
+002D   3001           00065         movlw 1
+002E   00A5           00066         movwf count6
+002F   2???           00067         call RED1OFF
+0030   2???           00068         call GREEN1ON
+0031   2???           00069         call RESETCOUNT
+0032   0009           00070     retfie
+                      00071 
+0033                  00072 BUTTON
+0033   108B           00073         bcf INTCON, INTF
+0034   3040           00074         movlw 40
+0035   00A2           00075         movwf count3
+0036   3040           00076         movlw 40
+0037   00A5           00077         movwf count6
+0038   0009           00078         retfie
+                      00079 
+0039                  00080 RESETCOUNT
+0039   3024           00081         movlw 24
+003A   00A0           00082         movwf count
+003B   3016           00083         movlw 16
+003C   00A1           00084         movwf count2
+003D   3008           00085         movlw 8 
+003E   00A2           00086         movwf count3
+003F   3024           00087         movlw 24
+0040   00A3           00088         movwf count4
+0041   3016           00089         movlw 16
+0042   00A4           00090         movwf count5
+0043   3008           00091         movlw 8
+0044   00A5           00092         movwf count6
+0045   0008           00093         return
+                      00094 
+0046                  00095 INITIAL
+0046   1703           00096         bsf STATUS, RP1
+MPASM  5.39           INTERRUPTPLAYGROUND.ASM   3-21-2011  22:23:46         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0047   019E           00097     clrf ANSEL
+0048   019F           00098     clrf ANSELH
+0049   1303           00099     bcf STATUS, RP1
+004A   1683           00100     bsf STATUS, RP0
+004B   3000           00101     movlw B'00000000'
+004C   0087           00102     movwf TRISC
+004D   3007           00103     movlw B'00000111'    ;prescaler set to 256 to 1
+004E   0081           00104     movwf OPTION_REG
+004F   1283           00105     bcf STATUS, RP0
+0050   168B           00106     bsf INTCON, T0IE    ;set timer0 interrupt on
+0051   160B           00107         bsf INTCON, INTE   ;set external interrupt on
+0052   178B           00108     bsf INTCON, GIE    ; turn global interrupts on
+0053   2???           00109         call RESETCOUNT
+0054   2???           00110         call GREEN1ON
+0055   2???           00111         call RED2ON
+0056   0008           00112     return
+                      00113 
+0057                  00114 GREEN1ON
+0057   1287           00115         bcf PORTC, 5;Turn on light 0
+0058   0008           00116         return
+                      00117 
+0059                  00118 GREEN1OFF
+0059   1687           00119         bsf PORTC, 5;Turn off light 0
+005A   0008           00120         return
+                      00121 
+005B                  00122 YELLOW1ON
+005B   1207           00123         bcf PORTC, 4;Turn on light 1
+005C   0008           00124         return
+                      00125 
+005D                  00126 YELLOW1OFF
+005D   1607           00127         bsf PORTC, 4;Turn off light 1
+005E   0008           00128         return
+                      00129 
+005F                  00130 RED1ON
+005F   1187           00131         bcf PORTC, 3;Turn on light 2
+0060   0008           00132         return
+                      00133 
+0061                  00134 RED1OFF
+0061   1587           00135         bsf PORTC, 3;Turn off light 2
+0062   0008           00136         return
+                      00137 
+0063                  00138 GREEN2ON
+0063   1107           00139         bcf PORTC, 2;Turn on light 3
+0064   0008           00140         return
+                      00141 
+0065                  00142 GREEN2OFF
+0065   1507           00143         bsf PORTC, 2;Turn off light 3
+0066   0008           00144         return
+                      00145 
+0067                  00146 YELLOW2ON
+0067   1087           00147         bcf PORTC, 1;Turn on light 4
+0068   0008           00148         return
+                      00149 
+MPASM  5.39           INTERRUPTPLAYGROUND.ASM   3-21-2011  22:23:46         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0069                  00150 YELLOW2OFF
+0069   1487           00151         bsf PORTC, 1;Turn off light 4
+006A   0008           00152         return
+                      00153 
+006B                  00154 RED2ON
+006B   1007           00155         bcf PORTC, 0;Turn on light 5
+006C   0008           00156         return
+                      00157 
+006D                  00158 RED2OFF
+006D   1407           00159         bsf PORTC, 0;Turn off light 5
+006E   0008           00160         return
+                      00161 
+3FC4                  00162     end
+MPASM  5.39           INTERRUPTPLAYGROUND.ASM   3-21-2011  22:23:46         PAGE  5
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ABDEN                             00000000
+ABDOVF                            00000007
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000004
+ADCS1                             00000005
+ADCS2                             00000006
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+ANS0                              00000000
+ANS1                              00000001
+ANS10                             00000002
+ANS11                             00000003
+ANS2                              00000002
+ANS3                              00000003
+ANS4                              00000004
+ANS5                              00000005
+ANS6                              00000006
+ANS7                              00000007
+ANS8                              00000000
+ANS9                              00000001
+ANSEL                             0000011E
+ANSELH                            0000011F
+BAUDCTL                           0000009B
+BF                                00000000
+BRG0                              00000000
+BRG1                              00000001
+BRG10                             00000002
+BRG11                             00000003
+BRG12                             00000004
+BRG13                             00000005
+BRG14                             00000006
+BRG15                             00000007
+BRG16                             00000003
+BRG2                              00000002
+BRG3                              00000003
+BRG4                              00000004
+BRG5                              00000005
+BRG6                              00000006
+BRG7                              00000007
+BRG8                              00000000
+BRG9                              00000001
+BRGH                              00000002
+BUTTON                            00000033
+C                                 00000000
+C1CH0                             00000000
+C1CH1                             00000001
+C1IE                              00000005
+MPASM  5.39           INTERRUPTPLAYGROUND.ASM   3-21-2011  22:23:46         PAGE  6
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+C1IF                              00000005
+C1OE                              00000005
+C1ON                              00000007
+C1OUT                             00000006
+C1POL                             00000004
+C1R                               00000002
+C1SEN                             00000005
+C1VREN                            00000007
+C2CH0                             00000000
+C2CH1                             00000001
+C2IE                              00000006
+C2IF                              00000006
+C2OE                              00000005
+C2ON                              00000007
+C2OUT                             00000006
+C2POL                             00000004
+C2R                               00000002
+C2REN                             00000004
+C2SYNC                            00000000
+C2VREN                            00000006
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCPR1H                            00000016
+CCPR1L                            00000015
+CHS0                              00000002
+CHS1                              00000003
+CHS2                              00000004
+CHS3                              00000005
+CKE                               00000006
+CKP                               00000004
+CM1CON0                           00000119
+CM2CON0                           0000011A
+CM2CON1                           0000011B
+CREN                              00000004
+CSRC                              00000007
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+DC1B0                             00000004
+DC1B1                             00000005
+D_A                               00000005
+D_NOT_A                           00000005
+ECCPAS                            0000001D
+ECCPAS0                           00000004
+ECCPAS1                           00000005
+ECCPAS2                           00000006
+ECCPASE                           00000007
+EEADR                             0000010D
+MPASM  5.39           INTERRUPTPLAYGROUND.ASM   3-21-2011  22:23:46         PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDAT                             0000010C
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+F                                 00000001
+FERR                              00000002
+FSR                               00000004
+GIE                               00000007
+GO                                00000001
+GO_DONE                           00000001
+GO_NOT_DONE                       00000001
+GREEN1OFF                         00000059
+GREEN1ON                          00000057
+GREEN2OFF                         00000065
+GREEN2ON                          00000063
+HTS                               00000002
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+INDF                              00000000
+INITIAL                           00000046
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IOC                               00000096
+IOC0                              00000000
+IOC1                              00000001
+IOC2                              00000002
+IOC3                              00000003
+IOC4                              00000004
+IOC5                              00000005
+IOCA                              00000096
+IOCA0                             00000000
+IOCA1                             00000001
+IOCA2                             00000002
+IOCA3                             00000003
+IOCA4                             00000004
+IOCA5                             00000005
+IOCB                              00000116
+IOCB4                             00000004
+IOCB5                             00000005
+IOCB6                             00000006
+IOCB7                             00000007
+IRCF0                             00000004
+IRCF1                             00000005
+IRCF2                             00000006
+MPASM  5.39           INTERRUPTPLAYGROUND.ASM   3-21-2011  22:23:46         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+IRP                               00000007
+ISR                               00000007
+LOOP                              00000006
+LTS                               00000001
+MAIN                              00000005
+MC1OUT                            00000007
+MC2OUT                            00000006
+MSK                               00000093
+MSK0                              00000000
+MSK1                              00000001
+MSK2                              00000002
+MSK3                              00000003
+MSK4                              00000004
+MSK5                              00000005
+MSK6                              00000006
+MSK7                              00000007
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BOR                           00000000
+NOT_DONE                          00000001
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RABPU                         00000007
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OERR                              00000001
+OPTION_REG                        00000081
+OSCCON                            0000008F
+OSCTUNE                           00000090
+OSFIE                             00000007
+OSFIF                             00000007
+OSTS                              00000003
+P                                 00000004
+P1M0                              00000006
+P1M1                              00000007
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PDC0                              00000000
+PDC1                              00000001
+PDC2                              00000002
+PDC3                              00000003
+PDC4                              00000004
+PDC5                              00000005
+PDC6                              00000006
+PEIE                              00000006
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+MPASM  5.39           INTERRUPTPLAYGROUND.ASM   3-21-2011  22:23:46         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+PORTB                             00000006
+PORTC                             00000007
+PR2                               00000092
+PRSEN                             00000007
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSSAC0                            00000002
+PSSAC1                            00000003
+PSSBD0                            00000000
+PSSBD1                            00000001
+PSTRCON                           0000019D
+PULSR                             00000002
+PULSS                             00000003
+PWM1CON                           0000001C
+R                                 00000002
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RABIE                             00000003
+RABIF                             00000000
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RC0                               00000000
+RC1                               00000001
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RCIDL                             00000006
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+READ_WRITE                        00000002
+RED1OFF                           00000061
+RED1ON                            0000005F
+RED2OFF                           0000006D
+RED2ON                            0000006B
+RESETCOUNT                        00000039
+RP0                               00000005
+RP1                               00000006
+RX9                               00000006
+RX9D                              00000000
+MPASM  5.39           INTERRUPTPLAYGROUND.ASM   3-21-2011  22:23:46         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+R_NOT_W                           00000002
+R_W                               00000002
+S                                 00000003
+SBOREN                            00000004
+SCKP                              00000004
+SCS                               00000000
+SENB                              00000003
+SENDB                             00000003
+SMP                               00000007
+SPBRG                             00000099
+SPBRGH                            0000009A
+SPEN                              00000007
+SR0                               00000006
+SR1                               00000007
+SRCON                             0000019E
+SREN                              00000005
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPMSK                            00000093
+SSPOV                             00000006
+SSPSTAT                           00000094
+STATUS                            00000003
+STRA                              00000000
+STRB                              00000001
+STRC                              00000002
+STRD                              00000003
+STRSYNC                           00000004
+SWDTEN                            00000000
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1GINV                            00000007
+T1GSS                             00000001
+T1IE                              00000000
+T1IF                              00000000
+T1OSCEN                           00000003
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+T2IE                              00000001
+MPASM  5.39           INTERRUPTPLAYGROUND.ASM   3-21-2011  22:23:46         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+T2IF                              00000001
+TIMER                             0000000C
+TMR0                              00000001
+TMR1CS                            00000001
+TMR1GE                            00000006
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISB                             00000086
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRISC                             00000087
+TRISC0                            00000000
+TRISC1                            00000001
+TRISC2                            00000002
+TRISC3                            00000003
+TRISC4                            00000004
+TRISC5                            00000005
+TRISC6                            00000006
+TRISC7                            00000007
+TRMT                              00000001
+TUN0                              00000000
+TUN1                              00000001
+TUN2                              00000002
+TUN3                              00000003
+TUN4                              00000004
+TX9                               00000006
+TX9D                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+MPASM  5.39           INTERRUPTPLAYGROUND.ASM   3-21-2011  22:23:46         PAGE 12
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ULPWUE                            00000005
+VCFG                              00000006
+VP6EN                             00000004
+VR0                               00000000
+VR1                               00000001
+VR2                               00000002
+VR3                               00000003
+VRCON                             00000118
+VRR                               00000005
+W                                 00000000
+WCOL                              00000007
+WDTCON                            00000097
+WDTPS0                            00000001
+WDTPS1                            00000002
+WDTPS2                            00000003
+WDTPS3                            00000004
+WPU                               00000095
+WPU0                              00000000
+WPU1                              00000001
+WPU2                              00000002
+WPU4                              00000004
+WPU5                              00000005
+WPUA                              00000095
+WPUA0                             00000000
+WPUA1                             00000001
+WPUA2                             00000002
+WPUA4                             00000004
+WPUA5                             00000005
+WPUB                              00000115
+WPUB4                             00000004
+WPUB5                             00000005
+WPUB6                             00000006
+WPUB7                             00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+WUE                               00000001
+YELLOW1OFF                        0000005D
+YELLOW1ON                         0000005B
+YELLOW2OFF                        00000069
+YELLOW2ON                         00000067
+Z                                 00000002
+_BOD_NSLEEP                       00003EFF
+_BOD_OFF                          00003CFF
+_BOD_ON                           00003FFF
+_BOD_SBODEN                       00003DFF
+_BOR_NSLEEP                       00003EFF
+_BOR_OFF                          00003CFF
+_BOR_ON                           00003FFF
+_BOR_SBODEN                       00003DFF
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003F7F
+MPASM  5.39           INTERRUPTPLAYGROUND.ASM   3-21-2011  22:23:46         PAGE 13
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_CP_OFF                           00003FFF
+_CP_ON                            00003FBF
+_DEVID1                           00002006
+_EC_OSC                           00003FFB
+_EXTRC                            00003FFF
+_EXTRCIO                          00003FFE
+_EXTRC_OSC_CLKOUT                 00003FFF
+_EXTRC_OSC_NOCLKOUT               00003FFE
+_FCMEN_OFF                        000037FF
+_FCMEN_ON                         00003FFF
+_HS_OSC                           00003FFA
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_IESO_OFF                         00003BFF
+_IESO_ON                          00003FFF
+_INTOSC                           00003FFD
+_INTOSCIO                         00003FFC
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FF8
+_MCLRE_OFF                        00003FDF
+_MCLRE_ON                         00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FEF
+_WDT_OFF                          00003FF7
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FF9
+__16F690                          00000001
+__DEBUG                           1
+count                             00000020
+count2                            00000021
+count3                            00000022
+count4                            00000023
+count5                            00000024
+count6                            00000025
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     1 reported,     4 suppressed
+
+

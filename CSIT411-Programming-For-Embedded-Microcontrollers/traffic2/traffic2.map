@@ -1,0 +1,88 @@
+MPLINK 4.38, Linker
+Linker Map File - Created Tue Mar 01 19:01:36 2011
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000002
+                   .org_2       code   0x000004    program   0x00010e
+  .config_2007_TRAFFIC2.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000000      
+                            0x000004    0x00008a      
+                            0x002007    0x002007      
+            137 out of 4359 program addresses used, program memory utilization is 3%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   BUTTON   0x00003b    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  CHANGE1   0x000029    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  CHANGE2   0x00002c    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  CHANGE3   0x00002f    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  CHANGE4   0x000032    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  CHANGE5   0x000035    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  CHANGE6   0x000038    program     static C:\projects\PIC\traffic2\traffic2.asm
+              CROSS1RESET   0x000061    program     static C:\projects\PIC\traffic2\traffic2.asm
+              CROSS2RESET   0x000068    program     static C:\projects\PIC\traffic2\traffic2.asm
+                 CROSSOFF   0x000071    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  CROSSON   0x00006f    program     static C:\projects\PIC\traffic2\traffic2.asm
+                GREEN1OFF   0x000075    program     static C:\projects\PIC\traffic2\traffic2.asm
+                 GREEN1ON   0x000073    program     static C:\projects\PIC\traffic2\traffic2.asm
+                GREEN2OFF   0x000081    program     static C:\projects\PIC\traffic2\traffic2.asm
+                 GREEN2ON   0x00007f    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  INITIAL   0x000042    program     static C:\projects\PIC\traffic2\traffic2.asm
+                      ISR   0x000006    program     static C:\projects\PIC\traffic2\traffic2.asm
+                     MAIN   0x000005    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  RED1OFF   0x00007d    program     static C:\projects\PIC\traffic2\traffic2.asm
+                   RED1ON   0x00007b    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  RED2OFF   0x000089    program     static C:\projects\PIC\traffic2\traffic2.asm
+                   RED2ON   0x000087    program     static C:\projects\PIC\traffic2\traffic2.asm
+                    TIMER   0x00000b    program     static C:\projects\PIC\traffic2\traffic2.asm
+               YELLOW1OFF   0x000079    program     static C:\projects\PIC\traffic2\traffic2.asm
+                YELLOW1ON   0x000077    program     static C:\projects\PIC\traffic2\traffic2.asm
+               YELLOW2OFF   0x000085    program     static C:\projects\PIC\traffic2\traffic2.asm
+                YELLOW2ON   0x000083    program     static C:\projects\PIC\traffic2\traffic2.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     MAIN   0x000005    program     static C:\projects\PIC\traffic2\traffic2.asm
+                      ISR   0x000006    program     static C:\projects\PIC\traffic2\traffic2.asm
+                    TIMER   0x00000b    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  CHANGE1   0x000029    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  CHANGE2   0x00002c    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  CHANGE3   0x00002f    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  CHANGE4   0x000032    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  CHANGE5   0x000035    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  CHANGE6   0x000038    program     static C:\projects\PIC\traffic2\traffic2.asm
+                   BUTTON   0x00003b    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  INITIAL   0x000042    program     static C:\projects\PIC\traffic2\traffic2.asm
+              CROSS1RESET   0x000061    program     static C:\projects\PIC\traffic2\traffic2.asm
+              CROSS2RESET   0x000068    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  CROSSON   0x00006f    program     static C:\projects\PIC\traffic2\traffic2.asm
+                 CROSSOFF   0x000071    program     static C:\projects\PIC\traffic2\traffic2.asm
+                 GREEN1ON   0x000073    program     static C:\projects\PIC\traffic2\traffic2.asm
+                GREEN1OFF   0x000075    program     static C:\projects\PIC\traffic2\traffic2.asm
+                YELLOW1ON   0x000077    program     static C:\projects\PIC\traffic2\traffic2.asm
+               YELLOW1OFF   0x000079    program     static C:\projects\PIC\traffic2\traffic2.asm
+                   RED1ON   0x00007b    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  RED1OFF   0x00007d    program     static C:\projects\PIC\traffic2\traffic2.asm
+                 GREEN2ON   0x00007f    program     static C:\projects\PIC\traffic2\traffic2.asm
+                GREEN2OFF   0x000081    program     static C:\projects\PIC\traffic2\traffic2.asm
+                YELLOW2ON   0x000083    program     static C:\projects\PIC\traffic2\traffic2.asm
+               YELLOW2OFF   0x000085    program     static C:\projects\PIC\traffic2\traffic2.asm
+                   RED2ON   0x000087    program     static C:\projects\PIC\traffic2\traffic2.asm
+                  RED2OFF   0x000089    program     static C:\projects\PIC\traffic2\traffic2.asm
+
+

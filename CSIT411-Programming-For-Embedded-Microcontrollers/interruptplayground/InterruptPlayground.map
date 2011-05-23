@@ -1,0 +1,72 @@
+MPLINK 4.38, Linker
+Linker Map File - Created Mon Mar 21 22:23:47 2011
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000002
+                   .cinit    romdata   0x000001    program   0x000004
+                   .org_1       code   0x000004    program   0x0000d6
+.config_2007_INTERRUPTPLAYGROUND.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000002      
+                            0x000004    0x00006e      
+                            0x002007    0x002007      
+            111 out of 4359 program addresses used, program memory utilization is 2%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   BUTTON   0x000033    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                GREEN1OFF   0x000059    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                 GREEN1ON   0x000057    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                GREEN2OFF   0x000065    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                 GREEN2ON   0x000063    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                  INITIAL   0x000046    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                      ISR   0x000007    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                     LOOP   0x000006    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                     MAIN   0x000005    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                  RED1OFF   0x000061    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                   RED1ON   0x00005f    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                  RED2OFF   0x00006d    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                   RED2ON   0x00006b    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+               RESETCOUNT   0x000039    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                    TIMER   0x00000c    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+               YELLOW1OFF   0x00005d    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                YELLOW1ON   0x00005b    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+               YELLOW2OFF   0x000069    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                YELLOW2ON   0x000067    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     MAIN   0x000005    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                     LOOP   0x000006    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                      ISR   0x000007    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                    TIMER   0x00000c    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                   BUTTON   0x000033    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+               RESETCOUNT   0x000039    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                  INITIAL   0x000046    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                 GREEN1ON   0x000057    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                GREEN1OFF   0x000059    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                YELLOW1ON   0x00005b    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+               YELLOW1OFF   0x00005d    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                   RED1ON   0x00005f    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                  RED1OFF   0x000061    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                 GREEN2ON   0x000063    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                GREEN2OFF   0x000065    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                YELLOW2ON   0x000067    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+               YELLOW2OFF   0x000069    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                   RED2ON   0x00006b    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+                  RED2OFF   0x00006d    program     static C:\projects\PIC\interruptplayground\interruptPlayground.asm
+
+

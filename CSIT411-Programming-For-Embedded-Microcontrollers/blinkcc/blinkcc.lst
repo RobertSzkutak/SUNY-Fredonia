@@ -1,0 +1,293 @@
+
+
+HI-TECH Software PIC LITE Macro Assembler V9.80 build 6738 
+                                                                                               Tue Mar 29 15:44:35 2011
+
+HI-TECH Software Omniscient Code Generator (Lite mode) build 6738
+     1  0000                     opt subtitle "HI-TECH Software Omniscient Code Generator (Lite mode) build 6738"
+     2                           
+     3                           opt pagewidth 120
+     4                           
+     5                           	opt lm
+     6                           
+     7                           	processor	16F690
+     8                           clrc	macro
+     9                           	bcf	3,0
+    10  0000                     	endm
+    11                           clrz	macro
+    12                           	bcf	3,2
+    13  0000                     	endm
+    14                           setc	macro
+    15                           	bsf	3,0
+    16  0000                     	endm
+    17                           setz	macro
+    18                           	bsf	3,2
+    19  0000                     	endm
+    20                           skipc	macro
+    21                           	btfss	3,0
+    22  0000                     	endm
+    23                           skipz	macro
+    24                           	btfss	3,2
+    25  0000                     	endm
+    26                           skipnc	macro
+    27                           	btfsc	3,0
+    28  0000                     	endm
+    29                           skipnz	macro
+    30                           	btfsc	3,2
+    31  0000                     	endm
+    32  0000                     indf	equ	0
+    33  0000                     indf0	equ	0
+    34  0002                     pc	equ	2
+    35  0002                     pcl	equ	2
+    36  0003                     status	equ	3
+    37  0004                     fsr	equ	4
+    38  0004                     fsr0	equ	4
+    39  0001                     c	equ	1
+    40  0000                     z	equ	0
+    41  000A                     pclath	equ	10
+    42                           # 4 "C:\projects\PIC\blinkcc\blinkcc.c"
+    43                           	psect config,class=CONFIG,delta=2 ;#
+    44                           # 4 "C:\projects\PIC\blinkcc\blinkcc.c"
+    45  2007  3CC4               	dw 0x3FFF & 0x3CFF & 0x3FDF & 0x3FEF & 0x3FFC & 0x3FF7 ;#
+    46                           	FNROOT	_main
+    47                           	global	_RA2
+    48                           psect	maintext,global,class=CODE,delta=2
+    49                           global __pmaintext
+    50  07E8                     __pmaintext:
+    51  002A                     _RA2	set	42
+    52                           	global	_RC5
+    53  003D                     _RC5	set	61
+    54                           	global	_OPTION
+    55  0081                     _OPTION	set	129
+    56                           	global	_TRISA
+    57  0085                     _TRISA	set	133
+    58                           	global	_TRISC
+    59  0087                     _TRISC	set	135
+    60                           	global	_ANSEL
+    61  011E                     _ANSEL	set	286
+    62                           	global	_ANSELH
+    63  011F                     _ANSELH	set	287
+    64                           	file	"blinkcc.as"
+    65                           	line	#
+    66                           psect cinit,class=CODE,delta=2
+    67                           global start_initialization
+    68  07E5                     start_initialization:
+    69                           
+    70                           psect cinit,class=CODE,delta=2
+    71                           global end_of_initialization
+    72                           
+    73                           ;End of C runtime variable initialization code
+    74                           
+    75  07E5                     end_of_initialization:
+    76  07E5  0183               clrf status
+    77  07E6  118A  2FE8         ljmp _main	;jump to C main() function
+    78                           psect	cstackCOMMON,class=COMMON,space=1
+    79                           global __pcstackCOMMON
+    80  0000                     __pcstackCOMMON:
+    81                           	global	?_main
+    82  0000                     ?_main:	; 0 bytes @ 0x0
+    83                           	global	??_main
+    84  0000                     ??_main:	; 0 bytes @ 0x0
+    85 ;;Data sizes: Strings 0, constant 0, data 0, bss 0, persistent 0 stack 0
+    86 ;;Auto spaces:   Size  Autos    Used
+    87 ;; COMMON          14      0       0
+    88 ;; BANK0           80      0       0
+    89 ;; BANK1           80      0       0
+    90 ;; BANK2           80      0       0
+    91                           
+    92 ;;
+    93 ;; Pointer list with targets:
+    94                           
+    95                           
+    96                           
+    97 ;;
+    98 ;; Critical Paths under _main in COMMON
+    99 ;;
+   100 ;;   None.
+   101 ;;
+   102 ;; Critical Paths under _main in BANK0
+   103 ;;
+   104 ;;   None.
+   105 ;;
+   106 ;; Critical Paths under _main in BANK1
+   107 ;;
+   108 ;;   None.
+   109 ;;
+   110 ;; Critical Paths under _main in BANK2
+   111 ;;
+   112 ;;   None.
+   113                           
+   114 ;;
+   115 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   116 ;;
+   117                           
+   118 ;;
+   119 ;;Call Graph Tables:
+   120 ;;
+   121 ;; ---------------------------------------------------------------------------------
+   122 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   123 ;; ---------------------------------------------------------------------------------
+   124 ;; (0) _main                                                 0     0      0       0
+   125 ;; ---------------------------------------------------------------------------------
+   126 ;; Estimated maximum stack depth 0
+   127 ;; ---------------------------------------------------------------------------------
+   128                           
+   129 ;; Call Graph Graphs:
+   130                           
+   131 ;; _main (ROOT)
+   132 ;;
+   133                           
+   134 ;; Address spaces:
+   135                           
+   136 ;;Name               Size   Autos  Total    Cost      Usage
+   137 ;;BITCOMMON            E      0       0       0        0.0%
+   138 ;;EEDATA             100      0       0       0        0.0%
+   139 ;;NULL                 0      0       0       0        0.0%
+   140 ;;CODE                 0      0       0       0        0.0%
+   141 ;;COMMON               E      0       0       1        0.0%
+   142 ;;BITSFR0              0      0       0       1        0.0%
+   143 ;;SFR0                 0      0       0       1        0.0%
+   144 ;;BITSFR1              0      0       0       2        0.0%
+   145 ;;SFR1                 0      0       0       2        0.0%
+   146 ;;STACK                0      0       0       2        0.0%
+   147 ;;BANK0               50      0       0       3        0.0%
+   148 ;;BITBANK1            50      0       0       4        0.0%
+   149 ;;BITSFR3              0      0       0       4        0.0%
+   150 ;;SFR3                 0      0       0       4        0.0%
+   151 ;;BANK1               50      0       0       5        0.0%
+   152 ;;BITSFR2              0      0       0       5        0.0%
+   153 ;;SFR2                 0      0       0       5        0.0%
+   154 ;;BITBANK2            50      0       0       6        0.0%
+   155 ;;BANK2               50      0       0       7        0.0%
+   156 ;;ABS                  0      0       0       8        0.0%
+   157 ;;BITBANK0            50      0       0       9        0.0%
+   158 ;;DATA                 0      0       0      10        0.0%
+   159                           
+   160                           	global	_main
+   161                           psect	maintext
+   162                           
+   163 ;; *************** function _main *****************
+   164 ;; Defined at:
+   165 ;;		line 13 in file "C:\projects\PIC\blinkcc\blinkcc.c"
+   166 ;; Parameters:    Size  Location     Type
+   167 ;;		None
+   168 ;; Auto vars:     Size  Location     Type
+   169 ;;		None
+   170 ;; Return value:  Size  Location     Type
+   171 ;;		None               void
+   172 ;; Registers used:
+   173 ;;		wreg, status,2
+   174 ;; Tracked objects:
+   175 ;;		On entry : 17F/0
+   176 ;;		On exit  : 0/0
+   177 ;;		Unchanged: 0/0
+   178 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   179 ;;      Params:         0       0       0       0
+   180 ;;      Locals:         0       0       0       0
+   181 ;;      Temps:          0       0       0       0
+   182 ;;      Totals:         0       0       0       0
+   183 ;;Total ram usage:        0 bytes
+   184 ;; This function calls:
+   185 ;;		Nothing
+   186 ;; This function is called by:
+   187 ;;		Startup code after reset
+   188 ;; This function uses a non-reentrant model
+   189 ;;
+   190                           psect	maintext
+   191                           	file	"C:\projects\PIC\blinkcc\blinkcc.c"
+   192                           	line	13
+   193                           	global	__size_of_main
+   194  0018                     	__size_of_main	equ	__end_of_main-_main
+   195                           	
+   196  07E8                     _main:	
+   197                           	opt	stack 8
+   198                           ; Regs used in _main: [wreg+status,2]
+   199                           	line	14
+   200                           	
+   201  07E8                     l1082:	
+   202                           ;blinkcc.c: 14: ANSEL = ANSELH = 0;
+   203  07E8  1283               	bcf	status, 5	;RP0=0, select bank2
+   204  07E9  1703               	bsf	status, 6	;RP1=1, select bank2
+   205  07EA  019F               	clrf	(287)^0100h	;volatile
+   206  07EB  019E               	clrf	(286)^0100h	;volatile
+   207                           	line	15
+   208                           	
+   209  07EC                     l1084:	
+   210                           ;blinkcc.c: 15: TRISC = 0b11011111;
+   211  07EC  30DF               	movlw	(0DFh)
+   212  07ED  1683               	bsf	status, 5	;RP0=1, select bank1
+   213  07EE  1303               	bcf	status, 6	;RP1=0, select bank1
+   214  07EF  0087               	movwf	(135)^080h	;volatile
+   215                           	line	16
+   216                           	
+   217  07F0                     l1086:	
+   218                           ;blinkcc.c: 16: TRISA = 0b11111111;
+   219  07F0  30FF               	movlw	(0FFh)
+   220  07F1  0085               	movwf	(133)^080h	;volatile
+   221                           	line	17
+   222                           ;blinkcc.c: 17: OPTION = 0;
+   223  07F2  0181               	clrf	(129)^080h	;volatile
+   224  07F3  2FF4               	goto	l1088
+   225                           	line	21
+   226                           ;blinkcc.c: 21: while(1){
+   227                           	
+   228  07F4                     l709:	
+   229                           	line	29
+   230                           	
+   231  07F4                     l1088:	
+   232                           ;blinkcc.c: 29: if(RA2 == 0)
+   233  07F4  1283               	bcf	status, 5	;RP0=0, select bank0
+   234  07F5  1905               	btfsc	(42/8),(42)&7
+   235  07F6  2FF8               	goto	u11
+   236  07F7  2FF9               	goto	u10
+   237  07F8                     u11:
+   238  07F8  2FF4               	goto	l1088
+   239  07F9                     u10:
+   240                           	line	30
+   241                           	
+   242  07F9                     l1090:	
+   243                           ;blinkcc.c: 30: RC5 = RC5 ^ 1;
+   244  07F9  3020               	movlw	1<<((61)&7)
+   245  07FA  0687               	xorwf	((61)/8),f
+   246  07FB  2FF4               	goto	l1088
+   247                           	
+   248  07FC                     l710:	
+   249  07FC  2FF4               	goto	l1088
+   250                           	line	32
+   251                           	
+   252  07FD                     l711:	
+   253                           	line	21
+   254  07FD  2FF4               	goto	l1088
+   255                           	
+   256  07FE                     l712:	
+   257                           	line	33
+   258                           	
+   259  07FE                     l713:	
+   260                           	global	start
+   261  07FE  118A  2800         	ljmp	start
+   262                           	opt stack 0
+   263                           GLOBAL	__end_of_main
+   264  0800                     	__end_of_main:
+   265 ;; =============== function _main ends ============
+   266                           
+   267                           	signat	_main,88
+   268                           psect	maintext
+   269                           	global	btemp
+   270  007E                     	btemp set 07Eh
+   271                           
+   272                           	DABS	1,126,2	;btemp
+   273                           	global	wtemp0
+   274  007E                     	wtemp0 set btemp
+
+
+HI-TECH Software PICC Macro Assembler V9.80 build 6738 
+Symbol Table                                                                                   Tue Mar 29 15:44:35 2011
+
+                  u10 07F9                    u11 07F8                   l710 07FC                   l711 07FD  
+                 l712 07FE                   l713 07FE                   l709 07F4                   _RA2 002A  
+                 _RC5 003D                  l1090 07F9                  l1082 07E8                  l1084 07EC  
+                l1086 07F0                  l1088 07F4                  _main 07E8                  btemp 007E  
+                start 0000                 ?_main 0000                 _ANSEL 011E                 _TRISA 0085  
+               _TRISC 0087                 status 0003                 wtemp0 007E          __end_of_main 0800  
+              ??_main 0000                _ANSELH 011F                _OPTION 0081        __pcstackCOMMON 0000  
+          __pmaintext 07E8  end_of_initialization 07E5   start_initialization 07E5         __size_of_main 0018  

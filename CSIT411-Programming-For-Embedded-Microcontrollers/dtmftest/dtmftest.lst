@@ -1,0 +1,560 @@
+
+
+HI-TECH Software PIC LITE Macro Assembler V9.80 build 6738 
+                                                                                               Tue Mar 22 18:55:03 2011
+
+HI-TECH Software Omniscient Code Generator (Lite mode) build 6738
+     1  0000                     opt subtitle "HI-TECH Software Omniscient Code Generator (Lite mode) build 6738"
+     2                           
+     3                           opt pagewidth 120
+     4                           
+     5                           	opt lm
+     6                           
+     7                           	processor	16F690
+     8                           clrc	macro
+     9                           	bcf	3,0
+    10  0000                     	endm
+    11                           clrz	macro
+    12                           	bcf	3,2
+    13  0000                     	endm
+    14                           setc	macro
+    15                           	bsf	3,0
+    16  0000                     	endm
+    17                           setz	macro
+    18                           	bsf	3,2
+    19  0000                     	endm
+    20                           skipc	macro
+    21                           	btfss	3,0
+    22  0000                     	endm
+    23                           skipz	macro
+    24                           	btfss	3,2
+    25  0000                     	endm
+    26                           skipnc	macro
+    27                           	btfsc	3,0
+    28  0000                     	endm
+    29                           skipnz	macro
+    30                           	btfsc	3,2
+    31  0000                     	endm
+    32  0000                     indf	equ	0
+    33  0000                     indf0	equ	0
+    34  0002                     pc	equ	2
+    35  0002                     pcl	equ	2
+    36  0003                     status	equ	3
+    37  0004                     fsr	equ	4
+    38  0004                     fsr0	equ	4
+    39  0001                     c	equ	1
+    40  0000                     z	equ	0
+    41  000A                     pclath	equ	10
+    42                           # 4 "C:\projects\PIC\dtmftest\dtmftest.c"
+    43                           	psect config,class=CONFIG,delta=2 ;#
+    44                           # 4 "C:\projects\PIC\dtmftest\dtmftest.c"
+    45  2007  3CC4               	dw 0x3FFF & 0x3CFF & 0x3FDF & 0x3FEF & 0x3FFC & 0x3FF7 ;#
+    46                           	FNCALL	_main,_pulse
+    47                           	FNROOT	_main
+    48                           	global	_PORTC
+    49                           psect	maintext,global,class=CODE,delta=2
+    50                           global __pmaintext
+    51  0795                     __pmaintext:
+    52  0007                     _PORTC	set	7
+    53                           	global	_RC2
+    54  003A                     _RC2	set	58
+    55                           	global	_RC4
+    56  003C                     _RC4	set	60
+    57                           	global	_RC7
+    58  003F                     _RC7	set	63
+    59                           	global	_TRISC
+    60  0087                     _TRISC	set	135
+    61                           	global	_ANSEL
+    62  011E                     _ANSEL	set	286
+    63                           	global	_ANSELH
+    64  011F                     _ANSELH	set	287
+    65                           	file	"dtmftest.as"
+    66                           	line	#
+    67                           psect cinit,class=CODE,delta=2
+    68                           global start_initialization
+    69  0785                     start_initialization:
+    70                           
+    71                           psect cinit,class=CODE,delta=2
+    72                           global end_of_initialization
+    73                           
+    74                           ;End of C runtime variable initialization code
+    75                           
+    76  0785                     end_of_initialization:
+    77  0785  0183               clrf status
+    78  0786  118A  2F95         ljmp _main	;jump to C main() function
+    79                           psect	cstackCOMMON,class=COMMON,space=1
+    80                           global __pcstackCOMMON
+    81  0070                     __pcstackCOMMON:
+    82                           	global	?_pulse
+    83  0070                     ?_pulse:	; 0 bytes @ 0x0
+    84                           	global	??_pulse
+    85  0070                     ??_pulse:	; 0 bytes @ 0x0
+    86                           	global	?_main
+    87  0070                     ?_main:	; 0 bytes @ 0x0
+    88                           	global	??_main
+    89  0070                     ??_main:	; 0 bytes @ 0x0
+    90  0070                     	ds	2
+    91                           	global	main@i
+    92  0072                     main@i:	; 1 bytes @ 0x2
+    93  0072                     	ds	1
+    94 ;;Data sizes: Strings 0, constant 0, data 0, bss 0, persistent 0 stack 0
+    95 ;;Auto spaces:   Size  Autos    Used
+    96 ;; COMMON          14      3       3
+    97 ;; BANK0           80      0       0
+    98 ;; BANK1           80      0       0
+    99 ;; BANK2           80      0       0
+   100                           
+   101 ;;
+   102 ;; Pointer list with targets:
+   103                           
+   104                           
+   105                           
+   106 ;;
+   107 ;; Critical Paths under _main in COMMON
+   108 ;;
+   109 ;;   None.
+   110 ;;
+   111 ;; Critical Paths under _main in BANK0
+   112 ;;
+   113 ;;   None.
+   114 ;;
+   115 ;; Critical Paths under _main in BANK1
+   116 ;;
+   117 ;;   None.
+   118 ;;
+   119 ;; Critical Paths under _main in BANK2
+   120 ;;
+   121 ;;   None.
+   122                           
+   123 ;;
+   124 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
+   125 ;;
+   126                           
+   127 ;;
+   128 ;;Call Graph Tables:
+   129 ;;
+   130 ;; ---------------------------------------------------------------------------------
+   131 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   132 ;; ---------------------------------------------------------------------------------
+   133 ;; (0) _main                                                 3     3      0      30
+   134 ;;                                              0 COMMON     3     3      0
+   135 ;;                              _pulse
+   136 ;; ---------------------------------------------------------------------------------
+   137 ;; (1) _pulse                                                0     0      0       0
+   138 ;; ---------------------------------------------------------------------------------
+   139 ;; Estimated maximum stack depth 1
+   140 ;; ---------------------------------------------------------------------------------
+   141                           
+   142 ;; Call Graph Graphs:
+   143                           
+   144 ;; _main (ROOT)
+   145 ;;   _pulse
+   146 ;;
+   147                           
+   148 ;; Address spaces:
+   149                           
+   150 ;;Name               Size   Autos  Total    Cost      Usage
+   151 ;;BITCOMMON            E      0       0       0        0.0%
+   152 ;;EEDATA             100      0       0       0        0.0%
+   153 ;;NULL                 0      0       0       0        0.0%
+   154 ;;CODE                 0      0       0       0        0.0%
+   155 ;;COMMON               E      3       3       1       21.4%
+   156 ;;BITSFR0              0      0       0       1        0.0%
+   157 ;;SFR0                 0      0       0       1        0.0%
+   158 ;;BITSFR1              0      0       0       2        0.0%
+   159 ;;SFR1                 0      0       0       2        0.0%
+   160 ;;STACK                0      0       1       2        0.0%
+   161 ;;BANK0               50      0       0       3        0.0%
+   162 ;;BITBANK1            50      0       0       4        0.0%
+   163 ;;BITSFR3              0      0       0       4        0.0%
+   164 ;;SFR3                 0      0       0       4        0.0%
+   165 ;;BANK1               50      0       0       5        0.0%
+   166 ;;BITSFR2              0      0       0       5        0.0%
+   167 ;;SFR2                 0      0       0       5        0.0%
+   168 ;;BITBANK2            50      0       0       6        0.0%
+   169 ;;BANK2               50      0       0       7        0.0%
+   170 ;;ABS                  0      0       0       8        0.0%
+   171 ;;BITBANK0            50      0       0       9        0.0%
+   172 ;;DATA                 0      0       0      10        0.0%
+   173                           
+   174                           	global	_main
+   175                           psect	maintext
+   176                           
+   177 ;; *************** function _main *****************
+   178 ;; Defined at:
+   179 ;;		line 17 in file "C:\projects\PIC\dtmftest\dtmftest.c"
+   180 ;; Parameters:    Size  Location     Type
+   181 ;;		None
+   182 ;; Auto vars:     Size  Location     Type
+   183 ;;  i               1    2[COMMON] unsigned char 
+   184 ;; Return value:  Size  Location     Type
+   185 ;;		None               void
+   186 ;; Registers used:
+   187 ;;		wreg, status,2, status,0, pclath, cstack
+   188 ;; Tracked objects:
+   189 ;;		On entry : 17F/0
+   190 ;;		On exit  : 0/0
+   191 ;;		Unchanged: 0/0
+   192 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   193 ;;      Params:         0       0       0       0
+   194 ;;      Locals:         1       0       0       0
+   195 ;;      Temps:          2       0       0       0
+   196 ;;      Totals:         3       0       0       0
+   197 ;;Total ram usage:        3 bytes
+   198 ;; Hardware stack levels required when called:    1
+   199 ;; This function calls:
+   200 ;;		_pulse
+   201 ;; This function is called by:
+   202 ;;		Startup code after reset
+   203 ;; This function uses a non-reentrant model
+   204 ;;
+   205                           psect	maintext
+   206                           	file	"C:\projects\PIC\dtmftest\dtmftest.c"
+   207                           	line	17
+   208                           	global	__size_of_main
+   209  006B                     	__size_of_main	equ	__end_of_main-_main
+   210                           	
+   211  0795                     _main:	
+   212                           	opt	stack 7
+   213                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
+   214                           	line	19
+   215                           	
+   216  0795                     l1876:	
+   217                           ;dtmftest.c: 18: char i;
+   218                           ;dtmftest.c: 19: TRISC = 0;
+   219  0795  1683               	bsf	status, 5	;RP0=1, select bank1
+   220  0796  1303               	bcf	status, 6	;RP1=0, select bank1
+   221  0797  0187               	clrf	(135)^080h	;volatile
+   222                           	line	20
+   223                           ;dtmftest.c: 20: ANSEL = ANSELH = 0;
+   224  0798  1283               	bcf	status, 5	;RP0=0, select bank2
+   225  0799  1703               	bsf	status, 6	;RP1=1, select bank2
+   226  079A  019F               	clrf	(287)^0100h	;volatile
+   227  079B  019E               	clrf	(286)^0100h	;volatile
+   228                           	line	21
+   229                           	
+   230  079C                     l1878:	
+   231                           ;dtmftest.c: 21: PORTC = 0b10000100;
+   232  079C  3084               	movlw	(084h)
+   233  079D  1283               	bcf	status, 5	;RP0=0, select bank0
+   234  079E  1303               	bcf	status, 6	;RP1=0, select bank0
+   235  079F  0087               	movwf	(7)	;volatile
+   236                           	line	22
+   237                           	
+   238  07A0                     l1880:	
+   239                           ;dtmftest.c: 22: _delay((unsigned long)((10)*(4000000/4000.0)));
+   240                           	opt asmopt_off
+   241  07A0  300D               movlw	13
+   242  07A1  00F1               movwf	((??_main+0)+0+1),f
+   243  07A2  30FB               	movlw	251
+   244  07A3  00F0               movwf	((??_main+0)+0),f
+   245  07A4                     u2167:
+   246  07A4  0BF0               	decfsz	((??_main+0)+0),f
+   247  07A5  2FA4               	goto	u2167
+   248  07A6  0BF1               	decfsz	((??_main+0)+0+1),f
+   249  07A7  2FA4               	goto	u2167
+   250  07A8  2FA9               	nop2
+   251                           opt asmopt_on
+   252                           
+   253                           	line	23
+   254                           	
+   255  07A9                     l1882:	
+   256                           ;dtmftest.c: 23: RC2 = 0;
+   257  07A9  1283               	bcf	status, 5	;RP0=0, select bank0
+   258  07AA  1303               	bcf	status, 6	;RP1=0, select bank0
+   259  07AB  1107               	bcf	(58/8),(58)&7
+   260                           	line	24
+   261                           	
+   262  07AC                     l1884:	
+   263                           ;dtmftest.c: 24: _delay((unsigned long)((10)*(4000000/4000.0)));
+   264                           	opt asmopt_off
+   265  07AC  300D               movlw	13
+   266  07AD  00F1               movwf	((??_main+0)+0+1),f
+   267  07AE  30FB               	movlw	251
+   268  07AF  00F0               movwf	((??_main+0)+0),f
+   269  07B0                     u2177:
+   270  07B0  0BF0               	decfsz	((??_main+0)+0),f
+   271  07B1  2FB0               	goto	u2177
+   272  07B2  0BF1               	decfsz	((??_main+0)+0+1),f
+   273  07B3  2FB0               	goto	u2177
+   274  07B4  2FB5               	nop2
+   275                           opt asmopt_on
+   276                           
+   277                           	line	26
+   278                           	
+   279  07B5                     l1886:	
+   280                           ;dtmftest.c: 26: RC4 = 1;
+   281  07B5  1283               	bcf	status, 5	;RP0=0, select bank0
+   282  07B6  1303               	bcf	status, 6	;RP1=0, select bank0
+   283  07B7  1607               	bsf	(60/8),(60)&7
+   284                           	line	27
+   285                           	
+   286  07B8                     l1888:	
+   287                           ;dtmftest.c: 27: pulse();
+   288  07B8  118A  2788  118A   	fcall	_pulse
+   289                           	line	28
+   290                           	
+   291  07BB                     l1890:	
+   292                           ;dtmftest.c: 28: RC4 = 0;
+   293  07BB  1283               	bcf	status, 5	;RP0=0, select bank0
+   294  07BC  1303               	bcf	status, 6	;RP1=0, select bank0
+   295  07BD  1207               	bcf	(60/8),(60)&7
+   296                           	line	29
+   297                           	
+   298  07BE                     l1892:	
+   299                           ;dtmftest.c: 29: pulse();
+   300  07BE  118A  2788  118A   	fcall	_pulse
+   301                           	line	30
+   302                           	
+   303  07C1                     l1894:	
+   304                           ;dtmftest.c: 30: RC4 = 0;
+   305  07C1  1283               	bcf	status, 5	;RP0=0, select bank0
+   306  07C2  1303               	bcf	status, 6	;RP1=0, select bank0
+   307  07C3  1207               	bcf	(60/8),(60)&7
+   308                           	line	31
+   309                           	
+   310  07C4                     l1896:	
+   311                           ;dtmftest.c: 31: pulse();
+   312  07C4  118A  2788  118A   	fcall	_pulse
+   313                           	line	32
+   314                           	
+   315  07C7                     l1898:	
+   316                           ;dtmftest.c: 32: RC4 = 0;
+   317  07C7  1283               	bcf	status, 5	;RP0=0, select bank0
+   318  07C8  1303               	bcf	status, 6	;RP1=0, select bank0
+   319  07C9  1207               	bcf	(60/8),(60)&7
+   320                           	line	33
+   321                           	
+   322  07CA                     l1900:	
+   323                           ;dtmftest.c: 33: pulse();
+   324  07CA  118A  2788  118A   	fcall	_pulse
+   325                           	line	34
+   326                           	
+   327  07CD                     l1902:	
+   328                           ;dtmftest.c: 34: RC4 = 0;
+   329  07CD  1283               	bcf	status, 5	;RP0=0, select bank0
+   330  07CE  1303               	bcf	status, 6	;RP1=0, select bank0
+   331  07CF  1207               	bcf	(60/8),(60)&7
+   332                           	line	35
+   333                           	
+   334  07D0                     l1904:	
+   335                           ;dtmftest.c: 35: pulse();
+   336  07D0  118A  2788  118A   	fcall	_pulse
+   337                           	line	36
+   338                           	
+   339  07D3                     l1906:	
+   340                           ;dtmftest.c: 36: _delay((unsigned long)((195)*(4000000/4000.0)));
+   341                           	opt asmopt_off
+   342  07D3  30FE               movlw	254
+   343  07D4  00F1               movwf	((??_main+0)+0+1),f
+   344  07D5  303D               	movlw	61
+   345  07D6  00F0               movwf	((??_main+0)+0),f
+   346  07D7                     u2187:
+   347  07D7  0BF0               	decfsz	((??_main+0)+0),f
+   348  07D8  2FD7               	goto	u2187
+   349  07D9  0BF1               	decfsz	((??_main+0)+0+1),f
+   350  07DA  2FD7               	goto	u2187
+   351  07DB  2FDC               	nop2
+   352                           opt asmopt_on
+   353                           
+   354                           	line	38
+   355                           	
+   356  07DC                     l1908:	
+   357                           ;dtmftest.c: 38: RC4 = 1;
+   358  07DC  1283               	bcf	status, 5	;RP0=0, select bank0
+   359  07DD  1303               	bcf	status, 6	;RP1=0, select bank0
+   360  07DE  1607               	bsf	(60/8),(60)&7
+   361                           	line	39
+   362                           	
+   363  07DF                     l1910:	
+   364                           ;dtmftest.c: 39: for (i = 0; i < 5; i++)
+   365  07DF  1003               	clrc
+   366  07E0  3000               	movlw	0
+   367  07E1  1803               	btfsc	status,0
+   368  07E2  3001               	movlw	1
+   369  07E3  00F2               	movwf	(main@i)
+   370                           	
+   371  07E4                     l1912:	
+   372  07E4  3005               	movlw	(05h)
+   373  07E5  0272               	subwf	(main@i),w
+   374  07E6  1C03               	skipc
+   375  07E7  2FE9               	goto	u2141
+   376  07E8  2FEA               	goto	u2140
+   377  07E9                     u2141:
+   378  07E9  2FEC               	goto	l1916
+   379  07EA                     u2140:
+   380  07EA  2FF9               	goto	l715
+   381                           	
+   382  07EB                     l1914:	
+   383  07EB  2FF9               	goto	l715
+   384                           	line	40
+   385                           	
+   386  07EC                     l714:	
+   387                           	
+   388  07EC                     l1916:	
+   389                           ;dtmftest.c: 40: pulse();
+   390  07EC  118A  2788  118A   	fcall	_pulse
+   391                           	line	39
+   392                           	
+   393  07EF                     l1918:	
+   394  07EF  3001               	movlw	(01h)
+   395  07F0  00F0               	movwf	(??_main+0)+0
+   396  07F1  0870               	movf	(??_main+0)+0,w
+   397  07F2  07F2               	addwf	(main@i),f
+   398                           	
+   399  07F3                     l1920:	
+   400  07F3  3005               	movlw	(05h)
+   401  07F4  0272               	subwf	(main@i),w
+   402  07F5  1C03               	skipc
+   403  07F6  2FF8               	goto	u2151
+   404  07F7  2FF9               	goto	u2150
+   405  07F8                     u2151:
+   406  07F8  2FEC               	goto	l1916
+   407  07F9                     u2150:
+   408                           	
+   409  07F9                     l715:	
+   410                           	line	41
+   411                           ;dtmftest.c: 41: RC2 = 1;
+   412  07F9  1283               	bcf	status, 5	;RP0=0, select bank0
+   413  07FA  1303               	bcf	status, 6	;RP1=0, select bank0
+   414  07FB  1507               	bsf	(58/8),(58)&7
+   415  07FC  2FFD               	goto	l717
+   416                           	line	42
+   417                           ;dtmftest.c: 42: while(1);
+   418                           	
+   419  07FD                     l716:	
+   420                           	
+   421  07FD                     l717:	
+   422  07FD  2FFD               	goto	l717
+   423                           	
+   424  07FE                     l718:	
+   425                           	line	43
+   426                           	
+   427  07FE                     l719:	
+   428                           	global	start
+   429  07FE  118A  2800         	ljmp	start
+   430                           	opt stack 0
+   431                           GLOBAL	__end_of_main
+   432  0800                     	__end_of_main:
+   433 ;; =============== function _main ends ============
+   434                           
+   435                           	signat	_main,88
+   436                           	global	_pulse
+   437                           psect	text55,local,class=CODE,delta=2
+   438                           global __ptext55
+   439  0788                     __ptext55:
+   440                           
+   441 ;; *************** function _pulse *****************
+   442 ;; Defined at:
+   443 ;;		line 10 in file "C:\projects\PIC\dtmftest\dtmftest.c"
+   444 ;; Parameters:    Size  Location     Type
+   445 ;;		None
+   446 ;; Auto vars:     Size  Location     Type
+   447 ;;		None
+   448 ;; Return value:  Size  Location     Type
+   449 ;;		None               void
+   450 ;; Registers used:
+   451 ;;		None
+   452 ;; Tracked objects:
+   453 ;;		On entry : 0/0
+   454 ;;		On exit  : 0/0
+   455 ;;		Unchanged: 0/0
+   456 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   457 ;;      Params:         0       0       0       0
+   458 ;;      Locals:         0       0       0       0
+   459 ;;      Temps:          0       0       0       0
+   460 ;;      Totals:         0       0       0       0
+   461 ;;Total ram usage:        0 bytes
+   462 ;; Hardware stack levels used:    1
+   463 ;; This function calls:
+   464 ;;		Nothing
+   465 ;; This function is called by:
+   466 ;;		_main
+   467 ;; This function uses a non-reentrant model
+   468 ;;
+   469                           psect	text55
+   470                           	file	"C:\projects\PIC\dtmftest\dtmftest.c"
+   471                           	line	10
+   472                           	global	__size_of_pulse
+   473  000D                     	__size_of_pulse	equ	__end_of_pulse-_pulse
+   474                           	
+   475  0788                     _pulse:	
+   476                           	opt	stack 7
+   477                           ; Regs used in _pulse: []
+   478                           	line	11
+   479                           	
+   480  0788                     l1874:	
+   481                           ;dtmftest.c: 11: RC7 = 0;
+   482  0788  1283               	bcf	status, 5	;RP0=0, select bank0
+   483  0789  1303               	bcf	status, 6	;RP1=0, select bank0
+   484  078A  1387               	bcf	(63/8),(63)&7
+   485                           	line	12
+   486                           ;dtmftest.c: 12: _delay((unsigned long)((5)*(4000000/4000000.0)));
+   487                           		opt asmopt_off
+   488  078B  2F8C               	nop2	;2 cycle nop
+   489                           	opt asmopt_on
+   490                           	opt asmopt_off
+   491  078C  2F8D               	nop2	;2 cycle nop
+   492                           	opt asmopt_on
+   493                           	opt asmopt_off
+   494  078D  0064               	clrwdt
+   495                           	opt asmopt_on
+   496                           
+   497                           	line	13
+   498                           ;dtmftest.c: 13: RC7 = 1;
+   499  078E  1283               	bcf	status, 5	;RP0=0, select bank0
+   500  078F  1303               	bcf	status, 6	;RP1=0, select bank0
+   501  0790  1787               	bsf	(63/8),(63)&7
+   502                           	line	14
+   503                           ;dtmftest.c: 14: _delay((unsigned long)((5)*(4000000/4000000.0)));
+   504                           		opt asmopt_off
+   505  0791  2F92               	nop2	;2 cycle nop
+   506                           	opt asmopt_on
+   507                           	opt asmopt_off
+   508  0792  2F93               	nop2	;2 cycle nop
+   509                           	opt asmopt_on
+   510                           	opt asmopt_off
+   511  0793  0064               	clrwdt
+   512                           	opt asmopt_on
+   513                           
+   514                           	line	15
+   515                           	
+   516  0794                     l711:	
+   517  0794  0008               	return
+   518                           	opt stack 0
+   519                           GLOBAL	__end_of_pulse
+   520  0795                     	__end_of_pulse:
+   521 ;; =============== function _pulse ends ============
+   522                           
+   523                           	signat	_pulse,88
+   524                           psect	text56,local,class=CODE,delta=2
+   525                           global __ptext56
+   526  0000                     __ptext56:
+   527                           	global	btemp
+   528  007E                     	btemp set 07Eh
+   529                           
+   530                           	DABS	1,126,2	;btemp
+   531                           	global	wtemp0
+   532  007E                     	wtemp0 set btemp
+
+
+HI-TECH Software PICC Macro Assembler V9.80 build 6738 
+Symbol Table                                                                                   Tue Mar 22 18:55:03 2011
+
+                 l711 0794                   l714 07EC                   l715 07F9                   l716 07FD  
+                 l717 07FD                   l718 07FE                   l719 07FE                   _RC2 003A  
+                 _RC4 003C                   _RC7 003F                  l1900 07CA                  l1910 07DF  
+                l1902 07CD                  l1920 07F3                  l1912 07E4                  l1904 07D0  
+                l1914 07EB                  l1906 07D3                  l1916 07EC                  l1908 07DC  
+                l1918 07EF                  l1880 07A0                  l1874 0788                  l1890 07BB  
+                l1882 07A9                  l1892 07BE                  l1884 07AC                  l1876 0795  
+                l1894 07C1                  l1886 07B5                  l1878 079C                  l1896 07C4  
+                l1888 07B8                  l1898 07C7                  u2140 07EA                  u2141 07E9  
+                u2150 07F9                  u2151 07F8                  u2167 07A4                  u2177 07B0  
+                u2187 07D7                  _main 0795                  btemp 007E                  start 0000  
+               ?_main 0070                 _ANSEL 011E                 _PORTC 0007                 _TRISC 0087  
+               _pulse 0788                 main@i 0072                 status 0003                 wtemp0 007E  
+        __end_of_main 0800                ??_main 0070                ?_pulse 0070                _ANSELH 011F  
+      __pcstackCOMMON 0070         __end_of_pulse 0795               ??_pulse 0070            __pmaintext 0795  
+end_of_initialization 0785   start_initialization 0785        __size_of_pulse 000D              __ptext55 0788  
+            __ptext56 0000         __size_of_main 006B  

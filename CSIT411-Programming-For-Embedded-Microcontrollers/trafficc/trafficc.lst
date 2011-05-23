@@ -1,0 +1,2445 @@
+
+
+HI-TECH Software PIC LITE Macro Assembler V9.80 build 6738 
+                                                                                               Mon Mar 21 23:33:51 2011
+
+HI-TECH Software Omniscient Code Generator (Lite mode) build 6738
+     1  0000                     opt subtitle "HI-TECH Software Omniscient Code Generator (Lite mode) build 6738"
+     2                           
+     3                           opt pagewidth 120
+     4                           
+     5                           	opt lm
+     6                           
+     7                           	processor	16F690
+     8                           clrc	macro
+     9                           	bcf	3,0
+    10  0000                     	endm
+    11                           clrz	macro
+    12                           	bcf	3,2
+    13  0000                     	endm
+    14                           setc	macro
+    15                           	bsf	3,0
+    16  0000                     	endm
+    17                           setz	macro
+    18                           	bsf	3,2
+    19  0000                     	endm
+    20                           skipc	macro
+    21                           	btfss	3,0
+    22  0000                     	endm
+    23                           skipz	macro
+    24                           	btfss	3,2
+    25  0000                     	endm
+    26                           skipnc	macro
+    27                           	btfsc	3,0
+    28  0000                     	endm
+    29                           skipnz	macro
+    30                           	btfsc	3,2
+    31  0000                     	endm
+    32  0000                     indf	equ	0
+    33  0000                     indf0	equ	0
+    34  0002                     pc	equ	2
+    35  0002                     pcl	equ	2
+    36  0003                     status	equ	3
+    37  0004                     fsr	equ	4
+    38  0004                     fsr0	equ	4
+    39  0001                     c	equ	1
+    40  0000                     z	equ	0
+    41  000A                     pclath	equ	10
+    42                           # 4 "C:\projects\PIC\trafficc\trafficc.c"
+    43                           	psect config,class=CONFIG,delta=2 ;#
+    44                           # 4 "C:\projects\PIC\trafficc\trafficc.c"
+    45  2007  3CC4               	dw 0x3FFF & 0x3CFF & 0x3FDF & 0x3FEF & 0x3FFC & 0x3FF7 ;#
+    46                           	FNCALL	_main,_resetcount
+    47                           	FNCALL	_main,_green1on
+    48                           	FNCALL	_main,_green2off
+    49                           	FNCALL	_main,_yellow1off
+    50                           	FNCALL	_main,_yellow2off
+    51                           	FNCALL	_main,_red1off
+    52                           	FNCALL	_main,_red2on
+    53                           	FNROOT	_main
+    54                           	FNCALL	_isr,_timer
+    55                           	FNCALL	_isr,_button
+    56                           	FNCALL	_timer,_green1off
+    57                           	FNCALL	_timer,_yellow1on
+    58                           	FNCALL	_timer,i1_yellow1off
+    59                           	FNCALL	_timer,_red1on
+    60                           	FNCALL	_timer,_green2on
+    61                           	FNCALL	_timer,_red2off
+    62                           	FNCALL	_timer,i1_green2off
+    63                           	FNCALL	_timer,_yellow2on
+    64                           	FNCALL	_timer,i1_yellow2off
+    65                           	FNCALL	_timer,i1_red2on
+    66                           	FNCALL	_timer,i1_red1off
+    67                           	FNCALL	_timer,i1_green1on
+    68                           	FNCALL	_timer,i1_resetcount
+    69                           	FNCALL	intlevel1,_isr
+    70                           	global	intlevel1
+    71                           	FNROOT	intlevel1
+    72                           	global	_count6
+    73                           psect	nvBANK0,class=BANK0,space=1
+    74                           global __pnvBANK0
+    75  0020                     __pnvBANK0:
+    76  0020                     _count6:
+    77  0020                            ds      2
+    78                           
+    79                           	global	_count
+    80                           psect	nvCOMMON,class=COMMON,space=1
+    81                           global __pnvCOMMON
+    82  0070                     __pnvCOMMON:
+    83  0070                     _count:
+    84  0070                            ds      2
+    85                           
+    86                           	global	_count2
+    87  0072                     _count2:
+    88  0072                            ds      2
+    89                           
+    90                           	global	_count3
+    91  0074                     _count3:
+    92  0074                            ds      2
+    93                           
+    94                           	global	_count4
+    95  0076                     _count4:
+    96  0076                            ds      2
+    97                           
+    98                           	global	_count5
+    99  0078                     _count5:
+   100  0078                            ds      2
+   101                           
+   102                           	global	_GIE
+   103  005F                     _GIE	set	95
+   104                           	global	_INTE
+   105  005C                     _INTE	set	92
+   106                           	global	_INTF
+   107  0059                     _INTF	set	89
+   108                           	global	_RC0
+   109  0038                     _RC0	set	56
+   110                           	global	_RC1
+   111  0039                     _RC1	set	57
+   112                           	global	_RC2
+   113  003A                     _RC2	set	58
+   114                           	global	_RC3
+   115  003B                     _RC3	set	59
+   116                           	global	_RC4
+   117  003C                     _RC4	set	60
+   118                           	global	_RC5
+   119  003D                     _RC5	set	61
+   120                           	global	_T0IE
+   121  005D                     _T0IE	set	93
+   122                           	global	_T0IF
+   123  005A                     _T0IF	set	90
+   124                           	global	_OPTION
+   125  0081                     _OPTION	set	129
+   126                           	global	_TRISA
+   127  0085                     _TRISA	set	133
+   128                           	global	_TRISC
+   129  0087                     _TRISC	set	135
+   130                           	global	_ANSEL
+   131  011E                     _ANSEL	set	286
+   132                           	global	_ANSELH
+   133  011F                     _ANSELH	set	287
+   134                           	file	"trafficc.as"
+   135                           	line	#
+   136                           psect cinit,class=CODE,delta=2
+   137                           global start_initialization
+   138  0162                     start_initialization:
+   139                           
+   140                           psect cinit,class=CODE,delta=2
+   141                           global end_of_initialization
+   142                           
+   143                           ;End of C runtime variable initialization code
+   144                           
+   145  0162                     end_of_initialization:
+   146  0162  0183               clrf status
+   147  0163  118A  2892         ljmp _main	;jump to C main() function
+   148                           psect	cstackCOMMON,class=COMMON,space=1
+   149                           global __pcstackCOMMON
+   150  007A                     __pcstackCOMMON:
+   151                           	global	?_timer
+   152  007A                     ?_timer:	; 0 bytes @ 0x0
+   153                           	global	??_timer
+   154  007A                     ??_timer:	; 0 bytes @ 0x0
+   155                           	global	?_button
+   156  007A                     ?_button:	; 0 bytes @ 0x0
+   157                           	global	??_button
+   158  007A                     ??_button:	; 0 bytes @ 0x0
+   159                           	global	?_green1off
+   160  007A                     ?_green1off:	; 0 bytes @ 0x0
+   161                           	global	??_green1off
+   162  007A                     ??_green1off:	; 0 bytes @ 0x0
+   163                           	global	?_yellow1on
+   164  007A                     ?_yellow1on:	; 0 bytes @ 0x0
+   165                           	global	??_yellow1on
+   166  007A                     ??_yellow1on:	; 0 bytes @ 0x0
+   167                           	global	?_yellow1off
+   168  007A                     ?_yellow1off:	; 0 bytes @ 0x0
+   169                           	global	?_red1on
+   170  007A                     ?_red1on:	; 0 bytes @ 0x0
+   171                           	global	??_red1on
+   172  007A                     ??_red1on:	; 0 bytes @ 0x0
+   173                           	global	?_green2on
+   174  007A                     ?_green2on:	; 0 bytes @ 0x0
+   175                           	global	??_green2on
+   176  007A                     ??_green2on:	; 0 bytes @ 0x0
+   177                           	global	?_red2off
+   178  007A                     ?_red2off:	; 0 bytes @ 0x0
+   179                           	global	??_red2off
+   180  007A                     ??_red2off:	; 0 bytes @ 0x0
+   181                           	global	?_green2off
+   182  007A                     ?_green2off:	; 0 bytes @ 0x0
+   183                           	global	?_yellow2on
+   184  007A                     ?_yellow2on:	; 0 bytes @ 0x0
+   185                           	global	??_yellow2on
+   186  007A                     ??_yellow2on:	; 0 bytes @ 0x0
+   187                           	global	?_yellow2off
+   188  007A                     ?_yellow2off:	; 0 bytes @ 0x0
+   189                           	global	?_red2on
+   190  007A                     ?_red2on:	; 0 bytes @ 0x0
+   191                           	global	?_red1off
+   192  007A                     ?_red1off:	; 0 bytes @ 0x0
+   193                           	global	?_green1on
+   194  007A                     ?_green1on:	; 0 bytes @ 0x0
+   195                           	global	?_resetcount
+   196  007A                     ?_resetcount:	; 0 bytes @ 0x0
+   197                           	global	?_isr
+   198  007A                     ?_isr:	; 0 bytes @ 0x0
+   199                           	global	??_isr
+   200  007A                     ??_isr:	; 0 bytes @ 0x0
+   201                           	global	?_main
+   202  007A                     ?_main:	; 0 bytes @ 0x0
+   203                           	global	?i1_resetcount
+   204  007A                     ?i1_resetcount:	; 0 bytes @ 0x0
+   205                           	global	??i1_resetcount
+   206  007A                     ??i1_resetcount:	; 0 bytes @ 0x0
+   207                           	global	?i1_green1on
+   208  007A                     ?i1_green1on:	; 0 bytes @ 0x0
+   209                           	global	??i1_green1on
+   210  007A                     ??i1_green1on:	; 0 bytes @ 0x0
+   211                           	global	?i1_yellow1off
+   212  007A                     ?i1_yellow1off:	; 0 bytes @ 0x0
+   213                           	global	??i1_yellow1off
+   214  007A                     ??i1_yellow1off:	; 0 bytes @ 0x0
+   215                           	global	?i1_red1off
+   216  007A                     ?i1_red1off:	; 0 bytes @ 0x0
+   217                           	global	??i1_red1off
+   218  007A                     ??i1_red1off:	; 0 bytes @ 0x0
+   219                           	global	?i1_green2off
+   220  007A                     ?i1_green2off:	; 0 bytes @ 0x0
+   221                           	global	??i1_green2off
+   222  007A                     ??i1_green2off:	; 0 bytes @ 0x0
+   223                           	global	?i1_yellow2off
+   224  007A                     ?i1_yellow2off:	; 0 bytes @ 0x0
+   225                           	global	??i1_yellow2off
+   226  007A                     ??i1_yellow2off:	; 0 bytes @ 0x0
+   227                           	global	?i1_red2on
+   228  007A                     ?i1_red2on:	; 0 bytes @ 0x0
+   229                           	global	??i1_red2on
+   230  007A                     ??i1_red2on:	; 0 bytes @ 0x0
+   231  007A                     	ds	4
+   232                           psect	cstackBANK0,class=BANK0,space=1
+   233                           global __pcstackBANK0
+   234  0000                     __pcstackBANK0:
+   235                           	global	??_yellow1off
+   236  0000                     ??_yellow1off:	; 0 bytes @ 0x0
+   237                           	global	??_green2off
+   238  0000                     ??_green2off:	; 0 bytes @ 0x0
+   239                           	global	??_yellow2off
+   240  0000                     ??_yellow2off:	; 0 bytes @ 0x0
+   241                           	global	??_red2on
+   242  0000                     ??_red2on:	; 0 bytes @ 0x0
+   243                           	global	??_red1off
+   244  0000                     ??_red1off:	; 0 bytes @ 0x0
+   245                           	global	??_green1on
+   246  0000                     ??_green1on:	; 0 bytes @ 0x0
+   247                           	global	??_resetcount
+   248  0000                     ??_resetcount:	; 0 bytes @ 0x0
+   249                           	global	??_main
+   250  0000                     ??_main:	; 0 bytes @ 0x0
+   251 ;;Data sizes: Strings 0, constant 0, data 0, bss 0, persistent 12 stack 0
+   252 ;;Auto spaces:   Size  Autos    Used
+   253 ;; COMMON          14      4      14
+   254 ;; BANK0           80      0       2
+   255 ;; BANK1           80      0       0
+   256 ;; BANK2           80      0       0
+   257                           
+   258 ;;
+   259 ;; Pointer list with targets:
+   260                           
+   261                           
+   262                           
+   263 ;;
+   264 ;; Critical Paths under _main in COMMON
+   265 ;;
+   266 ;;   None.
+   267 ;;
+   268 ;; Critical Paths under _isr in COMMON
+   269 ;;
+   270 ;;   None.
+   271 ;;
+   272 ;; Critical Paths under _main in BANK0
+   273 ;;
+   274 ;;   None.
+   275 ;;
+   276 ;; Critical Paths under _isr in BANK0
+   277 ;;
+   278 ;;   None.
+   279 ;;
+   280 ;; Critical Paths under _main in BANK1
+   281 ;;
+   282 ;;   None.
+   283 ;;
+   284 ;; Critical Paths under _isr in BANK1
+   285 ;;
+   286 ;;   None.
+   287 ;;
+   288 ;; Critical Paths under _main in BANK2
+   289 ;;
+   290 ;;   None.
+   291 ;;
+   292 ;; Critical Paths under _isr in BANK2
+   293 ;;
+   294 ;;   None.
+   295                           
+   296 ;;
+   297 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   298 ;;
+   299                           
+   300 ;;
+   301 ;;Call Graph Tables:
+   302 ;;
+   303 ;; ---------------------------------------------------------------------------------
+   304 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   305 ;; ---------------------------------------------------------------------------------
+   306 ;; (0) _main                                                 0     0      0       0
+   307 ;;                         _resetcount
+   308 ;;                           _green1on
+   309 ;;                          _green2off
+   310 ;;                         _yellow1off
+   311 ;;                         _yellow2off
+   312 ;;                            _red1off
+   313 ;;                             _red2on
+   314 ;; ---------------------------------------------------------------------------------
+   315 ;; (1) _resetcount                                           0     0      0       0
+   316 ;; ---------------------------------------------------------------------------------
+   317 ;; (1) _green1on                                             0     0      0       0
+   318 ;; ---------------------------------------------------------------------------------
+   319 ;; (1) _red1off                                              0     0      0       0
+   320 ;; ---------------------------------------------------------------------------------
+   321 ;; (1) _red2on                                               0     0      0       0
+   322 ;; ---------------------------------------------------------------------------------
+   323 ;; (1) _yellow2off                                           0     0      0       0
+   324 ;; ---------------------------------------------------------------------------------
+   325 ;; (1) _green2off                                            0     0      0       0
+   326 ;; ---------------------------------------------------------------------------------
+   327 ;; (1) _yellow1off                                           0     0      0       0
+   328 ;; ---------------------------------------------------------------------------------
+   329 ;; Estimated maximum stack depth 1
+   330 ;; ---------------------------------------------------------------------------------
+   331 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   332 ;; ---------------------------------------------------------------------------------
+   333 ;; (2) _isr                                                  4     4      0       0
+   334 ;;                                              0 COMMON     4     4      0
+   335 ;;                              _timer
+   336 ;;                             _button
+   337 ;; ---------------------------------------------------------------------------------
+   338 ;; (3) _timer                                                0     0      0       0
+   339 ;;                          _green1off
+   340 ;;                          _yellow1on
+   341 ;;                       i1_yellow1off
+   342 ;;                             _red1on
+   343 ;;                           _green2on
+   344 ;;                            _red2off
+   345 ;;                        i1_green2off
+   346 ;;                          _yellow2on
+   347 ;;                       i1_yellow2off
+   348 ;;                           i1_red2on
+   349 ;;                          i1_red1off
+   350 ;;                         i1_green1on
+   351 ;;                       i1_resetcount
+   352 ;; ---------------------------------------------------------------------------------
+   353 ;; (4) i1_red2on                                             0     0      0       0
+   354 ;; ---------------------------------------------------------------------------------
+   355 ;; (4) i1_yellow2off                                         0     0      0       0
+   356 ;; ---------------------------------------------------------------------------------
+   357 ;; (4) i1_green2off                                          0     0      0       0
+   358 ;; ---------------------------------------------------------------------------------
+   359 ;; (4) i1_red1off                                            0     0      0       0
+   360 ;; ---------------------------------------------------------------------------------
+   361 ;; (4) i1_yellow1off                                         0     0      0       0
+   362 ;; ---------------------------------------------------------------------------------
+   363 ;; (4) i1_green1on                                           0     0      0       0
+   364 ;; ---------------------------------------------------------------------------------
+   365 ;; (4) i1_resetcount                                         0     0      0       0
+   366 ;; ---------------------------------------------------------------------------------
+   367 ;; (4) _yellow2on                                            0     0      0       0
+   368 ;; ---------------------------------------------------------------------------------
+   369 ;; (4) _red2off                                              0     0      0       0
+   370 ;; ---------------------------------------------------------------------------------
+   371 ;; (4) _green2on                                             0     0      0       0
+   372 ;; ---------------------------------------------------------------------------------
+   373 ;; (4) _red1on                                               0     0      0       0
+   374 ;; ---------------------------------------------------------------------------------
+   375 ;; (4) _yellow1on                                            0     0      0       0
+   376 ;; ---------------------------------------------------------------------------------
+   377 ;; (4) _green1off                                            0     0      0       0
+   378 ;; ---------------------------------------------------------------------------------
+   379 ;; (3) _button                                               0     0      0       0
+   380 ;; ---------------------------------------------------------------------------------
+   381 ;; Estimated maximum stack depth 4
+   382 ;; ---------------------------------------------------------------------------------
+   383                           
+   384 ;; Call Graph Graphs:
+   385                           
+   386 ;; _main (ROOT)
+   387 ;;   _resetcount
+   388 ;;   _green1on
+   389 ;;   _green2off
+   390 ;;   _yellow1off
+   391 ;;   _yellow2off
+   392 ;;   _red1off
+   393 ;;   _red2on
+   394 ;;
+   395 ;; _isr (ROOT)
+   396 ;;   _timer
+   397 ;;     _green1off
+   398 ;;     _yellow1on
+   399 ;;     i1_yellow1off
+   400 ;;     _red1on
+   401 ;;     _green2on
+   402 ;;     _red2off
+   403 ;;     i1_green2off
+   404 ;;     _yellow2on
+   405 ;;     i1_yellow2off
+   406 ;;     i1_red2on
+   407 ;;     i1_red1off
+   408 ;;     i1_green1on
+   409 ;;     i1_resetcount
+   410 ;;   _button
+   411 ;;
+   412                           
+   413 ;; Address spaces:
+   414                           
+   415 ;;Name               Size   Autos  Total    Cost      Usage
+   416 ;;BITCOMMON            E      0       0       0        0.0%
+   417 ;;EEDATA             100      0       0       0        0.0%
+   418 ;;NULL                 0      0       0       0        0.0%
+   419 ;;CODE                 0      0       0       0        0.0%
+   420 ;;COMMON               E      4       E       1      100.0%
+   421 ;;BITSFR0              0      0       0       1        0.0%
+   422 ;;SFR0                 0      0       0       1        0.0%
+   423 ;;BITSFR1              0      0       0       2        0.0%
+   424 ;;SFR1                 0      0       0       2        0.0%
+   425 ;;STACK                0      0       7       2        0.0%
+   426 ;;BANK0               50      0       2       3        2.5%
+   427 ;;BITBANK1            50      0       0       4        0.0%
+   428 ;;BITSFR3              0      0       0       4        0.0%
+   429 ;;SFR3                 0      0       0       4        0.0%
+   430 ;;BANK1               50      0       0       5        0.0%
+   431 ;;BITSFR2              0      0       0       5        0.0%
+   432 ;;SFR2                 0      0       0       5        0.0%
+   433 ;;BITBANK2            50      0       0       6        0.0%
+   434 ;;BANK2               50      0       0       7        0.0%
+   435 ;;ABS                  0      0      10       8        0.0%
+   436 ;;BITBANK0            50      0       0       9        0.0%
+   437 ;;DATA                 0      0      17      10        0.0%
+   438                           
+   439                           	global	_main
+   440                           psect	maintext,global,class=CODE,delta=2
+   441                           global __pmaintext
+   442  0092                     __pmaintext:
+   443                           
+   444 ;; *************** function _main *****************
+   445 ;; Defined at:
+   446 ;;		line 142 in file "C:\projects\PIC\trafficc\trafficc.c"
+   447 ;; Parameters:    Size  Location     Type
+   448 ;;		None
+   449 ;; Auto vars:     Size  Location     Type
+   450 ;;		None
+   451 ;; Return value:  Size  Location     Type
+   452 ;;		None               void
+   453 ;; Registers used:
+   454 ;;		wreg, status,2, status,0, pclath, cstack
+   455 ;; Tracked objects:
+   456 ;;		On entry : 17F/0
+   457 ;;		On exit  : 0/0
+   458 ;;		Unchanged: 0/0
+   459 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   460 ;;      Params:         0       0       0       0
+   461 ;;      Locals:         0       0       0       0
+   462 ;;      Temps:          0       0       0       0
+   463 ;;      Totals:         0       0       0       0
+   464 ;;Total ram usage:        0 bytes
+   465 ;; Hardware stack levels required when called:    4
+   466 ;; This function calls:
+   467 ;;		_resetcount
+   468 ;;		_green1on
+   469 ;;		_green2off
+   470 ;;		_yellow1off
+   471 ;;		_yellow2off
+   472 ;;		_red1off
+   473 ;;		_red2on
+   474 ;; This function is called by:
+   475 ;;		Startup code after reset
+   476 ;; This function uses a non-reentrant model
+   477 ;;
+   478                           psect	maintext
+   479                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+   480                           	line	142
+   481                           	global	__size_of_main
+   482  0027                     	__size_of_main	equ	__end_of_main-_main
+   483                           	
+   484  0092                     _main:	
+   485                           	opt	stack 4
+   486                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
+   487                           	line	144
+   488                           	
+   489  0092                     l2243:	
+   490                           ;trafficc.c: 144: ANSEL = ANSELH = 0;
+   491  0092  1283               	bcf	status, 5	;RP0=0, select bank2
+   492  0093  1703               	bsf	status, 6	;RP1=1, select bank2
+   493  0094  019F               	clrf	(287)^0100h	;volatile
+   494  0095  019E               	clrf	(286)^0100h	;volatile
+   495                           	line	145
+   496                           ;trafficc.c: 145: TRISC = 0b00000000;
+   497  0096  1683               	bsf	status, 5	;RP0=1, select bank1
+   498  0097  1303               	bcf	status, 6	;RP1=0, select bank1
+   499  0098  0187               	clrf	(135)^080h	;volatile
+   500                           	line	146
+   501                           	
+   502  0099                     l2245:	
+   503                           ;trafficc.c: 146: TRISA = 0b11111111;
+   504  0099  30FF               	movlw	(0FFh)
+   505  009A  0085               	movwf	(133)^080h	;volatile
+   506                           	line	147
+   507                           	
+   508  009B                     l2247:	
+   509                           ;trafficc.c: 147: OPTION = 0b10000111;
+   510  009B  3087               	movlw	(087h)
+   511  009C  0081               	movwf	(129)^080h	;volatile
+   512                           	line	148
+   513                           	
+   514  009D                     l2249:	
+   515                           ;trafficc.c: 148: T0IE = 1;
+   516  009D  168B               	bsf	(93/8),(93)&7
+   517                           	line	149
+   518                           	
+   519  009E                     l2251:	
+   520                           ;trafficc.c: 149: INTE = 1;
+   521  009E  160B               	bsf	(92/8),(92)&7
+   522                           	line	150
+   523                           	
+   524  009F                     l2253:	
+   525                           ;trafficc.c: 150: GIE = 1;
+   526  009F  178B               	bsf	(95/8),(95)&7
+   527                           	line	152
+   528                           	
+   529  00A0                     l2255:	
+   530                           ;trafficc.c: 152: resetcount();
+   531  00A0  118A  20D6  118A   	fcall	_resetcount
+   532                           	line	153
+   533                           	
+   534  00A3                     l2257:	
+   535                           ;trafficc.c: 153: green1on();
+   536  00A3  118A  211A  118A   	fcall	_green1on
+   537                           	line	154
+   538                           	
+   539  00A6                     l2259:	
+   540                           ;trafficc.c: 154: green2off();
+   541  00A6  118A  212A  118A   	fcall	_green2off
+   542                           	line	155
+   543                           	
+   544  00A9                     l2261:	
+   545                           ;trafficc.c: 155: yellow1off();
+   546  00A9  118A  212E  118A   	fcall	_yellow1off
+   547                           	line	156
+   548                           	
+   549  00AC                     l2263:	
+   550                           ;trafficc.c: 156: yellow2off();
+   551  00AC  118A  2126  118A   	fcall	_yellow2off
+   552                           	line	157
+   553                           	
+   554  00AF                     l2265:	
+   555                           ;trafficc.c: 157: red1off();
+   556  00AF  118A  211E  118A   	fcall	_red1off
+   557                           	line	158
+   558                           	
+   559  00B2                     l2267:	
+   560                           ;trafficc.c: 158: red2on();
+   561  00B2  118A  2122  118A   	fcall	_red2on
+   562  00B5  28B6               	goto	l808
+   563                           	line	161
+   564                           ;trafficc.c: 161: while(1){
+   565                           	
+   566  00B6                     l807:	
+   567                           	line	163
+   568                           	
+   569  00B6                     l808:	
+   570                           	line	161
+   571  00B6  28B6               	goto	l808
+   572                           	
+   573  00B7                     l809:	
+   574                           	line	164
+   575                           	
+   576  00B7                     l810:	
+   577                           	global	start
+   578  00B7  118A  2811         	ljmp	start
+   579                           	opt stack 0
+   580                           GLOBAL	__end_of_main
+   581  00B9                     	__end_of_main:
+   582 ;; =============== function _main ends ============
+   583                           
+   584                           	signat	_main,88
+   585                           	global	_resetcount
+   586                           psect	text846,local,class=CODE,delta=2
+   587                           global __ptext846
+   588  00D6                     __ptext846:
+   589                           
+   590 ;; *************** function _resetcount *****************
+   591 ;; Defined at:
+   592 ;;		line 83 in file "C:\projects\PIC\trafficc\trafficc.c"
+   593 ;; Parameters:    Size  Location     Type
+   594 ;;		None
+   595 ;; Auto vars:     Size  Location     Type
+   596 ;;		None
+   597 ;; Return value:  Size  Location     Type
+   598 ;;		None               void
+   599 ;; Registers used:
+   600 ;;		wreg
+   601 ;; Tracked objects:
+   602 ;;		On entry : 0/0
+   603 ;;		On exit  : 0/0
+   604 ;;		Unchanged: 0/0
+   605 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   606 ;;      Params:         0       0       0       0
+   607 ;;      Locals:         0       0       0       0
+   608 ;;      Temps:          0       0       0       0
+   609 ;;      Totals:         0       0       0       0
+   610 ;;Total ram usage:        0 bytes
+   611 ;; Hardware stack levels used:    1
+   612 ;; Hardware stack levels required when called:    3
+   613 ;; This function calls:
+   614 ;;		Nothing
+   615 ;; This function is called by:
+   616 ;;		_main
+   617 ;; This function uses a non-reentrant model
+   618 ;;
+   619                           psect	text846
+   620                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+   621                           	line	83
+   622                           	global	__size_of_resetcount
+   623  001B                     	__size_of_resetcount	equ	__end_of_resetcount-_resetcount
+   624                           	
+   625  00D6                     _resetcount:	
+   626                           	opt	stack 4
+   627                           ; Regs used in _resetcount: [wreg]
+   628                           	line	85
+   629                           	
+   630  00D6                     l2241:	
+   631                           ;trafficc.c: 85: count = 24;
+   632  00D6  3018               	movlw	low(018h)
+   633  00D7  00F0               	movwf	(_count)
+   634  00D8  3000               	movlw	high(018h)
+   635  00D9  00F1               	movwf	((_count))+1
+   636                           	line	86
+   637                           ;trafficc.c: 86: count2 = 16;
+   638  00DA  3010               	movlw	low(010h)
+   639  00DB  00F2               	movwf	(_count2)
+   640  00DC  3000               	movlw	high(010h)
+   641  00DD  00F3               	movwf	((_count2))+1
+   642                           	line	87
+   643                           ;trafficc.c: 87: count3 = 8;
+   644  00DE  3008               	movlw	low(08h)
+   645  00DF  00F4               	movwf	(_count3)
+   646  00E0  3000               	movlw	high(08h)
+   647  00E1  00F5               	movwf	((_count3))+1
+   648                           	line	88
+   649                           ;trafficc.c: 88: count4 = 24;
+   650  00E2  3018               	movlw	low(018h)
+   651  00E3  00F6               	movwf	(_count4)
+   652  00E4  3000               	movlw	high(018h)
+   653  00E5  00F7               	movwf	((_count4))+1
+   654                           	line	89
+   655                           ;trafficc.c: 89: count5 = 16;
+   656  00E6  3010               	movlw	low(010h)
+   657  00E7  00F8               	movwf	(_count5)
+   658  00E8  3000               	movlw	high(010h)
+   659  00E9  00F9               	movwf	((_count5))+1
+   660                           	line	90
+   661                           ;trafficc.c: 90: count6 = 8;
+   662  00EA  3008               	movlw	low(08h)
+   663  00EB  1283               	bcf	status, 5	;RP0=0, select bank0
+   664  00EC  1303               	bcf	status, 6	;RP1=0, select bank0
+   665  00ED  00A0               	movwf	(_count6)
+   666  00EE  3000               	movlw	high(08h)
+   667  00EF  00A1               	movwf	((_count6))+1
+   668                           	line	92
+   669                           	
+   670  00F0                     l768:	
+   671  00F0  0008               	return
+   672                           	opt stack 0
+   673                           GLOBAL	__end_of_resetcount
+   674  00F1                     	__end_of_resetcount:
+   675 ;; =============== function _resetcount ends ============
+   676                           
+   677                           	signat	_resetcount,88
+   678                           	global	_green1on
+   679                           psect	text847,local,class=CODE,delta=2
+   680                           global __ptext847
+   681  011A                     __ptext847:
+   682                           
+   683 ;; *************** function _green1on *****************
+   684 ;; Defined at:
+   685 ;;		line 94 in file "C:\projects\PIC\trafficc\trafficc.c"
+   686 ;; Parameters:    Size  Location     Type
+   687 ;;		None
+   688 ;; Auto vars:     Size  Location     Type
+   689 ;;		None
+   690 ;; Return value:  Size  Location     Type
+   691 ;;		None               void
+   692 ;; Registers used:
+   693 ;;		None
+   694 ;; Tracked objects:
+   695 ;;		On entry : 0/0
+   696 ;;		On exit  : 0/0
+   697 ;;		Unchanged: 0/0
+   698 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   699 ;;      Params:         0       0       0       0
+   700 ;;      Locals:         0       0       0       0
+   701 ;;      Temps:          0       0       0       0
+   702 ;;      Totals:         0       0       0       0
+   703 ;;Total ram usage:        0 bytes
+   704 ;; Hardware stack levels used:    1
+   705 ;; Hardware stack levels required when called:    3
+   706 ;; This function calls:
+   707 ;;		Nothing
+   708 ;; This function is called by:
+   709 ;;		_main
+   710 ;; This function uses a non-reentrant model
+   711 ;;
+   712                           psect	text847
+   713                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+   714                           	line	94
+   715                           	global	__size_of_green1on
+   716  0004                     	__size_of_green1on	equ	__end_of_green1on-_green1on
+   717                           	
+   718  011A                     _green1on:	
+   719                           	opt	stack 4
+   720                           ; Regs used in _green1on: []
+   721                           	line	95
+   722                           	
+   723  011A                     l2239:	
+   724                           ;trafficc.c: 95: RC5 = 0;
+   725  011A  1283               	bcf	status, 5	;RP0=0, select bank0
+   726  011B  1303               	bcf	status, 6	;RP1=0, select bank0
+   727  011C  1287               	bcf	(61/8),(61)&7
+   728                           	line	96
+   729                           	
+   730  011D                     l771:	
+   731  011D  0008               	return
+   732                           	opt stack 0
+   733                           GLOBAL	__end_of_green1on
+   734  011E                     	__end_of_green1on:
+   735 ;; =============== function _green1on ends ============
+   736                           
+   737                           	signat	_green1on,88
+   738                           	global	_red1off
+   739                           psect	text848,local,class=CODE,delta=2
+   740                           global __ptext848
+   741  011E                     __ptext848:
+   742                           
+   743 ;; *************** function _red1off *****************
+   744 ;; Defined at:
+   745 ;;		line 114 in file "C:\projects\PIC\trafficc\trafficc.c"
+   746 ;; Parameters:    Size  Location     Type
+   747 ;;		None
+   748 ;; Auto vars:     Size  Location     Type
+   749 ;;		None
+   750 ;; Return value:  Size  Location     Type
+   751 ;;		None               void
+   752 ;; Registers used:
+   753 ;;		None
+   754 ;; Tracked objects:
+   755 ;;		On entry : 0/0
+   756 ;;		On exit  : 0/0
+   757 ;;		Unchanged: 0/0
+   758 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   759 ;;      Params:         0       0       0       0
+   760 ;;      Locals:         0       0       0       0
+   761 ;;      Temps:          0       0       0       0
+   762 ;;      Totals:         0       0       0       0
+   763 ;;Total ram usage:        0 bytes
+   764 ;; Hardware stack levels used:    1
+   765 ;; Hardware stack levels required when called:    3
+   766 ;; This function calls:
+   767 ;;		Nothing
+   768 ;; This function is called by:
+   769 ;;		_main
+   770 ;; This function uses a non-reentrant model
+   771 ;;
+   772                           psect	text848
+   773                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+   774                           	line	114
+   775                           	global	__size_of_red1off
+   776  0004                     	__size_of_red1off	equ	__end_of_red1off-_red1off
+   777                           	
+   778  011E                     _red1off:	
+   779                           	opt	stack 4
+   780                           ; Regs used in _red1off: []
+   781                           	line	115
+   782                           	
+   783  011E                     l2237:	
+   784                           ;trafficc.c: 115: RC3 = 1;
+   785  011E  1283               	bcf	status, 5	;RP0=0, select bank0
+   786  011F  1303               	bcf	status, 6	;RP1=0, select bank0
+   787  0120  1587               	bsf	(59/8),(59)&7
+   788                           	line	116
+   789                           	
+   790  0121                     l786:	
+   791  0121  0008               	return
+   792                           	opt stack 0
+   793                           GLOBAL	__end_of_red1off
+   794  0122                     	__end_of_red1off:
+   795 ;; =============== function _red1off ends ============
+   796                           
+   797                           	signat	_red1off,88
+   798                           	global	_red2on
+   799                           psect	text849,local,class=CODE,delta=2
+   800                           global __ptext849
+   801  0122                     __ptext849:
+   802                           
+   803 ;; *************** function _red2on *****************
+   804 ;; Defined at:
+   805 ;;		line 134 in file "C:\projects\PIC\trafficc\trafficc.c"
+   806 ;; Parameters:    Size  Location     Type
+   807 ;;		None
+   808 ;; Auto vars:     Size  Location     Type
+   809 ;;		None
+   810 ;; Return value:  Size  Location     Type
+   811 ;;		None               void
+   812 ;; Registers used:
+   813 ;;		None
+   814 ;; Tracked objects:
+   815 ;;		On entry : 0/0
+   816 ;;		On exit  : 0/0
+   817 ;;		Unchanged: 0/0
+   818 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   819 ;;      Params:         0       0       0       0
+   820 ;;      Locals:         0       0       0       0
+   821 ;;      Temps:          0       0       0       0
+   822 ;;      Totals:         0       0       0       0
+   823 ;;Total ram usage:        0 bytes
+   824 ;; Hardware stack levels used:    1
+   825 ;; Hardware stack levels required when called:    3
+   826 ;; This function calls:
+   827 ;;		Nothing
+   828 ;; This function is called by:
+   829 ;;		_main
+   830 ;; This function uses a non-reentrant model
+   831 ;;
+   832                           psect	text849
+   833                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+   834                           	line	134
+   835                           	global	__size_of_red2on
+   836  0004                     	__size_of_red2on	equ	__end_of_red2on-_red2on
+   837                           	
+   838  0122                     _red2on:	
+   839                           	opt	stack 4
+   840                           ; Regs used in _red2on: []
+   841                           	line	135
+   842                           	
+   843  0122                     l2235:	
+   844                           ;trafficc.c: 135: RC0 = 0;
+   845  0122  1283               	bcf	status, 5	;RP0=0, select bank0
+   846  0123  1303               	bcf	status, 6	;RP1=0, select bank0
+   847  0124  1007               	bcf	(56/8),(56)&7
+   848                           	line	136
+   849                           	
+   850  0125                     l801:	
+   851  0125  0008               	return
+   852                           	opt stack 0
+   853                           GLOBAL	__end_of_red2on
+   854  0126                     	__end_of_red2on:
+   855 ;; =============== function _red2on ends ============
+   856                           
+   857                           	signat	_red2on,88
+   858                           	global	_yellow2off
+   859                           psect	text850,local,class=CODE,delta=2
+   860                           global __ptext850
+   861  0126                     __ptext850:
+   862                           
+   863 ;; *************** function _yellow2off *****************
+   864 ;; Defined at:
+   865 ;;		line 130 in file "C:\projects\PIC\trafficc\trafficc.c"
+   866 ;; Parameters:    Size  Location     Type
+   867 ;;		None
+   868 ;; Auto vars:     Size  Location     Type
+   869 ;;		None
+   870 ;; Return value:  Size  Location     Type
+   871 ;;		None               void
+   872 ;; Registers used:
+   873 ;;		None
+   874 ;; Tracked objects:
+   875 ;;		On entry : 0/0
+   876 ;;		On exit  : 0/0
+   877 ;;		Unchanged: 0/0
+   878 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   879 ;;      Params:         0       0       0       0
+   880 ;;      Locals:         0       0       0       0
+   881 ;;      Temps:          0       0       0       0
+   882 ;;      Totals:         0       0       0       0
+   883 ;;Total ram usage:        0 bytes
+   884 ;; Hardware stack levels used:    1
+   885 ;; Hardware stack levels required when called:    3
+   886 ;; This function calls:
+   887 ;;		Nothing
+   888 ;; This function is called by:
+   889 ;;		_main
+   890 ;; This function uses a non-reentrant model
+   891 ;;
+   892                           psect	text850
+   893                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+   894                           	line	130
+   895                           	global	__size_of_yellow2off
+   896  0004                     	__size_of_yellow2off	equ	__end_of_yellow2off-_yellow2off
+   897                           	
+   898  0126                     _yellow2off:	
+   899                           	opt	stack 4
+   900                           ; Regs used in _yellow2off: []
+   901                           	line	131
+   902                           	
+   903  0126                     l2233:	
+   904                           ;trafficc.c: 131: RC1 = 1;
+   905  0126  1283               	bcf	status, 5	;RP0=0, select bank0
+   906  0127  1303               	bcf	status, 6	;RP1=0, select bank0
+   907  0128  1487               	bsf	(57/8),(57)&7
+   908                           	line	132
+   909                           	
+   910  0129                     l798:	
+   911  0129  0008               	return
+   912                           	opt stack 0
+   913                           GLOBAL	__end_of_yellow2off
+   914  012A                     	__end_of_yellow2off:
+   915 ;; =============== function _yellow2off ends ============
+   916                           
+   917                           	signat	_yellow2off,88
+   918                           	global	_green2off
+   919                           psect	text851,local,class=CODE,delta=2
+   920                           global __ptext851
+   921  012A                     __ptext851:
+   922                           
+   923 ;; *************** function _green2off *****************
+   924 ;; Defined at:
+   925 ;;		line 122 in file "C:\projects\PIC\trafficc\trafficc.c"
+   926 ;; Parameters:    Size  Location     Type
+   927 ;;		None
+   928 ;; Auto vars:     Size  Location     Type
+   929 ;;		None
+   930 ;; Return value:  Size  Location     Type
+   931 ;;		None               void
+   932 ;; Registers used:
+   933 ;;		None
+   934 ;; Tracked objects:
+   935 ;;		On entry : 0/0
+   936 ;;		On exit  : 0/0
+   937 ;;		Unchanged: 0/0
+   938 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   939 ;;      Params:         0       0       0       0
+   940 ;;      Locals:         0       0       0       0
+   941 ;;      Temps:          0       0       0       0
+   942 ;;      Totals:         0       0       0       0
+   943 ;;Total ram usage:        0 bytes
+   944 ;; Hardware stack levels used:    1
+   945 ;; Hardware stack levels required when called:    3
+   946 ;; This function calls:
+   947 ;;		Nothing
+   948 ;; This function is called by:
+   949 ;;		_main
+   950 ;; This function uses a non-reentrant model
+   951 ;;
+   952                           psect	text851
+   953                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+   954                           	line	122
+   955                           	global	__size_of_green2off
+   956  0004                     	__size_of_green2off	equ	__end_of_green2off-_green2off
+   957                           	
+   958  012A                     _green2off:	
+   959                           	opt	stack 4
+   960                           ; Regs used in _green2off: []
+   961                           	line	123
+   962                           	
+   963  012A                     l2231:	
+   964                           ;trafficc.c: 123: RC2 = 1;
+   965  012A  1283               	bcf	status, 5	;RP0=0, select bank0
+   966  012B  1303               	bcf	status, 6	;RP1=0, select bank0
+   967  012C  1507               	bsf	(58/8),(58)&7
+   968                           	line	124
+   969                           	
+   970  012D                     l792:	
+   971  012D  0008               	return
+   972                           	opt stack 0
+   973                           GLOBAL	__end_of_green2off
+   974  012E                     	__end_of_green2off:
+   975 ;; =============== function _green2off ends ============
+   976                           
+   977                           	signat	_green2off,88
+   978                           	global	_yellow1off
+   979                           psect	text852,local,class=CODE,delta=2
+   980                           global __ptext852
+   981  012E                     __ptext852:
+   982                           
+   983 ;; *************** function _yellow1off *****************
+   984 ;; Defined at:
+   985 ;;		line 106 in file "C:\projects\PIC\trafficc\trafficc.c"
+   986 ;; Parameters:    Size  Location     Type
+   987 ;;		None
+   988 ;; Auto vars:     Size  Location     Type
+   989 ;;		None
+   990 ;; Return value:  Size  Location     Type
+   991 ;;		None               void
+   992 ;; Registers used:
+   993 ;;		None
+   994 ;; Tracked objects:
+   995 ;;		On entry : 0/0
+   996 ;;		On exit  : 0/0
+   997 ;;		Unchanged: 0/0
+   998 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   999 ;;      Params:         0       0       0       0
+  1000 ;;      Locals:         0       0       0       0
+  1001 ;;      Temps:          0       0       0       0
+  1002 ;;      Totals:         0       0       0       0
+  1003 ;;Total ram usage:        0 bytes
+  1004 ;; Hardware stack levels used:    1
+  1005 ;; Hardware stack levels required when called:    3
+  1006 ;; This function calls:
+  1007 ;;		Nothing
+  1008 ;; This function is called by:
+  1009 ;;		_main
+  1010 ;; This function uses a non-reentrant model
+  1011 ;;
+  1012                           psect	text852
+  1013                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  1014                           	line	106
+  1015                           	global	__size_of_yellow1off
+  1016  0004                     	__size_of_yellow1off	equ	__end_of_yellow1off-_yellow1off
+  1017                           	
+  1018  012E                     _yellow1off:	
+  1019                           	opt	stack 4
+  1020                           ; Regs used in _yellow1off: []
+  1021                           	line	107
+  1022                           	
+  1023  012E                     l2229:	
+  1024                           ;trafficc.c: 107: RC4 = 1;
+  1025  012E  1283               	bcf	status, 5	;RP0=0, select bank0
+  1026  012F  1303               	bcf	status, 6	;RP1=0, select bank0
+  1027  0130  1607               	bsf	(60/8),(60)&7
+  1028                           	line	108
+  1029                           	
+  1030  0131                     l780:	
+  1031  0131  0008               	return
+  1032                           	opt stack 0
+  1033                           GLOBAL	__end_of_yellow1off
+  1034  0132                     	__end_of_yellow1off:
+  1035 ;; =============== function _yellow1off ends ============
+  1036                           
+  1037                           	signat	_yellow1off,88
+  1038                           	global	_isr
+  1039                           psect	text853,local,class=CODE,delta=2
+  1040                           global __ptext853
+  1041  00B9                     __ptext853:
+  1042                           
+  1043 ;; *************** function _isr *****************
+  1044 ;; Defined at:
+  1045 ;;		line 24 in file "C:\projects\PIC\trafficc\trafficc.c"
+  1046 ;; Parameters:    Size  Location     Type
+  1047 ;;		None
+  1048 ;; Auto vars:     Size  Location     Type
+  1049 ;;		None
+  1050 ;; Return value:  Size  Location     Type
+  1051 ;;		None               void
+  1052 ;; Registers used:
+  1053 ;;		wreg, fsr0l, fsr0h, fsr1l, fsr1h, status,2, status,0, btemp+1, pclath, cstack
+  1054 ;; Tracked objects:
+  1055 ;;		On entry : 0/0
+  1056 ;;		On exit  : 0/0
+  1057 ;;		Unchanged: 0/0
+  1058 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1059 ;;      Params:         0       0       0       0
+  1060 ;;      Locals:         0       0       0       0
+  1061 ;;      Temps:          4       0       0       0
+  1062 ;;      Totals:         4       0       0       0
+  1063 ;;Total ram usage:        4 bytes
+  1064 ;; Hardware stack levels used:    1
+  1065 ;; Hardware stack levels required when called:    2
+  1066 ;; This function calls:
+  1067 ;;		_timer
+  1068 ;;		_button
+  1069 ;; This function is called by:
+  1070 ;;		Interrupt level 1
+  1071 ;; This function uses a non-reentrant model
+  1072 ;;
+  1073                           psect	text853
+  1074                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  1075                           	line	24
+  1076                           	global	__size_of_isr
+  1077  001D                     	__size_of_isr	equ	__end_of_isr-_isr
+  1078                           	
+  1079  00B9                     _isr:	
+  1080                           	opt	stack 4
+  1081                           ; Regs used in _isr: [allreg]
+  1082                           psect	intentry,class=CODE,delta=2
+  1083                           global __pintentry
+  1084  0004                     __pintentry:
+  1085                           global interrupt_function
+  1086  0004                     interrupt_function:
+  1087                           	global saved_w
+  1088  007E                     	saved_w	set	btemp+0
+  1089  0004  00FE               	movwf	saved_w
+  1090  0005  0803               	movf	status,w
+  1091  0006  00FA               	movwf	(??_isr+0)
+  1092  0007  0804               	movf	fsr0,w
+  1093  0008  00FB               	movwf	(??_isr+1)
+  1094  0009  080A               	movf	pclath,w
+  1095  000A  00FC               	movwf	(??_isr+2)
+  1096  000B  1283               	bcf	status, 5	;RP0=0, select bank0
+  1097  000C  1303               	bcf	status, 6	;RP1=0, select bank0
+  1098  000D  087F               	movf	btemp+1,w
+  1099  000E  00FD               	movwf	(??_isr+3)
+  1100  000F  118A  28B9         	ljmp	_isr
+  1101                           psect	text853
+  1102                           	line	26
+  1103                           	
+  1104  00B9                     i1l2111:	
+  1105                           ;trafficc.c: 26: if(T0IF)
+  1106  00B9  1D0B               	btfss	(90/8),(90)&7
+  1107  00BA  28BC               	goto	u222_21
+  1108  00BB  28BD               	goto	u222_20
+  1109  00BC                     u222_21:
+  1110  00BC  28C1               	goto	i1l2115
+  1111  00BD                     u222_20:
+  1112                           	line	27
+  1113                           	
+  1114  00BD                     i1l2113:	
+  1115                           ;trafficc.c: 27: timer();
+  1116  00BD  118A  2013  118A   	fcall	_timer
+  1117  00C0  28C1               	goto	i1l2115
+  1118                           	
+  1119  00C1                     i1l751:	
+  1120                           	line	28
+  1121                           	
+  1122  00C1                     i1l2115:	
+  1123                           ;trafficc.c: 28: if(INTF)
+  1124  00C1  1C8B               	btfss	(89/8),(89)&7
+  1125  00C2  28C4               	goto	u223_21
+  1126  00C3  28C5               	goto	u223_20
+  1127  00C4                     u223_21:
+  1128  00C4  28C9               	goto	i1l753
+  1129  00C5                     u223_20:
+  1130                           	line	29
+  1131                           	
+  1132  00C5                     i1l2117:	
+  1133                           ;trafficc.c: 29: button();
+  1134  00C5  118A  210C  118A   	fcall	_button
+  1135  00C8  28C9               	goto	i1l753
+  1136                           	
+  1137  00C9                     i1l752:	
+  1138                           	line	30
+  1139                           	
+  1140  00C9                     i1l753:	
+  1141  00C9  087D               	movf	(??_isr+3),w
+  1142  00CA  1283               	bcf	status, 5	;RP0=0, select bank0
+  1143  00CB  1303               	bcf	status, 6	;RP1=0, select bank0
+  1144  00CC  00FF               	movwf	btemp+1
+  1145  00CD  087C               	movf	(??_isr+2),w
+  1146  00CE  008A               	movwf	pclath
+  1147  00CF  087B               	movf	(??_isr+1),w
+  1148  00D0  0084               	movwf	fsr0
+  1149  00D1  087A               	movf	(??_isr+0),w
+  1150  00D2  0083               	movwf	status
+  1151  00D3  0EFE               	swapf	saved_w,f
+  1152  00D4  0E7E               	swapf	saved_w,w
+  1153  00D5  0009               	retfie
+  1154                           	opt stack 0
+  1155                           GLOBAL	__end_of_isr
+  1156  00D6                     	__end_of_isr:
+  1157 ;; =============== function _isr ends ============
+  1158                           
+  1159                           	signat	_isr,88
+  1160                           	global	_timer
+  1161                           psect	text854,local,class=CODE,delta=2
+  1162                           global __ptext854
+  1163  0013                     __ptext854:
+  1164                           
+  1165 ;; *************** function _timer *****************
+  1166 ;; Defined at:
+  1167 ;;		line 32 in file "C:\projects\PIC\trafficc\trafficc.c"
+  1168 ;; Parameters:    Size  Location     Type
+  1169 ;;		None
+  1170 ;; Auto vars:     Size  Location     Type
+  1171 ;;		None
+  1172 ;; Return value:  Size  Location     Type
+  1173 ;;		None               void
+  1174 ;; Registers used:
+  1175 ;;		wreg, status,2, status,0, pclath, cstack
+  1176 ;; Tracked objects:
+  1177 ;;		On entry : 0/0
+  1178 ;;		On exit  : 0/0
+  1179 ;;		Unchanged: 0/0
+  1180 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1181 ;;      Params:         0       0       0       0
+  1182 ;;      Locals:         0       0       0       0
+  1183 ;;      Temps:          0       0       0       0
+  1184 ;;      Totals:         0       0       0       0
+  1185 ;;Total ram usage:        0 bytes
+  1186 ;; Hardware stack levels used:    1
+  1187 ;; Hardware stack levels required when called:    1
+  1188 ;; This function calls:
+  1189 ;;		_green1off
+  1190 ;;		_yellow1on
+  1191 ;;		i1_yellow1off
+  1192 ;;		_red1on
+  1193 ;;		_green2on
+  1194 ;;		_red2off
+  1195 ;;		i1_green2off
+  1196 ;;		_yellow2on
+  1197 ;;		i1_yellow2off
+  1198 ;;		i1_red2on
+  1199 ;;		i1_red1off
+  1200 ;;		i1_green1on
+  1201 ;;		i1_resetcount
+  1202 ;; This function is called by:
+  1203 ;;		_isr
+  1204 ;; This function uses a non-reentrant model
+  1205 ;;
+  1206                           psect	text854
+  1207                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  1208                           	line	32
+  1209                           	global	__size_of_timer
+  1210  007F                     	__size_of_timer	equ	__end_of_timer-_timer
+  1211                           	
+  1212  0013                     _timer:	
+  1213                           	opt	stack 4
+  1214                           ; Regs used in _timer: [wreg+status,2+status,0+pclath+cstack]
+  1215                           	line	34
+  1216                           	
+  1217  0013                     i1l2119:	
+  1218                           ;trafficc.c: 34: T0IF = 0;
+  1219  0013  110B               	bcf	(90/8),(90)&7
+  1220                           	line	35
+  1221                           	
+  1222  0014                     i1l2121:	
+  1223                           ;trafficc.c: 35: if(count != 0){
+  1224  0014  0871               	movf	(_count+1),w
+  1225  0015  0470               	iorwf	(_count),w
+  1226  0016  1903               	skipnz
+  1227  0017  2819               	goto	u224_21
+  1228  0018  281A               	goto	u224_20
+  1229  0019                     u224_21:
+  1230  0019  2822               	goto	i1l2127
+  1231  001A                     u224_20:
+  1232                           	line	36
+  1233                           	
+  1234  001A                     i1l2123:	
+  1235                           ;trafficc.c: 36: count--;
+  1236  001A  30FF               	movlw	low(-1)
+  1237  001B  07F0               	addwf	(_count),f
+  1238  001C  1803               	skipnc
+  1239  001D  0AF1               	incf	(_count+1),f
+  1240  001E  30FF               	movlw	high(-1)
+  1241  001F  07F1               	addwf	(_count+1),f
+  1242  0020  2891               	goto	i1l757
+  1243                           	line	37
+  1244                           	
+  1245  0021                     i1l2125:	
+  1246                           ;trafficc.c: 37: return;
+  1247  0021  2891               	goto	i1l757
+  1248                           	line	38
+  1249                           	
+  1250  0022                     i1l756:	
+  1251                           	line	39
+  1252                           	
+  1253  0022                     i1l2127:	
+  1254                           ;trafficc.c: 38: }
+  1255                           ;trafficc.c: 39: green1off();
+  1256  0022  118A  215E  118A   	fcall	_green1off
+  1257                           	line	40
+  1258                           ;trafficc.c: 40: yellow1on();
+  1259  0025  118A  215A  118A   	fcall	_yellow1on
+  1260                           	line	41
+  1261                           	
+  1262  0028                     i1l2129:	
+  1263                           ;trafficc.c: 41: if(count2 != 0){
+  1264  0028  0873               	movf	(_count2+1),w
+  1265  0029  0472               	iorwf	(_count2),w
+  1266  002A  1903               	skipnz
+  1267  002B  282D               	goto	u225_21
+  1268  002C  282E               	goto	u225_20
+  1269  002D                     u225_21:
+  1270  002D  2836               	goto	i1l2135
+  1271  002E                     u225_20:
+  1272                           	line	42
+  1273                           	
+  1274  002E                     i1l2131:	
+  1275                           ;trafficc.c: 42: count2--;
+  1276  002E  30FF               	movlw	low(-1)
+  1277  002F  07F2               	addwf	(_count2),f
+  1278  0030  1803               	skipnc
+  1279  0031  0AF3               	incf	(_count2+1),f
+  1280  0032  30FF               	movlw	high(-1)
+  1281  0033  07F3               	addwf	(_count2+1),f
+  1282  0034  2891               	goto	i1l757
+  1283                           	line	43
+  1284                           	
+  1285  0035                     i1l2133:	
+  1286                           ;trafficc.c: 43: return;
+  1287  0035  2891               	goto	i1l757
+  1288                           	line	44
+  1289                           	
+  1290  0036                     i1l758:	
+  1291                           	line	45
+  1292                           	
+  1293  0036                     i1l2135:	
+  1294                           ;trafficc.c: 44: }
+  1295                           ;trafficc.c: 45: yellow1off();
+  1296  0036  118A  2142  118A   	fcall	i1_yellow1off
+  1297                           	line	46
+  1298                           ;trafficc.c: 46: red1on();
+  1299  0039  118A  2156  118A   	fcall	_red1on
+  1300                           	line	47
+  1301                           	
+  1302  003C                     i1l2137:	
+  1303                           ;trafficc.c: 47: if(count3 != 0){
+  1304  003C  0875               	movf	(_count3+1),w
+  1305  003D  0474               	iorwf	(_count3),w
+  1306  003E  1903               	skipnz
+  1307  003F  2841               	goto	u226_21
+  1308  0040  2842               	goto	u226_20
+  1309  0041                     u226_21:
+  1310  0041  284A               	goto	i1l2143
+  1311  0042                     u226_20:
+  1312                           	line	48
+  1313                           	
+  1314  0042                     i1l2139:	
+  1315                           ;trafficc.c: 48: count3--;
+  1316  0042  30FF               	movlw	low(-1)
+  1317  0043  07F4               	addwf	(_count3),f
+  1318  0044  1803               	skipnc
+  1319  0045  0AF5               	incf	(_count3+1),f
+  1320  0046  30FF               	movlw	high(-1)
+  1321  0047  07F5               	addwf	(_count3+1),f
+  1322  0048  2891               	goto	i1l757
+  1323                           	line	49
+  1324                           	
+  1325  0049                     i1l2141:	
+  1326                           ;trafficc.c: 49: return;
+  1327  0049  2891               	goto	i1l757
+  1328                           	line	50
+  1329                           	
+  1330  004A                     i1l759:	
+  1331                           	line	51
+  1332                           	
+  1333  004A                     i1l2143:	
+  1334                           ;trafficc.c: 50: }
+  1335                           ;trafficc.c: 51: green2on();
+  1336  004A  118A  2152  118A   	fcall	_green2on
+  1337                           	line	52
+  1338                           ;trafficc.c: 52: red2off();
+  1339  004D  118A  214E  118A   	fcall	_red2off
+  1340                           	line	53
+  1341                           	
+  1342  0050                     i1l2145:	
+  1343                           ;trafficc.c: 53: if(count4 != 0){
+  1344  0050  0877               	movf	(_count4+1),w
+  1345  0051  0476               	iorwf	(_count4),w
+  1346  0052  1903               	skipnz
+  1347  0053  2855               	goto	u227_21
+  1348  0054  2856               	goto	u227_20
+  1349  0055                     u227_21:
+  1350  0055  285E               	goto	i1l2151
+  1351  0056                     u227_20:
+  1352                           	line	54
+  1353                           	
+  1354  0056                     i1l2147:	
+  1355                           ;trafficc.c: 54: count4--;
+  1356  0056  30FF               	movlw	low(-1)
+  1357  0057  07F6               	addwf	(_count4),f
+  1358  0058  1803               	skipnc
+  1359  0059  0AF7               	incf	(_count4+1),f
+  1360  005A  30FF               	movlw	high(-1)
+  1361  005B  07F7               	addwf	(_count4+1),f
+  1362  005C  2891               	goto	i1l757
+  1363                           	line	55
+  1364                           	
+  1365  005D                     i1l2149:	
+  1366                           ;trafficc.c: 55: return;
+  1367  005D  2891               	goto	i1l757
+  1368                           	line	56
+  1369                           	
+  1370  005E                     i1l760:	
+  1371                           	line	57
+  1372                           	
+  1373  005E                     i1l2151:	
+  1374                           ;trafficc.c: 56: }
+  1375                           ;trafficc.c: 57: green2off();
+  1376  005E  118A  213A  118A   	fcall	i1_green2off
+  1377                           	line	58
+  1378                           ;trafficc.c: 58: yellow2on();
+  1379  0061  118A  214A  118A   	fcall	_yellow2on
+  1380                           	line	59
+  1381                           	
+  1382  0064                     i1l2153:	
+  1383                           ;trafficc.c: 59: if(count5 != 0){
+  1384  0064  0879               	movf	(_count5+1),w
+  1385  0065  0478               	iorwf	(_count5),w
+  1386  0066  1903               	skipnz
+  1387  0067  2869               	goto	u228_21
+  1388  0068  286A               	goto	u228_20
+  1389  0069                     u228_21:
+  1390  0069  2872               	goto	i1l2159
+  1391  006A                     u228_20:
+  1392                           	line	60
+  1393                           	
+  1394  006A                     i1l2155:	
+  1395                           ;trafficc.c: 60: count5--;
+  1396  006A  30FF               	movlw	low(-1)
+  1397  006B  07F8               	addwf	(_count5),f
+  1398  006C  1803               	skipnc
+  1399  006D  0AF9               	incf	(_count5+1),f
+  1400  006E  30FF               	movlw	high(-1)
+  1401  006F  07F9               	addwf	(_count5+1),f
+  1402  0070  2891               	goto	i1l757
+  1403                           	line	61
+  1404                           	
+  1405  0071                     i1l2157:	
+  1406                           ;trafficc.c: 61: return;
+  1407  0071  2891               	goto	i1l757
+  1408                           	line	62
+  1409                           	
+  1410  0072                     i1l761:	
+  1411                           	line	63
+  1412                           	
+  1413  0072                     i1l2159:	
+  1414                           ;trafficc.c: 62: }
+  1415                           ;trafficc.c: 63: yellow2off();
+  1416  0072  118A  2136  118A   	fcall	i1_yellow2off
+  1417                           	line	64
+  1418                           ;trafficc.c: 64: red2on();
+  1419  0075  118A  2132  118A   	fcall	i1_red2on
+  1420                           	line	65
+  1421                           	
+  1422  0078                     i1l2161:	
+  1423                           ;trafficc.c: 65: if(count6 != 0){
+  1424  0078  1283               	bcf	status, 5	;RP0=0, select bank0
+  1425  0079  1303               	bcf	status, 6	;RP1=0, select bank0
+  1426  007A  0821               	movf	(_count6+1),w
+  1427  007B  0420               	iorwf	(_count6),w
+  1428  007C  1903               	skipnz
+  1429  007D  287F               	goto	u229_21
+  1430  007E  2880               	goto	u229_20
+  1431  007F                     u229_21:
+  1432  007F  2888               	goto	i1l2167
+  1433  0080                     u229_20:
+  1434                           	line	66
+  1435                           	
+  1436  0080                     i1l2163:	
+  1437                           ;trafficc.c: 66: count6--;
+  1438  0080  30FF               	movlw	low(-1)
+  1439  0081  07A0               	addwf	(_count6),f
+  1440  0082  1803               	skipnc
+  1441  0083  0AA1               	incf	(_count6+1),f
+  1442  0084  30FF               	movlw	high(-1)
+  1443  0085  07A1               	addwf	(_count6+1),f
+  1444  0086  2891               	goto	i1l757
+  1445                           	line	67
+  1446                           	
+  1447  0087                     i1l2165:	
+  1448                           ;trafficc.c: 67: return;
+  1449  0087  2891               	goto	i1l757
+  1450                           	line	68
+  1451                           	
+  1452  0088                     i1l762:	
+  1453                           	line	69
+  1454                           	
+  1455  0088                     i1l2167:	
+  1456                           ;trafficc.c: 68: }
+  1457                           ;trafficc.c: 69: red1off();
+  1458  0088  118A  213E  118A   	fcall	i1_red1off
+  1459                           	line	70
+  1460                           ;trafficc.c: 70: green1on();
+  1461  008B  118A  2146  118A   	fcall	i1_green1on
+  1462                           	line	72
+  1463                           	
+  1464  008E                     i1l2169:	
+  1465                           ;trafficc.c: 72: resetcount();
+  1466  008E  118A  20F1  118A   	fcall	i1_resetcount
+  1467                           	line	74
+  1468                           	
+  1469  0091                     i1l757:	
+  1470  0091  0008               	return
+  1471                           	opt stack 0
+  1472                           GLOBAL	__end_of_timer
+  1473  0092                     	__end_of_timer:
+  1474 ;; =============== function _timer ends ============
+  1475                           
+  1476                           	signat	_timer,88
+  1477                           	global	i1_red2on
+  1478                           psect	text855,local,class=CODE,delta=2
+  1479                           global __ptext855
+  1480  0132                     __ptext855:
+  1481                           
+  1482 ;; *************** function i1_red2on *****************
+  1483 ;; Defined at:
+  1484 ;;		line 134 in file "C:\projects\PIC\trafficc\trafficc.c"
+  1485 ;; Parameters:    Size  Location     Type
+  1486 ;;		None
+  1487 ;; Auto vars:     Size  Location     Type
+  1488 ;;		None
+  1489 ;; Return value:  Size  Location     Type
+  1490 ;;		None               void
+  1491 ;; Registers used:
+  1492 ;;		None
+  1493 ;; Tracked objects:
+  1494 ;;		On entry : 0/0
+  1495 ;;		On exit  : 0/0
+  1496 ;;		Unchanged: 0/0
+  1497 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1498 ;;      Params:         0       0       0       0
+  1499 ;;      Locals:         0       0       0       0
+  1500 ;;      Temps:          0       0       0       0
+  1501 ;;      Totals:         0       0       0       0
+  1502 ;;Total ram usage:        0 bytes
+  1503 ;; Hardware stack levels used:    1
+  1504 ;; This function calls:
+  1505 ;;		Nothing
+  1506 ;; This function is called by:
+  1507 ;;		_timer
+  1508 ;; This function uses a non-reentrant model
+  1509 ;;
+  1510                           psect	text855
+  1511                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  1512                           	line	134
+  1513                           	global	__size_ofi1_red2on
+  1514  0004                     	__size_ofi1_red2on	equ	__end_ofi1_red2on-i1_red2on
+  1515                           	
+  1516  0132                     i1_red2on:	
+  1517                           	opt	stack 4
+  1518                           ; Regs used in i1_red2on: []
+  1519                           	line	135
+  1520                           	
+  1521  0132                     i1l2201:	
+  1522                           ;trafficc.c: 135: RC0 = 0;
+  1523  0132  1283               	bcf	status, 5	;RP0=0, select bank0
+  1524  0133  1303               	bcf	status, 6	;RP1=0, select bank0
+  1525  0134  1007               	bcf	(56/8),(56)&7
+  1526                           	line	136
+  1527                           	
+  1528  0135                     i1l801:	
+  1529  0135  0008               	return
+  1530                           	opt stack 0
+  1531                           GLOBAL	__end_ofi1_red2on
+  1532  0136                     	__end_ofi1_red2on:
+  1533 ;; =============== function i1_red2on ends ============
+  1534                           
+  1535                           	signat	i1_red2on,88
+  1536                           	global	i1_yellow2off
+  1537                           psect	text856,local,class=CODE,delta=2
+  1538                           global __ptext856
+  1539  0136                     __ptext856:
+  1540                           
+  1541 ;; *************** function i1_yellow2off *****************
+  1542 ;; Defined at:
+  1543 ;;		line 130 in file "C:\projects\PIC\trafficc\trafficc.c"
+  1544 ;; Parameters:    Size  Location     Type
+  1545 ;;		None
+  1546 ;; Auto vars:     Size  Location     Type
+  1547 ;;		None
+  1548 ;; Return value:  Size  Location     Type
+  1549 ;;		None               void
+  1550 ;; Registers used:
+  1551 ;;		None
+  1552 ;; Tracked objects:
+  1553 ;;		On entry : 0/0
+  1554 ;;		On exit  : 0/0
+  1555 ;;		Unchanged: 0/0
+  1556 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1557 ;;      Params:         0       0       0       0
+  1558 ;;      Locals:         0       0       0       0
+  1559 ;;      Temps:          0       0       0       0
+  1560 ;;      Totals:         0       0       0       0
+  1561 ;;Total ram usage:        0 bytes
+  1562 ;; Hardware stack levels used:    1
+  1563 ;; This function calls:
+  1564 ;;		Nothing
+  1565 ;; This function is called by:
+  1566 ;;		_timer
+  1567 ;; This function uses a non-reentrant model
+  1568 ;;
+  1569                           psect	text856
+  1570                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  1571                           	line	130
+  1572                           	global	__size_ofi1_yellow2off
+  1573  0004                     	__size_ofi1_yellow2off	equ	__end_ofi1_yellow2off-i1_yellow2off
+  1574                           	
+  1575  0136                     i1_yellow2off:	
+  1576                           	opt	stack 4
+  1577                           ; Regs used in i1_yellow2off: []
+  1578                           	line	131
+  1579                           	
+  1580  0136                     i1l2199:	
+  1581                           ;trafficc.c: 131: RC1 = 1;
+  1582  0136  1283               	bcf	status, 5	;RP0=0, select bank0
+  1583  0137  1303               	bcf	status, 6	;RP1=0, select bank0
+  1584  0138  1487               	bsf	(57/8),(57)&7
+  1585                           	line	132
+  1586                           	
+  1587  0139                     i1l798:	
+  1588  0139  0008               	return
+  1589                           	opt stack 0
+  1590                           GLOBAL	__end_ofi1_yellow2off
+  1591  013A                     	__end_ofi1_yellow2off:
+  1592 ;; =============== function i1_yellow2off ends ============
+  1593                           
+  1594                           	signat	i1_yellow2off,88
+  1595                           	global	i1_green2off
+  1596                           psect	text857,local,class=CODE,delta=2
+  1597                           global __ptext857
+  1598  013A                     __ptext857:
+  1599                           
+  1600 ;; *************** function i1_green2off *****************
+  1601 ;; Defined at:
+  1602 ;;		line 122 in file "C:\projects\PIC\trafficc\trafficc.c"
+  1603 ;; Parameters:    Size  Location     Type
+  1604 ;;		None
+  1605 ;; Auto vars:     Size  Location     Type
+  1606 ;;		None
+  1607 ;; Return value:  Size  Location     Type
+  1608 ;;		None               void
+  1609 ;; Registers used:
+  1610 ;;		None
+  1611 ;; Tracked objects:
+  1612 ;;		On entry : 0/0
+  1613 ;;		On exit  : 0/0
+  1614 ;;		Unchanged: 0/0
+  1615 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1616 ;;      Params:         0       0       0       0
+  1617 ;;      Locals:         0       0       0       0
+  1618 ;;      Temps:          0       0       0       0
+  1619 ;;      Totals:         0       0       0       0
+  1620 ;;Total ram usage:        0 bytes
+  1621 ;; Hardware stack levels used:    1
+  1622 ;; This function calls:
+  1623 ;;		Nothing
+  1624 ;; This function is called by:
+  1625 ;;		_timer
+  1626 ;; This function uses a non-reentrant model
+  1627 ;;
+  1628                           psect	text857
+  1629                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  1630                           	line	122
+  1631                           	global	__size_ofi1_green2off
+  1632  0004                     	__size_ofi1_green2off	equ	__end_ofi1_green2off-i1_green2off
+  1633                           	
+  1634  013A                     i1_green2off:	
+  1635                           	opt	stack 4
+  1636                           ; Regs used in i1_green2off: []
+  1637                           	line	123
+  1638                           	
+  1639  013A                     i1l2197:	
+  1640                           ;trafficc.c: 123: RC2 = 1;
+  1641  013A  1283               	bcf	status, 5	;RP0=0, select bank0
+  1642  013B  1303               	bcf	status, 6	;RP1=0, select bank0
+  1643  013C  1507               	bsf	(58/8),(58)&7
+  1644                           	line	124
+  1645                           	
+  1646  013D                     i1l792:	
+  1647  013D  0008               	return
+  1648                           	opt stack 0
+  1649                           GLOBAL	__end_ofi1_green2off
+  1650  013E                     	__end_ofi1_green2off:
+  1651 ;; =============== function i1_green2off ends ============
+  1652                           
+  1653                           	signat	i1_green2off,88
+  1654                           	global	i1_red1off
+  1655                           psect	text858,local,class=CODE,delta=2
+  1656                           global __ptext858
+  1657  013E                     __ptext858:
+  1658                           
+  1659 ;; *************** function i1_red1off *****************
+  1660 ;; Defined at:
+  1661 ;;		line 114 in file "C:\projects\PIC\trafficc\trafficc.c"
+  1662 ;; Parameters:    Size  Location     Type
+  1663 ;;		None
+  1664 ;; Auto vars:     Size  Location     Type
+  1665 ;;		None
+  1666 ;; Return value:  Size  Location     Type
+  1667 ;;		None               void
+  1668 ;; Registers used:
+  1669 ;;		None
+  1670 ;; Tracked objects:
+  1671 ;;		On entry : 0/0
+  1672 ;;		On exit  : 0/0
+  1673 ;;		Unchanged: 0/0
+  1674 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1675 ;;      Params:         0       0       0       0
+  1676 ;;      Locals:         0       0       0       0
+  1677 ;;      Temps:          0       0       0       0
+  1678 ;;      Totals:         0       0       0       0
+  1679 ;;Total ram usage:        0 bytes
+  1680 ;; Hardware stack levels used:    1
+  1681 ;; This function calls:
+  1682 ;;		Nothing
+  1683 ;; This function is called by:
+  1684 ;;		_timer
+  1685 ;; This function uses a non-reentrant model
+  1686 ;;
+  1687                           psect	text858
+  1688                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  1689                           	line	114
+  1690                           	global	__size_ofi1_red1off
+  1691  0004                     	__size_ofi1_red1off	equ	__end_ofi1_red1off-i1_red1off
+  1692                           	
+  1693  013E                     i1_red1off:	
+  1694                           	opt	stack 4
+  1695                           ; Regs used in i1_red1off: []
+  1696                           	line	115
+  1697                           	
+  1698  013E                     i1l2195:	
+  1699                           ;trafficc.c: 115: RC3 = 1;
+  1700  013E  1283               	bcf	status, 5	;RP0=0, select bank0
+  1701  013F  1303               	bcf	status, 6	;RP1=0, select bank0
+  1702  0140  1587               	bsf	(59/8),(59)&7
+  1703                           	line	116
+  1704                           	
+  1705  0141                     i1l786:	
+  1706  0141  0008               	return
+  1707                           	opt stack 0
+  1708                           GLOBAL	__end_ofi1_red1off
+  1709  0142                     	__end_ofi1_red1off:
+  1710 ;; =============== function i1_red1off ends ============
+  1711                           
+  1712                           	signat	i1_red1off,88
+  1713                           	global	i1_yellow1off
+  1714                           psect	text859,local,class=CODE,delta=2
+  1715                           global __ptext859
+  1716  0142                     __ptext859:
+  1717                           
+  1718 ;; *************** function i1_yellow1off *****************
+  1719 ;; Defined at:
+  1720 ;;		line 106 in file "C:\projects\PIC\trafficc\trafficc.c"
+  1721 ;; Parameters:    Size  Location     Type
+  1722 ;;		None
+  1723 ;; Auto vars:     Size  Location     Type
+  1724 ;;		None
+  1725 ;; Return value:  Size  Location     Type
+  1726 ;;		None               void
+  1727 ;; Registers used:
+  1728 ;;		None
+  1729 ;; Tracked objects:
+  1730 ;;		On entry : 0/0
+  1731 ;;		On exit  : 0/0
+  1732 ;;		Unchanged: 0/0
+  1733 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1734 ;;      Params:         0       0       0       0
+  1735 ;;      Locals:         0       0       0       0
+  1736 ;;      Temps:          0       0       0       0
+  1737 ;;      Totals:         0       0       0       0
+  1738 ;;Total ram usage:        0 bytes
+  1739 ;; Hardware stack levels used:    1
+  1740 ;; This function calls:
+  1741 ;;		Nothing
+  1742 ;; This function is called by:
+  1743 ;;		_timer
+  1744 ;; This function uses a non-reentrant model
+  1745 ;;
+  1746                           psect	text859
+  1747                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  1748                           	line	106
+  1749                           	global	__size_ofi1_yellow1off
+  1750  0004                     	__size_ofi1_yellow1off	equ	__end_ofi1_yellow1off-i1_yellow1off
+  1751                           	
+  1752  0142                     i1_yellow1off:	
+  1753                           	opt	stack 4
+  1754                           ; Regs used in i1_yellow1off: []
+  1755                           	line	107
+  1756                           	
+  1757  0142                     i1l2193:	
+  1758                           ;trafficc.c: 107: RC4 = 1;
+  1759  0142  1283               	bcf	status, 5	;RP0=0, select bank0
+  1760  0143  1303               	bcf	status, 6	;RP1=0, select bank0
+  1761  0144  1607               	bsf	(60/8),(60)&7
+  1762                           	line	108
+  1763                           	
+  1764  0145                     i1l780:	
+  1765  0145  0008               	return
+  1766                           	opt stack 0
+  1767                           GLOBAL	__end_ofi1_yellow1off
+  1768  0146                     	__end_ofi1_yellow1off:
+  1769 ;; =============== function i1_yellow1off ends ============
+  1770                           
+  1771                           	signat	i1_yellow1off,88
+  1772                           	global	i1_green1on
+  1773                           psect	text860,local,class=CODE,delta=2
+  1774                           global __ptext860
+  1775  0146                     __ptext860:
+  1776                           
+  1777 ;; *************** function i1_green1on *****************
+  1778 ;; Defined at:
+  1779 ;;		line 94 in file "C:\projects\PIC\trafficc\trafficc.c"
+  1780 ;; Parameters:    Size  Location     Type
+  1781 ;;		None
+  1782 ;; Auto vars:     Size  Location     Type
+  1783 ;;		None
+  1784 ;; Return value:  Size  Location     Type
+  1785 ;;		None               void
+  1786 ;; Registers used:
+  1787 ;;		None
+  1788 ;; Tracked objects:
+  1789 ;;		On entry : 0/0
+  1790 ;;		On exit  : 0/0
+  1791 ;;		Unchanged: 0/0
+  1792 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1793 ;;      Params:         0       0       0       0
+  1794 ;;      Locals:         0       0       0       0
+  1795 ;;      Temps:          0       0       0       0
+  1796 ;;      Totals:         0       0       0       0
+  1797 ;;Total ram usage:        0 bytes
+  1798 ;; Hardware stack levels used:    1
+  1799 ;; This function calls:
+  1800 ;;		Nothing
+  1801 ;; This function is called by:
+  1802 ;;		_timer
+  1803 ;; This function uses a non-reentrant model
+  1804 ;;
+  1805                           psect	text860
+  1806                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  1807                           	line	94
+  1808                           	global	__size_ofi1_green1on
+  1809  0004                     	__size_ofi1_green1on	equ	__end_ofi1_green1on-i1_green1on
+  1810                           	
+  1811  0146                     i1_green1on:	
+  1812                           	opt	stack 4
+  1813                           ; Regs used in i1_green1on: []
+  1814                           	line	95
+  1815                           	
+  1816  0146                     i1l2191:	
+  1817                           ;trafficc.c: 95: RC5 = 0;
+  1818  0146  1283               	bcf	status, 5	;RP0=0, select bank0
+  1819  0147  1303               	bcf	status, 6	;RP1=0, select bank0
+  1820  0148  1287               	bcf	(61/8),(61)&7
+  1821                           	line	96
+  1822                           	
+  1823  0149                     i1l771:	
+  1824  0149  0008               	return
+  1825                           	opt stack 0
+  1826                           GLOBAL	__end_ofi1_green1on
+  1827  014A                     	__end_ofi1_green1on:
+  1828 ;; =============== function i1_green1on ends ============
+  1829                           
+  1830                           	signat	i1_green1on,88
+  1831                           	global	i1_resetcount
+  1832                           psect	text861,local,class=CODE,delta=2
+  1833                           global __ptext861
+  1834  00F1                     __ptext861:
+  1835                           
+  1836 ;; *************** function i1_resetcount *****************
+  1837 ;; Defined at:
+  1838 ;;		line 83 in file "C:\projects\PIC\trafficc\trafficc.c"
+  1839 ;; Parameters:    Size  Location     Type
+  1840 ;;		None
+  1841 ;; Auto vars:     Size  Location     Type
+  1842 ;;		None
+  1843 ;; Return value:  Size  Location     Type
+  1844 ;;		None               void
+  1845 ;; Registers used:
+  1846 ;;		wreg
+  1847 ;; Tracked objects:
+  1848 ;;		On entry : 0/0
+  1849 ;;		On exit  : 0/0
+  1850 ;;		Unchanged: 0/0
+  1851 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1852 ;;      Params:         0       0       0       0
+  1853 ;;      Locals:         0       0       0       0
+  1854 ;;      Temps:          0       0       0       0
+  1855 ;;      Totals:         0       0       0       0
+  1856 ;;Total ram usage:        0 bytes
+  1857 ;; Hardware stack levels used:    1
+  1858 ;; This function calls:
+  1859 ;;		Nothing
+  1860 ;; This function is called by:
+  1861 ;;		_timer
+  1862 ;; This function uses a non-reentrant model
+  1863 ;;
+  1864                           psect	text861
+  1865                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  1866                           	line	83
+  1867                           	global	__size_ofi1_resetcount
+  1868  001B                     	__size_ofi1_resetcount	equ	__end_ofi1_resetcount-i1_resetcount
+  1869                           	
+  1870  00F1                     i1_resetcount:	
+  1871                           	opt	stack 4
+  1872                           ; Regs used in i1_resetcount: [wreg]
+  1873                           	line	85
+  1874                           	
+  1875  00F1                     i1l2189:	
+  1876                           ;trafficc.c: 85: count = 24;
+  1877  00F1  3018               	movlw	low(018h)
+  1878  00F2  00F0               	movwf	(_count)
+  1879  00F3  3000               	movlw	high(018h)
+  1880  00F4  00F1               	movwf	((_count))+1
+  1881                           	line	86
+  1882                           ;trafficc.c: 86: count2 = 16;
+  1883  00F5  3010               	movlw	low(010h)
+  1884  00F6  00F2               	movwf	(_count2)
+  1885  00F7  3000               	movlw	high(010h)
+  1886  00F8  00F3               	movwf	((_count2))+1
+  1887                           	line	87
+  1888                           ;trafficc.c: 87: count3 = 8;
+  1889  00F9  3008               	movlw	low(08h)
+  1890  00FA  00F4               	movwf	(_count3)
+  1891  00FB  3000               	movlw	high(08h)
+  1892  00FC  00F5               	movwf	((_count3))+1
+  1893                           	line	88
+  1894                           ;trafficc.c: 88: count4 = 24;
+  1895  00FD  3018               	movlw	low(018h)
+  1896  00FE  00F6               	movwf	(_count4)
+  1897  00FF  3000               	movlw	high(018h)
+  1898  0100  00F7               	movwf	((_count4))+1
+  1899                           	line	89
+  1900                           ;trafficc.c: 89: count5 = 16;
+  1901  0101  3010               	movlw	low(010h)
+  1902  0102  00F8               	movwf	(_count5)
+  1903  0103  3000               	movlw	high(010h)
+  1904  0104  00F9               	movwf	((_count5))+1
+  1905                           	line	90
+  1906                           ;trafficc.c: 90: count6 = 8;
+  1907  0105  3008               	movlw	low(08h)
+  1908  0106  1283               	bcf	status, 5	;RP0=0, select bank0
+  1909  0107  1303               	bcf	status, 6	;RP1=0, select bank0
+  1910  0108  00A0               	movwf	(_count6)
+  1911  0109  3000               	movlw	high(08h)
+  1912  010A  00A1               	movwf	((_count6))+1
+  1913                           	line	92
+  1914                           	
+  1915  010B                     i1l768:	
+  1916  010B  0008               	return
+  1917                           	opt stack 0
+  1918                           GLOBAL	__end_ofi1_resetcount
+  1919  010C                     	__end_ofi1_resetcount:
+  1920 ;; =============== function i1_resetcount ends ============
+  1921                           
+  1922                           	signat	i1_resetcount,88
+  1923                           	global	_yellow2on
+  1924                           psect	text862,local,class=CODE,delta=2
+  1925                           global __ptext862
+  1926  014A                     __ptext862:
+  1927                           
+  1928 ;; *************** function _yellow2on *****************
+  1929 ;; Defined at:
+  1930 ;;		line 126 in file "C:\projects\PIC\trafficc\trafficc.c"
+  1931 ;; Parameters:    Size  Location     Type
+  1932 ;;		None
+  1933 ;; Auto vars:     Size  Location     Type
+  1934 ;;		None
+  1935 ;; Return value:  Size  Location     Type
+  1936 ;;		None               void
+  1937 ;; Registers used:
+  1938 ;;		None
+  1939 ;; Tracked objects:
+  1940 ;;		On entry : 0/0
+  1941 ;;		On exit  : 0/0
+  1942 ;;		Unchanged: 0/0
+  1943 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1944 ;;      Params:         0       0       0       0
+  1945 ;;      Locals:         0       0       0       0
+  1946 ;;      Temps:          0       0       0       0
+  1947 ;;      Totals:         0       0       0       0
+  1948 ;;Total ram usage:        0 bytes
+  1949 ;; Hardware stack levels used:    1
+  1950 ;; This function calls:
+  1951 ;;		Nothing
+  1952 ;; This function is called by:
+  1953 ;;		_timer
+  1954 ;; This function uses a non-reentrant model
+  1955 ;;
+  1956                           psect	text862
+  1957                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  1958                           	line	126
+  1959                           	global	__size_of_yellow2on
+  1960  0004                     	__size_of_yellow2on	equ	__end_of_yellow2on-_yellow2on
+  1961                           	
+  1962  014A                     _yellow2on:	
+  1963                           	opt	stack 4
+  1964                           ; Regs used in _yellow2on: []
+  1965                           	line	127
+  1966                           	
+  1967  014A                     i1l2185:	
+  1968                           ;trafficc.c: 127: RC1 = 0;
+  1969  014A  1283               	bcf	status, 5	;RP0=0, select bank0
+  1970  014B  1303               	bcf	status, 6	;RP1=0, select bank0
+  1971  014C  1087               	bcf	(57/8),(57)&7
+  1972                           	line	128
+  1973                           	
+  1974  014D                     i1l795:	
+  1975  014D  0008               	return
+  1976                           	opt stack 0
+  1977                           GLOBAL	__end_of_yellow2on
+  1978  014E                     	__end_of_yellow2on:
+  1979 ;; =============== function _yellow2on ends ============
+  1980                           
+  1981                           	signat	_yellow2on,88
+  1982                           	global	_red2off
+  1983                           psect	text863,local,class=CODE,delta=2
+  1984                           global __ptext863
+  1985  014E                     __ptext863:
+  1986                           
+  1987 ;; *************** function _red2off *****************
+  1988 ;; Defined at:
+  1989 ;;		line 138 in file "C:\projects\PIC\trafficc\trafficc.c"
+  1990 ;; Parameters:    Size  Location     Type
+  1991 ;;		None
+  1992 ;; Auto vars:     Size  Location     Type
+  1993 ;;		None
+  1994 ;; Return value:  Size  Location     Type
+  1995 ;;		None               void
+  1996 ;; Registers used:
+  1997 ;;		None
+  1998 ;; Tracked objects:
+  1999 ;;		On entry : 0/0
+  2000 ;;		On exit  : 0/0
+  2001 ;;		Unchanged: 0/0
+  2002 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2003 ;;      Params:         0       0       0       0
+  2004 ;;      Locals:         0       0       0       0
+  2005 ;;      Temps:          0       0       0       0
+  2006 ;;      Totals:         0       0       0       0
+  2007 ;;Total ram usage:        0 bytes
+  2008 ;; Hardware stack levels used:    1
+  2009 ;; This function calls:
+  2010 ;;		Nothing
+  2011 ;; This function is called by:
+  2012 ;;		_timer
+  2013 ;; This function uses a non-reentrant model
+  2014 ;;
+  2015                           psect	text863
+  2016                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  2017                           	line	138
+  2018                           	global	__size_of_red2off
+  2019  0004                     	__size_of_red2off	equ	__end_of_red2off-_red2off
+  2020                           	
+  2021  014E                     _red2off:	
+  2022                           	opt	stack 4
+  2023                           ; Regs used in _red2off: []
+  2024                           	line	139
+  2025                           	
+  2026  014E                     i1l2183:	
+  2027                           ;trafficc.c: 139: RC0 = 1;
+  2028  014E  1283               	bcf	status, 5	;RP0=0, select bank0
+  2029  014F  1303               	bcf	status, 6	;RP1=0, select bank0
+  2030  0150  1407               	bsf	(56/8),(56)&7
+  2031                           	line	140
+  2032                           	
+  2033  0151                     i1l804:	
+  2034  0151  0008               	return
+  2035                           	opt stack 0
+  2036                           GLOBAL	__end_of_red2off
+  2037  0152                     	__end_of_red2off:
+  2038 ;; =============== function _red2off ends ============
+  2039                           
+  2040                           	signat	_red2off,88
+  2041                           	global	_green2on
+  2042                           psect	text864,local,class=CODE,delta=2
+  2043                           global __ptext864
+  2044  0152                     __ptext864:
+  2045                           
+  2046 ;; *************** function _green2on *****************
+  2047 ;; Defined at:
+  2048 ;;		line 118 in file "C:\projects\PIC\trafficc\trafficc.c"
+  2049 ;; Parameters:    Size  Location     Type
+  2050 ;;		None
+  2051 ;; Auto vars:     Size  Location     Type
+  2052 ;;		None
+  2053 ;; Return value:  Size  Location     Type
+  2054 ;;		None               void
+  2055 ;; Registers used:
+  2056 ;;		None
+  2057 ;; Tracked objects:
+  2058 ;;		On entry : 0/0
+  2059 ;;		On exit  : 0/0
+  2060 ;;		Unchanged: 0/0
+  2061 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2062 ;;      Params:         0       0       0       0
+  2063 ;;      Locals:         0       0       0       0
+  2064 ;;      Temps:          0       0       0       0
+  2065 ;;      Totals:         0       0       0       0
+  2066 ;;Total ram usage:        0 bytes
+  2067 ;; Hardware stack levels used:    1
+  2068 ;; This function calls:
+  2069 ;;		Nothing
+  2070 ;; This function is called by:
+  2071 ;;		_timer
+  2072 ;; This function uses a non-reentrant model
+  2073 ;;
+  2074                           psect	text864
+  2075                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  2076                           	line	118
+  2077                           	global	__size_of_green2on
+  2078  0004                     	__size_of_green2on	equ	__end_of_green2on-_green2on
+  2079                           	
+  2080  0152                     _green2on:	
+  2081                           	opt	stack 4
+  2082                           ; Regs used in _green2on: []
+  2083                           	line	119
+  2084                           	
+  2085  0152                     i1l2181:	
+  2086                           ;trafficc.c: 119: RC2 = 0;
+  2087  0152  1283               	bcf	status, 5	;RP0=0, select bank0
+  2088  0153  1303               	bcf	status, 6	;RP1=0, select bank0
+  2089  0154  1107               	bcf	(58/8),(58)&7
+  2090                           	line	120
+  2091                           	
+  2092  0155                     i1l789:	
+  2093  0155  0008               	return
+  2094                           	opt stack 0
+  2095                           GLOBAL	__end_of_green2on
+  2096  0156                     	__end_of_green2on:
+  2097 ;; =============== function _green2on ends ============
+  2098                           
+  2099                           	signat	_green2on,88
+  2100                           	global	_red1on
+  2101                           psect	text865,local,class=CODE,delta=2
+  2102                           global __ptext865
+  2103  0156                     __ptext865:
+  2104                           
+  2105 ;; *************** function _red1on *****************
+  2106 ;; Defined at:
+  2107 ;;		line 110 in file "C:\projects\PIC\trafficc\trafficc.c"
+  2108 ;; Parameters:    Size  Location     Type
+  2109 ;;		None
+  2110 ;; Auto vars:     Size  Location     Type
+  2111 ;;		None
+  2112 ;; Return value:  Size  Location     Type
+  2113 ;;		None               void
+  2114 ;; Registers used:
+  2115 ;;		None
+  2116 ;; Tracked objects:
+  2117 ;;		On entry : 0/0
+  2118 ;;		On exit  : 0/0
+  2119 ;;		Unchanged: 0/0
+  2120 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2121 ;;      Params:         0       0       0       0
+  2122 ;;      Locals:         0       0       0       0
+  2123 ;;      Temps:          0       0       0       0
+  2124 ;;      Totals:         0       0       0       0
+  2125 ;;Total ram usage:        0 bytes
+  2126 ;; Hardware stack levels used:    1
+  2127 ;; This function calls:
+  2128 ;;		Nothing
+  2129 ;; This function is called by:
+  2130 ;;		_timer
+  2131 ;; This function uses a non-reentrant model
+  2132 ;;
+  2133                           psect	text865
+  2134                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  2135                           	line	110
+  2136                           	global	__size_of_red1on
+  2137  0004                     	__size_of_red1on	equ	__end_of_red1on-_red1on
+  2138                           	
+  2139  0156                     _red1on:	
+  2140                           	opt	stack 4
+  2141                           ; Regs used in _red1on: []
+  2142                           	line	111
+  2143                           	
+  2144  0156                     i1l2179:	
+  2145                           ;trafficc.c: 111: RC3 = 0;
+  2146  0156  1283               	bcf	status, 5	;RP0=0, select bank0
+  2147  0157  1303               	bcf	status, 6	;RP1=0, select bank0
+  2148  0158  1187               	bcf	(59/8),(59)&7
+  2149                           	line	112
+  2150                           	
+  2151  0159                     i1l783:	
+  2152  0159  0008               	return
+  2153                           	opt stack 0
+  2154                           GLOBAL	__end_of_red1on
+  2155  015A                     	__end_of_red1on:
+  2156 ;; =============== function _red1on ends ============
+  2157                           
+  2158                           	signat	_red1on,88
+  2159                           	global	_yellow1on
+  2160                           psect	text866,local,class=CODE,delta=2
+  2161                           global __ptext866
+  2162  015A                     __ptext866:
+  2163                           
+  2164 ;; *************** function _yellow1on *****************
+  2165 ;; Defined at:
+  2166 ;;		line 102 in file "C:\projects\PIC\trafficc\trafficc.c"
+  2167 ;; Parameters:    Size  Location     Type
+  2168 ;;		None
+  2169 ;; Auto vars:     Size  Location     Type
+  2170 ;;		None
+  2171 ;; Return value:  Size  Location     Type
+  2172 ;;		None               void
+  2173 ;; Registers used:
+  2174 ;;		None
+  2175 ;; Tracked objects:
+  2176 ;;		On entry : 0/0
+  2177 ;;		On exit  : 0/0
+  2178 ;;		Unchanged: 0/0
+  2179 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2180 ;;      Params:         0       0       0       0
+  2181 ;;      Locals:         0       0       0       0
+  2182 ;;      Temps:          0       0       0       0
+  2183 ;;      Totals:         0       0       0       0
+  2184 ;;Total ram usage:        0 bytes
+  2185 ;; Hardware stack levels used:    1
+  2186 ;; This function calls:
+  2187 ;;		Nothing
+  2188 ;; This function is called by:
+  2189 ;;		_timer
+  2190 ;; This function uses a non-reentrant model
+  2191 ;;
+  2192                           psect	text866
+  2193                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  2194                           	line	102
+  2195                           	global	__size_of_yellow1on
+  2196  0004                     	__size_of_yellow1on	equ	__end_of_yellow1on-_yellow1on
+  2197                           	
+  2198  015A                     _yellow1on:	
+  2199                           	opt	stack 4
+  2200                           ; Regs used in _yellow1on: []
+  2201                           	line	103
+  2202                           	
+  2203  015A                     i1l2177:	
+  2204                           ;trafficc.c: 103: RC4 = 0;
+  2205  015A  1283               	bcf	status, 5	;RP0=0, select bank0
+  2206  015B  1303               	bcf	status, 6	;RP1=0, select bank0
+  2207  015C  1207               	bcf	(60/8),(60)&7
+  2208                           	line	104
+  2209                           	
+  2210  015D                     i1l777:	
+  2211  015D  0008               	return
+  2212                           	opt stack 0
+  2213                           GLOBAL	__end_of_yellow1on
+  2214  015E                     	__end_of_yellow1on:
+  2215 ;; =============== function _yellow1on ends ============
+  2216                           
+  2217                           	signat	_yellow1on,88
+  2218                           	global	_green1off
+  2219                           psect	text867,local,class=CODE,delta=2
+  2220                           global __ptext867
+  2221  015E                     __ptext867:
+  2222                           
+  2223 ;; *************** function _green1off *****************
+  2224 ;; Defined at:
+  2225 ;;		line 98 in file "C:\projects\PIC\trafficc\trafficc.c"
+  2226 ;; Parameters:    Size  Location     Type
+  2227 ;;		None
+  2228 ;; Auto vars:     Size  Location     Type
+  2229 ;;		None
+  2230 ;; Return value:  Size  Location     Type
+  2231 ;;		None               void
+  2232 ;; Registers used:
+  2233 ;;		None
+  2234 ;; Tracked objects:
+  2235 ;;		On entry : 0/0
+  2236 ;;		On exit  : 0/0
+  2237 ;;		Unchanged: 0/0
+  2238 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2239 ;;      Params:         0       0       0       0
+  2240 ;;      Locals:         0       0       0       0
+  2241 ;;      Temps:          0       0       0       0
+  2242 ;;      Totals:         0       0       0       0
+  2243 ;;Total ram usage:        0 bytes
+  2244 ;; Hardware stack levels used:    1
+  2245 ;; This function calls:
+  2246 ;;		Nothing
+  2247 ;; This function is called by:
+  2248 ;;		_timer
+  2249 ;; This function uses a non-reentrant model
+  2250 ;;
+  2251                           psect	text867
+  2252                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  2253                           	line	98
+  2254                           	global	__size_of_green1off
+  2255  0004                     	__size_of_green1off	equ	__end_of_green1off-_green1off
+  2256                           	
+  2257  015E                     _green1off:	
+  2258                           	opt	stack 4
+  2259                           ; Regs used in _green1off: []
+  2260                           	line	99
+  2261                           	
+  2262  015E                     i1l2175:	
+  2263                           ;trafficc.c: 99: RC5 = 1;
+  2264  015E  1283               	bcf	status, 5	;RP0=0, select bank0
+  2265  015F  1303               	bcf	status, 6	;RP1=0, select bank0
+  2266  0160  1687               	bsf	(61/8),(61)&7
+  2267                           	line	100
+  2268                           	
+  2269  0161                     i1l774:	
+  2270  0161  0008               	return
+  2271                           	opt stack 0
+  2272                           GLOBAL	__end_of_green1off
+  2273  0162                     	__end_of_green1off:
+  2274 ;; =============== function _green1off ends ============
+  2275                           
+  2276                           	signat	_green1off,88
+  2277                           	global	_button
+  2278                           psect	text868,local,class=CODE,delta=2
+  2279                           global __ptext868
+  2280  010C                     __ptext868:
+  2281                           
+  2282 ;; *************** function _button *****************
+  2283 ;; Defined at:
+  2284 ;;		line 76 in file "C:\projects\PIC\trafficc\trafficc.c"
+  2285 ;; Parameters:    Size  Location     Type
+  2286 ;;		None
+  2287 ;; Auto vars:     Size  Location     Type
+  2288 ;;		None
+  2289 ;; Return value:  Size  Location     Type
+  2290 ;;		None               void
+  2291 ;; Registers used:
+  2292 ;;		wreg, status,2, status,0
+  2293 ;; Tracked objects:
+  2294 ;;		On entry : 0/0
+  2295 ;;		On exit  : 0/0
+  2296 ;;		Unchanged: 0/0
+  2297 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2298 ;;      Params:         0       0       0       0
+  2299 ;;      Locals:         0       0       0       0
+  2300 ;;      Temps:          0       0       0       0
+  2301 ;;      Totals:         0       0       0       0
+  2302 ;;Total ram usage:        0 bytes
+  2303 ;; Hardware stack levels used:    1
+  2304 ;; This function calls:
+  2305 ;;		Nothing
+  2306 ;; This function is called by:
+  2307 ;;		_isr
+  2308 ;; This function uses a non-reentrant model
+  2309 ;;
+  2310                           psect	text868
+  2311                           	file	"C:\projects\PIC\trafficc\trafficc.c"
+  2312                           	line	76
+  2313                           	global	__size_of_button
+  2314  000E                     	__size_of_button	equ	__end_of_button-_button
+  2315                           	
+  2316  010C                     _button:	
+  2317                           	opt	stack 5
+  2318                           ; Regs used in _button: [wreg+status,2+status,0]
+  2319                           	line	78
+  2320                           	
+  2321  010C                     i1l2171:	
+  2322                           ;trafficc.c: 78: INTF = 0;
+  2323  010C  108B               	bcf	(89/8),(89)&7
+  2324                           	line	79
+  2325                           	
+  2326  010D                     i1l2173:	
+  2327                           ;trafficc.c: 79: count3 = count6 = 40;
+  2328  010D  3028               	movlw	low(028h)
+  2329  010E  1283               	bcf	status, 5	;RP0=0, select bank0
+  2330  010F  1303               	bcf	status, 6	;RP1=0, select bank0
+  2331  0110  00A0               	movwf	(_count6)
+  2332  0111  3000               	movlw	high(028h)
+  2333  0112  00A1               	movwf	((_count6))+1
+  2334  0113  0821               	movf	((_count6+1)),w
+  2335  0114  01F5               	clrf	(_count3+1)
+  2336  0115  07F5               	addwf	(_count3+1)
+  2337  0116  0820               	movf	((_count6)),w
+  2338  0117  01F4               	clrf	(_count3)
+  2339  0118  07F4               	addwf	(_count3)
+  2340                           
+  2341                           	line	81
+  2342                           	
+  2343  0119                     i1l765:	
+  2344  0119  0008               	return
+  2345                           	opt stack 0
+  2346                           GLOBAL	__end_of_button
+  2347  011A                     	__end_of_button:
+  2348 ;; =============== function _button ends ============
+  2349                           
+  2350                           	signat	_button,88
+  2351                           psect	text869,local,class=CODE,delta=2
+  2352                           global __ptext869
+  2353  0000                     __ptext869:
+  2354                           	global	btemp
+  2355  007E                     	btemp set 07Eh
+  2356                           
+  2357                           	DABS	1,126,2	;btemp
+  2358                           	global	wtemp0
+  2359  007E                     	wtemp0 set btemp
+
+
+HI-TECH Software PICC Macro Assembler V9.80 build 6738 
+Symbol Table                                                                                   Mon Mar 21 23:33:51 2011
+
+                  l801 0125                    l810 00B7                    l807 00B6                    l808 00B6  
+                  l809 00B7                    l771 011D                    l780 0131                    l792 012D  
+                  l768 00F0                    l786 0121                    l798 0129                    _GIE 005F  
+                  _RC0 0038                    _RC1 0039                    _RC2 003A                    _RC3 003B  
+                  _RC4 003C                    _RC5 003D                    _isr 00B9                    fsr0 0004  
+           i1_green1on 0146                   l2231 012A                   l2233 0126                   l2241 00D6  
+                 l2235 0122                   l2251 009E                   l2243 0092                   l2229 012E  
+                 l2237 011E                   l2261 00A9                   l2253 009F                   l2245 0099  
+                 l2239 011A                   l2263 00AC                   l2255 00A0                   l2247 009B  
+                 l2265 00AF                   l2257 00A3                   l2249 009D                   l2267 00B2  
+                 l2259 00A6                   ?_isr 007A                   _T0IE 005D                   _T0IF 005A  
+                 _INTE 005C                   _INTF 0059   __end_ofi1_yellow1off 0146   __end_ofi1_yellow2off 013A  
+                 _main 0092                   btemp 007E                   start 0011            i1_green2off 013A  
+                ??_isr 007A                  ?_main 007A                  _ANSEL 011E                  i1l801 0135  
+                i1l804 0151                  i1l751 00C1                  i1l760 005E                  i1l752 00C9  
+                i1l761 0072                  i1l753 00C9                  i1l762 0088                  i1l771 0149  
+                i1l780 0145                  i1l756 0022                  i1l765 0119                  i1l757 0091  
+                i1l774 0161                  i1l758 0036                  i1l783 0159                  i1l759 004A  
+                i1l768 010B                  i1l792 013D                  i1l777 015D                  i1l786 0141  
+                i1l795 014D                  i1l789 0155                  i1l798 0139                  _TRISA 0085  
+                _TRISC 0087        __end_of_red1off 0122        __end_of_red2off 0152                  _count 0070  
+                _timer 0013                  pclath 000A                  status 0003       __end_ofi1_red2on 0136  
+                wtemp0 007E     __size_ofi1_red1off 0004           __end_of_main 00B9                 ??_main 0000  
+          ?i1_green1on 007A                 ?_timer 007A                 _ANSELH 011F                 i1l2111 00B9  
+               i1l2201 0132                 i1l2121 0014                 i1l2113 00BD                 i1l2131 002E  
+               i1l2123 001A                 i1l2115 00C1                 i1l2141 0049                 i1l2133 0035  
+               i1l2125 0021                 i1l2117 00C5                 i1l2151 005E                 i1l2143 004A  
+               i1l2135 0036                 i1l2127 0022                 i1l2119 0013                 i1l2161 0078  
+               i1l2153 0064                 i1l2145 0050                 i1l2137 003C                 i1l2129 0028  
+               i1l2171 010C                 i1l2163 0080                 i1l2155 006A                 i1l2147 0056  
+               i1l2139 0042                 i1l2173 010D                 i1l2181 0152                 i1l2165 0087  
+               i1l2157 0071                 i1l2149 005D                 i1l2175 015E                 i1l2183 014E  
+               i1l2191 0146                 i1l2167 0088                 i1l2159 0072                 i1l2177 015A  
+               i1l2185 014A                 i1l2193 0142                 i1l2169 008E                 i1l2179 0156  
+               i1l2195 013E                 i1l2189 00F1                 i1l2197 013A                 i1l2199 0136  
+               u222_20 00BD                 u222_21 00BC                 u223_20 00C5                 u223_21 00C4  
+               u224_20 001A                 u224_21 0019                 u225_20 002E                 u225_21 002D  
+               u226_20 0042                 u226_21 0041                 u227_20 0056                 u227_21 0055  
+               u228_20 006A                 u228_21 0069                 u229_20 0080                 u229_21 007F  
+               _OPTION 0081  __size_ofi1_resetcount 001B       __end_of_green1on 011E       __end_of_green2on 0156  
+               _red1on 0156                 _red2on 0122                 _count2 0072                 _count3 0074  
+               _count4 0076                 _count5 0078                 _count6 0020                 _button 010C  
+            ??_red1off 0000              ??_red2off 007A                 saved_w 007E  __size_ofi1_yellow1off 0004  
+__size_ofi1_yellow2off 0004           i1_resetcount 00F1      __end_ofi1_red1off 0142         __pcstackCOMMON 007A  
+  __size_ofi1_green1on 0004          __end_of_timer 0092           i1_yellow1off 0142           i1_yellow2off 0136  
+            ?i1_red2on 007A                ??_timer 007A     __size_of_green1off 0004     __size_of_green2off 0004  
+           __pnvCOMMON 0070             __pmaintext 0092           ?i1_green2off 007A             __pintentry 0004  
+              ?_red1on 007A                ?_red2on 007A                ?_button 007A             ??i1_red2on 007A  
+   __size_of_yellow1on 0004     __size_of_yellow2on 0004              ?_green1on 007A              ?_green2on 007A  
+    __end_of_green1off 0162      __end_of_green2off 012E        __size_of_red1on 0004        __size_of_red2on 0004  
+      __size_of_button 000E                _red1off 011E                _red2off 014E           __size_of_isr 001D  
+         ??i1_green1on 007A   end_of_initialization 0162             ??_green1on 0000             ??_green2on 007A  
+           _resetcount 00D6      __end_of_yellow1on 015E      __end_of_yellow2on 014E     __end_ofi1_green1on 014A  
+           _yellow1off 012E             _yellow2off 0126              i1_red1off 013E   __size_ofi1_green2off 0004  
+       __end_of_red1on 015A         __end_of_red2on 0126         __end_of_button 011A    start_initialization 0162  
+    __size_ofi1_red2on 0004            __end_of_isr 00D6             ?i1_red1off 007A            ?_resetcount 007A  
+             ??_red1on 007A               ??_red2on 0000               ??_button 007A          __pcstackBANK0 0000  
+          ?_yellow1off 007A            ?_yellow2off 007A      __size_of_green1on 0004      __size_of_green2on 0004  
+            __pnvBANK0 0020              __ptext850 0126              __ptext851 012A              __ptext860 0146  
+            __ptext852 012E              __ptext861 00F1              __ptext853 00B9              __ptext862 014A  
+            __ptext854 0013              __ptext846 00D6              __ptext863 014E              __ptext855 0132  
+            __ptext847 011A              __ptext864 0152              __ptext856 0136              __ptext848 011E  
+            __ptext865 0156              __ptext857 013A              __ptext849 0122              __ptext866 015A  
+            __ptext858 013E              __ptext867 015E              __ptext859 0142              __ptext868 010C  
+            __ptext869 0000               ?_red1off 007A               ?_red2off 007A              _green1off 015E  
+            _green2off 012A    __size_of_resetcount 001B         __size_of_timer 007F            ??i1_red1off 007A  
+    interrupt_function 0004    __size_of_yellow1off 0004    __size_of_yellow2off 0004              _yellow1on 015A  
+            _yellow2on 014A             ?_green1off 007A             ?_green2off 007A               i1_red2on 0132  
+        ?i1_resetcount 007A          ?i1_yellow1off 007A          ?i1_yellow2off 007A             ?_yellow1on 007A  
+           ?_yellow2on 007A       __size_of_red1off 0004       __size_of_red2off 0004         ??i1_resetcount 007A  
+             _green1on 011A               _green2on 0152          __size_of_main 0027           ??_resetcount 0000  
+        ??i1_green2off 007A         ??i1_yellow1off 007A         ??i1_yellow2off 007A            ??_green1off 007A  
+          ??_green2off 0000     __end_of_resetcount 00F1           ??_yellow1off 0000           ??_yellow2off 0000  
+             intlevel1 0000     __end_of_yellow1off 0132     __end_of_yellow2off 012A            ??_yellow1on 007A  
+          ??_yellow2on 007A    __end_ofi1_green2off 013E   __end_ofi1_resetcount 010C  

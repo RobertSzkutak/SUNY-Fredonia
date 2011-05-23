@@ -1,0 +1,42 @@
+MPLINK 4.38, Linker
+Linker Map File - Created Tue Feb 08 18:43:43 2011
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000000
+                   .org_1       code   0x000000    program   0x000030
+     .config_2007_BLINK.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x000017      
+                            0x002007    0x002007      
+            25 out of 4359 program addresses used, program memory utilization is 0%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                    BLINK   0x00000d    program     static C:\projects\PIC\blink.asm
+                    DELAY   0x000010    program     static C:\projects\PIC\blink.asm
+                DELAYLOOP   0x000013    program     static C:\projects\PIC\blink.asm
+                  INITIAL   0x000004    program     static C:\projects\PIC\blink.asm
+                     MAIN   0x000001    program     static C:\projects\PIC\blink.asm
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                     MAIN   0x000001    program     static C:\projects\PIC\blink.asm
+                  INITIAL   0x000004    program     static C:\projects\PIC\blink.asm
+                    BLINK   0x00000d    program     static C:\projects\PIC\blink.asm
+                    DELAY   0x000010    program     static C:\projects\PIC\blink.asm
+                DELAYLOOP   0x000013    program     static C:\projects\PIC\blink.asm
+
+

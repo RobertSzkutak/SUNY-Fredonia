@@ -1,0 +1,789 @@
+MPASM  5.39                      TRAFFIC2.ASM   3-1-2011  19:01:34         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001         radix hex
+                      00002         include "P16F690.INC"
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F690 processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2010 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+                      00739         LIST
+2007   3FC4           00003         __config _CP_OFF & _WDT_OFF & _BOR_ON & _PWRTE_ON & _INTOSCIO & _MCLRE_OFF
+                      00004         errorlevel -302
+0000                  00005         org 0
+0000   2842           00006         goto INITIAL
+0004                  00007         org 4
+0004   2806           00008         goto ISR
+  00000020            00009 count   equ  20
+  00000021            00010 count2  equ  21
+  00000022            00011 count3  equ  22
+  00000023            00012 count4  equ  23
+  00000024            00013 count5  equ  24
+  00000025            00014 count6  equ  25
+                      00015 
+0005                  00016 MAIN
+0005   2805           00017         goto MAIN
+                      00018 
+0006                  00019 ISR
+0006   190B           00020         btfsc INTCON,T0IF
+0007   280B           00021         goto TIMER
+0008   188B           00022         btfsc INTCON,INTF
+0009   283B           00023         goto BUTTON
+000A   0009           00024         retfie
+                      00025 
+000B                  00026 TIMER
+000B   110B           00027         bcf INTCON, T0IF
+000C   1820           00028         btfsc count, 0
+000D   2029           00029         call CHANGE1
+000E   2075           00030         call GREEN1OFF
+000F   2077           00031         call YELLOW1ON
+0010   1821           00032         btfsc count2, 0
+0011   202C           00033         call CHANGE2
+0012   2079           00034         call YELLOW1OFF
+0013   207B           00035         call RED1ON
+0014   1822           00036         btfsc count3, 0
+0015   202F           00037         call CHANGE3
+0016   2071           00038         call CROSSOFF
+0017   2089           00039         call RED2OFF
+0018   207F           00040         call GREEN2ON
+0019   2061           00041         call CROSS1RESET
+001A   1823           00042         btfsc count4, 0
+001B   2032           00043         call CHANGE4
+001C   2081           00044         call GREEN2OFF
+MPASM  5.39                      TRAFFIC2.ASM   3-1-2011  19:01:34         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+001D   2083           00045         call YELLOW2ON
+001E   1824           00046         btfsc count5, 0
+001F   2035           00047         call CHANGE5
+0020   2085           00048         call YELLOW2OFF
+0021   2087           00049         call RED2ON
+0022   1825           00050         btfsc count6,0
+0023   2038           00051         call CHANGE6
+0024   2071           00052         call CROSSOFF
+0025   207D           00053         call RED1OFF
+0026   2073           00054         call GREEN1ON
+0027   2068           00055         call CROSS2RESET
+0028   0009           00056         retfie
+                      00057 
+0029                  00058 CHANGE1
+0029   0BA0           00059         decfsz count,f
+002A   0009           00060         retfie
+002B   0008           00061         return
+                      00062 
+002C                  00063 CHANGE2
+002C   0BA1           00064         decfsz count2,f
+002D   0009           00065         retfie
+002E   0008           00066         return
+                      00067 
+002F                  00068 CHANGE3
+002F   0BA2           00069         decfsz count3,f
+0030   0009           00070         retfie
+0031   0008           00071         return
+                      00072 
+0032                  00073 CHANGE4
+0032   0BA3           00074         decfsz count4,f
+0033   0009           00075         retfie
+0034   0008           00076         return
+                      00077 
+0035                  00078 CHANGE5
+0035   0BA4           00079         decfsz count5,f
+0036   0009           00080         retfie
+0037   0008           00081         return
+                      00082 
+0038                  00083 CHANGE6
+0038   0BA5           00084         decfsz count6,f
+0039   0009           00085         retfie
+003A   0008           00086         return
+                      00087 
+003B                  00088 BUTTON
+003B   108B           00089         bcf INTCON, INTF
+003C   206F           00090         call CROSSON
+Warning[202]: Argument out of range.  Least significant bits used.
+003D   30FF           00091         movlw h'FFFF'
+003E   00A2           00092         movwf count3
+003F   3005           00093         movlw 5
+0040   00A5           00094         movwf count6
+0041   0009           00095         retfie
+                      00096 
+MPASM  5.39                      TRAFFIC2.ASM   3-1-2011  19:01:34         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0042                  00097 INITIAL
+0042   1683           00098         bsf STATUS, RP0
+0043   1505           00099         bsf TRISA, 2;Set pin two on port A as an input pin
+0044   1285           00100         bcf TRISA, 5;Set pin 5 on port A to be an output pin
+0045   1381           00101     bcf OPTION_REG, 7;Enable the option to use resistors
+0046   1515           00102     bsf WPUA, 2;Turn on the resistor in pin 2
+0047   1283           00103         BCF STATUS,RP0 ;Bank 0
+0048   1303           00104         BCF STATUS,RP1 ;
+0049   0187           00105         CLRF PORTC ;Init PORTC
+004A   1703           00106         BSF STATUS,RP1 ;Bank 2
+004B   019E           00107         CLRF ANSEL ;digital I/O
+004C   019F           00108     clrf ANSELH
+004D   1683           00109         BSF STATUS,RP0 ;Bank 1
+004E   1303           00110         BCF STATUS,RP1 ;
+004F   3000           00111         MOVLW B'00000000' ;Set all as outputs
+0050   0087           00112         MOVWF TRISC 
+0051   3087           00113     movlw b'10000111';Interrupt stuff
+0052   0081           00114     movwf OPTION_REG;Interrupt stuff
+0053   1283           00115         BCF STATUS,RP0 ;Bank 0
+0054   168B           00116         bsf INTCON, T0IE
+0055   160B           00117         bsf INTCON, INTE      ;turn on external interrupt
+0056   178B           00118     bsf INTCON, GIE
+0057   207D           00119         call RED1OFF
+0058   2087           00120         call RED2ON
+0059   2073           00121         call GREEN1ON
+005A   2081           00122         call GREEN2OFF
+005B   2079           00123         call YELLOW1OFF
+005C   2085           00124         call YELLOW2OFF
+005D   2071           00125         call CROSSOFF
+005E   2061           00126         call CROSS1RESET
+005F   2068           00127         call CROSS2RESET
+0060   2805           00128         goto MAIN
+                      00129 
+0061                  00130 CROSS1RESET
+0061   3003           00131         movlw 3
+0062   00A0           00132         movwf count
+0063   3002           00133         movlw 2
+0064   00A1           00134         movwf count2
+0065   3001           00135         movlw 1
+0066   00A2           00136         movwf count3
+0067   0008           00137         return
+                      00138 
+0068                  00139 CROSS2RESET
+0068   3003           00140         movlw 3
+0069   00A3           00141         movwf count4
+006A   3002           00142         movlw 2
+006B   00A4           00143         movwf count5
+006C   3001           00144         movlw 1
+006D   00A5           00145         movwf count6
+006E   0008           00146         return
+                      00147 
+006F                  00148 CROSSON
+006F   1285           00149         bcf TRISA, 5
+MPASM  5.39                      TRAFFIC2.ASM   3-1-2011  19:01:34         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0070   0008           00150         return
+                      00151 
+0071                  00152 CROSSOFF
+0071   1685           00153         bsf TRISA, 5
+0072   0008           00154         return
+                      00155 
+0073                  00156 GREEN1ON
+0073   1287           00157         bcf TRISC, 5;Turn on light 0
+0074   0008           00158         return
+                      00159 
+0075                  00160 GREEN1OFF
+0075   1687           00161         bsf TRISC, 5;Turn off light 0
+0076   0008           00162         return
+                      00163 
+0077                  00164 YELLOW1ON
+0077   1207           00165         bcf TRISC, 4;Turn on light 1
+0078   0008           00166         return
+                      00167 
+0079                  00168 YELLOW1OFF
+0079   1607           00169         bsf TRISC, 4;Turn off light 1
+007A   0008           00170         return
+                      00171 
+007B                  00172 RED1ON
+007B   1187           00173         bcf TRISC, 3;Turn on light 2
+007C   0008           00174         return
+                      00175 
+007D                  00176 RED1OFF
+007D   1587           00177         bsf TRISC, 3;Turn off light 2
+007E   0008           00178         return
+                      00179 
+007F                  00180 GREEN2ON
+007F   1107           00181         bcf TRISC, 2;Turn on light 3
+0080   0008           00182         return
+                      00183 
+0081                  00184 GREEN2OFF
+0081   1507           00185         bsf TRISC, 2;Turn off light 3
+0082   0008           00186         return
+                      00187 
+0083                  00188 YELLOW2ON
+0083   1087           00189         bcf TRISC, 1;Turn on light 4
+0084   0008           00190         return
+                      00191 
+0085                  00192 YELLOW2OFF
+0085   1487           00193         bsf TRISC, 1;Turn off light 4
+0086   0008           00194         return
+                      00195 
+0087                  00196 RED2ON
+0087   1007           00197         bcf TRISC, 0;Turn on light 5
+0088   0008           00198         return
+                      00199 
+0089                  00200 RED2OFF
+0089   1407           00201         bsf TRISC, 0;Turn off light 5
+008A   0008           00202         return
+MPASM  5.39                      TRAFFIC2.ASM   3-1-2011  19:01:34         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00203 
+                      00204         end
+MPASM  5.39                      TRAFFIC2.ASM   3-1-2011  19:01:34         PAGE  6
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ABDEN                             00000000
+ABDOVF                            00000007
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000004
+ADCS1                             00000005
+ADCS2                             00000006
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+ANS0                              00000000
+ANS1                              00000001
+ANS10                             00000002
+ANS11                             00000003
+ANS2                              00000002
+ANS3                              00000003
+ANS4                              00000004
+ANS5                              00000005
+ANS6                              00000006
+ANS7                              00000007
+ANS8                              00000000
+ANS9                              00000001
+ANSEL                             0000011E
+ANSELH                            0000011F
+BAUDCTL                           0000009B
+BF                                00000000
+BRG0                              00000000
+BRG1                              00000001
+BRG10                             00000002
+BRG11                             00000003
+BRG12                             00000004
+BRG13                             00000005
+BRG14                             00000006
+BRG15                             00000007
+BRG16                             00000003
+BRG2                              00000002
+BRG3                              00000003
+BRG4                              00000004
+BRG5                              00000005
+BRG6                              00000006
+BRG7                              00000007
+BRG8                              00000000
+BRG9                              00000001
+BRGH                              00000002
+BUTTON                            0000003B
+C                                 00000000
+C1CH0                             00000000
+C1CH1                             00000001
+C1IE                              00000005
+MPASM  5.39                      TRAFFIC2.ASM   3-1-2011  19:01:34         PAGE  7
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+C1IF                              00000005
+C1OE                              00000005
+C1ON                              00000007
+C1OUT                             00000006
+C1POL                             00000004
+C1R                               00000002
+C1SEN                             00000005
+C1VREN                            00000007
+C2CH0                             00000000
+C2CH1                             00000001
+C2IE                              00000006
+C2IF                              00000006
+C2OE                              00000005
+C2ON                              00000007
+C2OUT                             00000006
+C2POL                             00000004
+C2R                               00000002
+C2REN                             00000004
+C2SYNC                            00000000
+C2VREN                            00000006
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCPR1H                            00000016
+CCPR1L                            00000015
+CHANGE1                           00000029
+CHANGE2                           0000002C
+CHANGE3                           0000002F
+CHANGE4                           00000032
+CHANGE5                           00000035
+CHANGE6                           00000038
+CHS0                              00000002
+CHS1                              00000003
+CHS2                              00000004
+CHS3                              00000005
+CKE                               00000006
+CKP                               00000004
+CM1CON0                           00000119
+CM2CON0                           0000011A
+CM2CON1                           0000011B
+CREN                              00000004
+CROSS1RESET                       00000061
+CROSS2RESET                       00000068
+CROSSOFF                          00000071
+CROSSON                           0000006F
+CSRC                              00000007
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+MPASM  5.39                      TRAFFIC2.ASM   3-1-2011  19:01:34         PAGE  8
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+DC1B0                             00000004
+DC1B1                             00000005
+D_A                               00000005
+D_NOT_A                           00000005
+ECCPAS                            0000001D
+ECCPAS0                           00000004
+ECCPAS1                           00000005
+ECCPAS2                           00000006
+ECCPASE                           00000007
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDAT                             0000010C
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+F                                 00000001
+FERR                              00000002
+FSR                               00000004
+GIE                               00000007
+GO                                00000001
+GO_DONE                           00000001
+GO_NOT_DONE                       00000001
+GREEN1OFF                         00000075
+GREEN1ON                          00000073
+GREEN2OFF                         00000081
+GREEN2ON                          0000007F
+HTS                               00000002
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+INDF                              00000000
+INITIAL                           00000042
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IOC                               00000096
+IOC0                              00000000
+IOC1                              00000001
+IOC2                              00000002
+IOC3                              00000003
+IOC4                              00000004
+IOC5                              00000005
+IOCA                              00000096
+IOCA0                             00000000
+IOCA1                             00000001
+IOCA2                             00000002
+IOCA3                             00000003
+MPASM  5.39                      TRAFFIC2.ASM   3-1-2011  19:01:34         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+IOCA4                             00000004
+IOCA5                             00000005
+IOCB                              00000116
+IOCB4                             00000004
+IOCB5                             00000005
+IOCB6                             00000006
+IOCB7                             00000007
+IRCF0                             00000004
+IRCF1                             00000005
+IRCF2                             00000006
+IRP                               00000007
+ISR                               00000006
+LTS                               00000001
+MAIN                              00000005
+MC1OUT                            00000007
+MC2OUT                            00000006
+MSK                               00000093
+MSK0                              00000000
+MSK1                              00000001
+MSK2                              00000002
+MSK3                              00000003
+MSK4                              00000004
+MSK5                              00000005
+MSK6                              00000006
+MSK7                              00000007
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BOR                           00000000
+NOT_DONE                          00000001
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RABPU                         00000007
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OERR                              00000001
+OPTION_REG                        00000081
+OSCCON                            0000008F
+OSCTUNE                           00000090
+OSFIE                             00000007
+OSFIF                             00000007
+OSTS                              00000003
+P                                 00000004
+P1M0                              00000006
+P1M1                              00000007
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PDC0                              00000000
+PDC1                              00000001
+PDC2                              00000002
+PDC3                              00000003
+MPASM  5.39                      TRAFFIC2.ASM   3-1-2011  19:01:34         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+PDC4                              00000004
+PDC5                              00000005
+PDC6                              00000006
+PEIE                              00000006
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PR2                               00000092
+PRSEN                             00000007
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSSAC0                            00000002
+PSSAC1                            00000003
+PSSBD0                            00000000
+PSSBD1                            00000001
+PSTRCON                           0000019D
+PULSR                             00000002
+PULSS                             00000003
+PWM1CON                           0000001C
+R                                 00000002
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RABIE                             00000003
+RABIF                             00000000
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RC0                               00000000
+RC1                               00000001
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RCIDL                             00000006
+RCIE                              00000005
+RCIF                              00000005
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+READ_WRITE                        00000002
+MPASM  5.39                      TRAFFIC2.ASM   3-1-2011  19:01:34         PAGE 11
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RED1OFF                           0000007D
+RED1ON                            0000007B
+RED2OFF                           00000089
+RED2ON                            00000087
+RP0                               00000005
+RP1                               00000006
+RX9                               00000006
+RX9D                              00000000
+R_NOT_W                           00000002
+R_W                               00000002
+S                                 00000003
+SBOREN                            00000004
+SCKP                              00000004
+SCS                               00000000
+SENB                              00000003
+SENDB                             00000003
+SMP                               00000007
+SPBRG                             00000099
+SPBRGH                            0000009A
+SPEN                              00000007
+SR0                               00000006
+SR1                               00000007
+SRCON                             0000019E
+SREN                              00000005
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPMSK                            00000093
+SSPOV                             00000006
+SSPSTAT                           00000094
+STATUS                            00000003
+STRA                              00000000
+STRB                              00000001
+STRC                              00000002
+STRD                              00000003
+STRSYNC                           00000004
+SWDTEN                            00000000
+SYNC                              00000004
+T0CS                              00000005
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1GINV                            00000007
+MPASM  5.39                      TRAFFIC2.ASM   3-1-2011  19:01:34         PAGE 12
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+T1GSS                             00000001
+T1IE                              00000000
+T1IF                              00000000
+T1OSCEN                           00000003
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+T2IE                              00000001
+T2IF                              00000001
+TIMER                             0000000B
+TMR0                              00000001
+TMR1CS                            00000001
+TMR1GE                            00000006
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISB                             00000086
+TRISB4                            00000004
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRISC                             00000087
+TRISC0                            00000000
+TRISC1                            00000001
+TRISC2                            00000002
+TRISC3                            00000003
+TRISC4                            00000004
+TRISC5                            00000005
+TRISC6                            00000006
+TRISC7                            00000007
+TRMT                              00000001
+TUN0                              00000000
+TUN1                              00000001
+TUN2                              00000002
+TUN3                              00000003
+TUN4                              00000004
+MPASM  5.39                      TRAFFIC2.ASM   3-1-2011  19:01:34         PAGE 13
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TX9                               00000006
+TX9D                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+UA                                00000001
+ULPWUE                            00000005
+VCFG                              00000006
+VP6EN                             00000004
+VR0                               00000000
+VR1                               00000001
+VR2                               00000002
+VR3                               00000003
+VRCON                             00000118
+VRR                               00000005
+W                                 00000000
+WCOL                              00000007
+WDTCON                            00000097
+WDTPS0                            00000001
+WDTPS1                            00000002
+WDTPS2                            00000003
+WDTPS3                            00000004
+WPU                               00000095
+WPU0                              00000000
+WPU1                              00000001
+WPU2                              00000002
+WPU4                              00000004
+WPU5                              00000005
+WPUA                              00000095
+WPUA0                             00000000
+WPUA1                             00000001
+WPUA2                             00000002
+WPUA4                             00000004
+WPUA5                             00000005
+WPUB                              00000115
+WPUB4                             00000004
+WPUB5                             00000005
+WPUB6                             00000006
+WPUB7                             00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+WUE                               00000001
+YELLOW1OFF                        00000079
+YELLOW1ON                         00000077
+YELLOW2OFF                        00000085
+YELLOW2ON                         00000083
+Z                                 00000002
+_BOD_NSLEEP                       00003EFF
+_BOD_OFF                          00003CFF
+_BOD_ON                           00003FFF
+MPASM  5.39                      TRAFFIC2.ASM   3-1-2011  19:01:34         PAGE 14
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_BOD_SBODEN                       00003DFF
+_BOR_NSLEEP                       00003EFF
+_BOR_OFF                          00003CFF
+_BOR_ON                           00003FFF
+_BOR_SBODEN                       00003DFF
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003F7F
+_CP_OFF                           00003FFF
+_CP_ON                            00003FBF
+_DEVID1                           00002006
+_EC_OSC                           00003FFB
+_EXTRC                            00003FFF
+_EXTRCIO                          00003FFE
+_EXTRC_OSC_CLKOUT                 00003FFF
+_EXTRC_OSC_NOCLKOUT               00003FFE
+_FCMEN_OFF                        000037FF
+_FCMEN_ON                         00003FFF
+_HS_OSC                           00003FFA
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_IESO_OFF                         00003BFF
+_IESO_ON                          00003FFF
+_INTOSC                           00003FFD
+_INTOSCIO                         00003FFC
+_INTRC_OSC_CLKOUT                 00003FFD
+_INTRC_OSC_NOCLKOUT               00003FFC
+_LP_OSC                           00003FF8
+_MCLRE_OFF                        00003FDF
+_MCLRE_ON                         00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FEF
+_WDT_OFF                          00003FF7
+_WDT_ON                           00003FFF
+_XT_OSC                           00003FF9
+__16F690                          00000001
+__DEBUG                           1
+count                             00000020
+count2                            00000021
+count3                            00000022
+count4                            00000023
+count5                            00000024
+count6                            00000025
+MPASM  5.39                      TRAFFIC2.ASM   3-1-2011  19:01:34         PAGE 15
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+
+0000 : X---XXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+0080 : XXXXXXXXXXX----- ---------------- ---------------- ----------------
+2000 : -------X-------- ---------------- ---------------- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used:   136
+Program Memory Words Free:  3960
+
+
+Errors   :     0
+Warnings :     1 reported,     0 suppressed
+Messages :     0 reported,    22 suppressed
+
+

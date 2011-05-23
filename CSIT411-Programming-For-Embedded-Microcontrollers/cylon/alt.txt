@@ -1,0 +1,82 @@
+	radix hex
+	include "P16F690.INC"
+	__config _CP_OFF & _WDT_OFF & _BOR_ON & _PWRTE_ON & _INTOSCIO & _MCLRE_OFF
+	errorlevel -302
+	org 0
+
+count   equ  20
+count2  equ  21
+
+	call INITIAL
+
+MAIN
+	call BLINK0
+    call DELAY
+    call BLINK1
+    call DELAY
+    call BLINK2
+    call DELAY
+    call BLINK3
+	call DELAY
+	call BLINK4
+	call DELAY
+	call BLINK5
+	call DELAY
+    goto MAIN
+
+INITIAL
+	BCF STATUS,RP0 ;Bank 0
+	BCF STATUS,RP1 ;
+	CLRF PORTC ;Init PORTC
+	BSF STATUS,RP1 ;Bank 2
+	CLRF ANSEL ;digital I/O
+    clrf ANSELH
+	BSF STATUS,RP0 ;Bank 1
+	BCF STATUS,RP1 ;
+	MOVLW B'00000000' ;Set all as outputs
+	MOVWF TRISC 
+	BCF STATUS,RP0 ;Bank 0
+	return
+
+BLINK0
+	bsf TRISC, 0;Turn off light 5
+	bcf TRISC, 5;Turn on light 0
+	return
+
+BLINK1
+	bsf TRISC, 5;Turn off light 0
+    bcf TRISC, 4;Turn on light 1
+	return
+
+BLINK2
+	bsf TRISC, 4;Turn off light 1
+    bcf TRISC, 3;Turn on light 2
+	return
+
+BLINK3
+	bsf TRISC, 3;Turn off light 2
+	bcf TRISC, 2;Turn on light 3
+	return
+
+BLINK4
+	bsf TRISC, 2;Turn off light 3
+	bcf TRISC, 1;Turn on light 4
+	return
+
+BLINK5
+	bsf TRISC, 1;Turn off light 4
+	bcf TRISC, 0;Turn on light 5
+	return
+
+DELAY
+    movlw  0xFF
+    movwf  count
+    movwf  count2
+DELAYLOOP
+    decfsz count, f
+    goto   DELAYLOOP
+    decfsz count2, f
+    goto   DELAYLOOP
+	return
+
+	end

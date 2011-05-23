@@ -1,0 +1,1471 @@
+
+
+HI-TECH Software PIC LITE Macro Assembler V9.80 build 6738 
+                                                                                               Tue Apr 05 17:03:52 2011
+
+HI-TECH Software Omniscient Code Generator (Lite mode) build 6738
+     1  0000                     opt subtitle "HI-TECH Software Omniscient Code Generator (Lite mode) build 6738"
+     2                           
+     3                           opt pagewidth 120
+     4                           
+     5                           	opt lm
+     6                           
+     7                           	processor	16F690
+     8                           clrc	macro
+     9                           	bcf	3,0
+    10  0000                     	endm
+    11                           clrz	macro
+    12                           	bcf	3,2
+    13  0000                     	endm
+    14                           setc	macro
+    15                           	bsf	3,0
+    16  0000                     	endm
+    17                           setz	macro
+    18                           	bsf	3,2
+    19  0000                     	endm
+    20                           skipc	macro
+    21                           	btfss	3,0
+    22  0000                     	endm
+    23                           skipz	macro
+    24                           	btfss	3,2
+    25  0000                     	endm
+    26                           skipnc	macro
+    27                           	btfsc	3,0
+    28  0000                     	endm
+    29                           skipnz	macro
+    30                           	btfsc	3,2
+    31  0000                     	endm
+    32  0000                     indf	equ	0
+    33  0000                     indf0	equ	0
+    34  0002                     pc	equ	2
+    35  0002                     pcl	equ	2
+    36  0003                     status	equ	3
+    37  0004                     fsr	equ	4
+    38  0004                     fsr0	equ	4
+    39  0001                     c	equ	1
+    40  0000                     z	equ	0
+    41  000A                     pclath	equ	10
+    42                           # 4 "C:\projects\PIC\phonedialer\phonedialer.c"
+    43                           	psect config,class=CONFIG,delta=2 ;#
+    44                           # 4 "C:\projects\PIC\phonedialer\phonedialer.c"
+    45  2007  3CC4               	dw 0x3FFF & 0x3CFF & 0x3FDF & 0x3FEF & 0x3FFC & 0x3FF7 ;#
+    46                           	FNCALL	_main,_dialNumber
+    47                           	FNCALL	_dialNumber,_playTone
+    48                           	FNCALL	_playTone,_pulse
+    49                           	FNROOT	_main
+    50                           	global	_PORTC
+    51                           psect	text72,local,class=CODE,delta=2
+    52                           global __ptext72
+    53  0000                     __ptext72:
+    54  0007                     _PORTC	set	7
+    55                           	global	_RA2
+    56  002A                     _RA2	set	42
+    57                           	global	_RC2
+    58  003A                     _RC2	set	58
+    59                           	global	_RC4
+    60  003C                     _RC4	set	60
+    61                           	global	_RC7
+    62  003F                     _RC7	set	63
+    63                           	global	_OPTION
+    64  0081                     _OPTION	set	129
+    65                           	global	_TRISA
+    66  0085                     _TRISA	set	133
+    67                           	global	_TRISC
+    68  0087                     _TRISC	set	135
+    69                           	global	_ANSEL
+    70  011E                     _ANSEL	set	286
+    71                           	global	_ANSELH
+    72  011F                     _ANSELH	set	287
+    73                           	file	"phonedialer.as"
+    74                           	line	#
+    75                           psect cinit,class=CODE,delta=2
+    76                           global start_initialization
+    77  0616                     start_initialization:
+    78                           
+    79                           psect cinit,class=CODE,delta=2
+    80                           global end_of_initialization
+    81                           
+    82                           ;End of C runtime variable initialization code
+    83                           
+    84  0616                     end_of_initialization:
+    85  0616  0183               clrf status
+    86  0617  118A  2E26         ljmp _main	;jump to C main() function
+    87                           psect	cstackCOMMON,class=COMMON,space=1
+    88                           global __pcstackCOMMON
+    89  0070                     __pcstackCOMMON:
+    90                           	global	?_pulse
+    91  0070                     ?_pulse:	; 0 bytes @ 0x0
+    92                           	global	??_pulse
+    93  0070                     ??_pulse:	; 0 bytes @ 0x0
+    94                           	global	?_playTone
+    95  0070                     ?_playTone:	; 0 bytes @ 0x0
+    96                           	global	??_playTone
+    97  0070                     ??_playTone:	; 0 bytes @ 0x0
+    98                           	global	?_main
+    99  0070                     ?_main:	; 0 bytes @ 0x0
+   100                           	global	?_dialNumber
+   101  0070                     ?_dialNumber:	; 1 bytes @ 0x0
+   102  0070                     	ds	2
+   103                           	global	playTone@i
+   104  0072                     playTone@i:	; 1 bytes @ 0x2
+   105  0072                     	ds	1
+   106                           	global	playTone@tone
+   107  0073                     playTone@tone:	; 1 bytes @ 0x3
+   108  0073                     	ds	1
+   109                           	global	??_dialNumber
+   110  0074                     ??_dialNumber:	; 0 bytes @ 0x4
+   111  0074                     	ds	1
+   112                           	global	dialNumber@state
+   113  0075                     dialNumber@state:	; 1 bytes @ 0x5
+   114  0075                     	ds	1
+   115                           	global	??_main
+   116  0076                     ??_main:	; 0 bytes @ 0x6
+   117  0076                     	ds	2
+   118                           	global	main@i
+   119  0078                     main@i:	; 1 bytes @ 0x8
+   120  0078                     	ds	1
+   121                           	global	main@state
+   122  0079                     main@state:	; 1 bytes @ 0x9
+   123  0079                     	ds	1
+   124                           	global	main@debounce
+   125  007A                     main@debounce:	; 1 bytes @ 0xA
+   126  007A                     	ds	1
+   127 ;;Data sizes: Strings 0, constant 0, data 0, bss 0, persistent 0 stack 0
+   128 ;;Auto spaces:   Size  Autos    Used
+   129 ;; COMMON          14     11      11
+   130 ;; BANK0           80      0       0
+   131 ;; BANK1           80      0       0
+   132 ;; BANK2           80      0       0
+   133                           
+   134 ;;
+   135 ;; Pointer list with targets:
+   136                           
+   137                           
+   138                           
+   139 ;;
+   140 ;; Critical Paths under _main in COMMON
+   141 ;;
+   142 ;;   _main->_dialNumber
+   143 ;;   _dialNumber->_playTone
+   144 ;;
+   145 ;; Critical Paths under _main in BANK0
+   146 ;;
+   147 ;;   None.
+   148 ;;
+   149 ;; Critical Paths under _main in BANK1
+   150 ;;
+   151 ;;   None.
+   152 ;;
+   153 ;; Critical Paths under _main in BANK2
+   154 ;;
+   155 ;;   None.
+   156                           
+   157 ;;
+   158 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
+   159 ;;
+   160                           
+   161 ;;
+   162 ;;Call Graph Tables:
+   163 ;;
+   164 ;; ---------------------------------------------------------------------------------
+   165 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   166 ;; ---------------------------------------------------------------------------------
+   167 ;; (0) _main                                                 5     5      0     705
+   168 ;;                                              6 COMMON     5     5      0
+   169 ;;                         _dialNumber
+   170 ;; ---------------------------------------------------------------------------------
+   171 ;; (1) _dialNumber                                           2     2      0     675
+   172 ;;                                              4 COMMON     2     2      0
+   173 ;;                           _playTone
+   174 ;; ---------------------------------------------------------------------------------
+   175 ;; (2) _playTone                                             4     4      0     540
+   176 ;;                                              0 COMMON     4     4      0
+   177 ;;                              _pulse
+   178 ;; ---------------------------------------------------------------------------------
+   179 ;; (3) _pulse                                                0     0      0       0
+   180 ;; ---------------------------------------------------------------------------------
+   181 ;; Estimated maximum stack depth 3
+   182 ;; ---------------------------------------------------------------------------------
+   183                           
+   184 ;; Call Graph Graphs:
+   185                           
+   186 ;; _main (ROOT)
+   187 ;;   _dialNumber
+   188 ;;     _playTone
+   189 ;;       _pulse
+   190 ;;
+   191                           
+   192 ;; Address spaces:
+   193                           
+   194 ;;Name               Size   Autos  Total    Cost      Usage
+   195 ;;BITCOMMON            E      0       0       0        0.0%
+   196 ;;EEDATA             100      0       0       0        0.0%
+   197 ;;NULL                 0      0       0       0        0.0%
+   198 ;;CODE                 0      0       0       0        0.0%
+   199 ;;COMMON               E      B       B       1       78.6%
+   200 ;;BITSFR0              0      0       0       1        0.0%
+   201 ;;SFR0                 0      0       0       1        0.0%
+   202 ;;BITSFR1              0      0       0       2        0.0%
+   203 ;;SFR1                 0      0       0       2        0.0%
+   204 ;;STACK                0      0       3       2        0.0%
+   205 ;;BANK0               50      0       0       3        0.0%
+   206 ;;BITBANK1            50      0       0       4        0.0%
+   207 ;;BITSFR3              0      0       0       4        0.0%
+   208 ;;SFR3                 0      0       0       4        0.0%
+   209 ;;BANK1               50      0       0       5        0.0%
+   210 ;;BITSFR2              0      0       0       5        0.0%
+   211 ;;SFR2                 0      0       0       5        0.0%
+   212 ;;BITBANK2            50      0       0       6        0.0%
+   213 ;;BANK2               50      0       0       7        0.0%
+   214 ;;ABS                  0      0       0       8        0.0%
+   215 ;;BITBANK0            50      0       0       9        0.0%
+   216 ;;DATA                 0      0       0      10        0.0%
+   217                           
+   218                           	global	_main
+   219                           psect	maintext,global,class=CODE,delta=2
+   220                           global __pmaintext
+   221  0626                     __pmaintext:
+   222                           
+   223 ;; *************** function _main *****************
+   224 ;; Defined at:
+   225 ;;		line 78 in file "C:\projects\PIC\phonedialer\phonedialer.c"
+   226 ;; Parameters:    Size  Location     Type
+   227 ;;		None
+   228 ;; Auto vars:     Size  Location     Type
+   229 ;;  debounce        1   10[COMMON] unsigned char 
+   230 ;;  state           1    9[COMMON] unsigned char 
+   231 ;;  i               1    8[COMMON] unsigned char 
+   232 ;; Return value:  Size  Location     Type
+   233 ;;		None               void
+   234 ;; Registers used:
+   235 ;;		wreg, status,2, status,0, pclath, cstack
+   236 ;; Tracked objects:
+   237 ;;		On entry : 17F/0
+   238 ;;		On exit  : 0/0
+   239 ;;		Unchanged: 0/0
+   240 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   241 ;;      Params:         0       0       0       0
+   242 ;;      Locals:         3       0       0       0
+   243 ;;      Temps:          2       0       0       0
+   244 ;;      Totals:         5       0       0       0
+   245 ;;Total ram usage:        5 bytes
+   246 ;; Hardware stack levels required when called:    3
+   247 ;; This function calls:
+   248 ;;		_dialNumber
+   249 ;; This function is called by:
+   250 ;;		Startup code after reset
+   251 ;; This function uses a non-reentrant model
+   252 ;;
+   253                           psect	maintext
+   254                           	file	"C:\projects\PIC\phonedialer\phonedialer.c"
+   255                           	line	78
+   256                           	global	__size_of_main
+   257  0051                     	__size_of_main	equ	__end_of_main-_main
+   258                           	
+   259  0626                     _main:	
+   260                           	opt	stack 5
+   261                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
+   262                           	line	80
+   263                           	
+   264  0626                     l2050:	
+   265                           ;phonedialer.c: 79: char i, state, debounce;
+   266                           ;phonedialer.c: 80: i = state = debounce = 0;
+   267  0626  3000               	movlw	(0)
+   268  0627  00FA               	movwf	(main@debounce)
+   269  0628  00F9               	movwf	(main@state)
+   270  0629  00F6               	movwf	(??_main+0)+0
+   271  062A  0876               	movf	(??_main+0)+0,w
+   272  062B  00F8               	movwf	(main@i)
+   273                           	line	81
+   274                           	
+   275  062C                     l2052:	
+   276                           ;phonedialer.c: 81: ANSEL = ANSELH = 0;
+   277  062C  1283               	bcf	status, 5	;RP0=0, select bank2
+   278  062D  1703               	bsf	status, 6	;RP1=1, select bank2
+   279  062E  019F               	clrf	(287)^0100h	;volatile
+   280  062F  019E               	clrf	(286)^0100h	;volatile
+   281                           	line	82
+   282                           	
+   283  0630                     l2054:	
+   284                           ;phonedialer.c: 82: TRISC = 0;
+   285  0630  1683               	bsf	status, 5	;RP0=1, select bank1
+   286  0631  1303               	bcf	status, 6	;RP1=0, select bank1
+   287  0632  0187               	clrf	(135)^080h	;volatile
+   288                           	line	83
+   289                           ;phonedialer.c: 83: TRISA = 0b11111111;
+   290  0633  30FF               	movlw	(0FFh)
+   291  0634  0085               	movwf	(133)^080h	;volatile
+   292                           	line	84
+   293                           	
+   294  0635                     l2056:	
+   295                           ;phonedialer.c: 84: OPTION = 0;
+   296  0635  0181               	clrf	(129)^080h	;volatile
+   297                           	line	85
+   298                           	
+   299  0636                     l2058:	
+   300                           ;phonedialer.c: 85: PORTC = 0b10000100;
+   301  0636  3084               	movlw	(084h)
+   302  0637  1283               	bcf	status, 5	;RP0=0, select bank0
+   303  0638  1303               	bcf	status, 6	;RP1=0, select bank0
+   304  0639  0087               	movwf	(7)	;volatile
+   305                           	line	86
+   306                           	
+   307  063A                     l2060:	
+   308                           ;phonedialer.c: 86: _delay((unsigned long)((10)*(4000000/4000.0)));
+   309                           	opt asmopt_off
+   310  063A  300D               movlw	13
+   311  063B  00F7               movwf	((??_main+0)+0+1),f
+   312  063C  30FB               	movlw	251
+   313  063D  00F6               movwf	((??_main+0)+0),f
+   314  063E                     u2617:
+   315  063E  0BF6               	decfsz	((??_main+0)+0),f
+   316  063F  2E3E               	goto	u2617
+   317  0640  0BF7               	decfsz	((??_main+0)+0+1),f
+   318  0641  2E3E               	goto	u2617
+   319  0642  2E43               	nop2
+   320                           opt asmopt_on
+   321                           
+   322                           	line	87
+   323                           	
+   324  0643                     l2062:	
+   325                           ;phonedialer.c: 87: RC2 = 0;
+   326  0643  1283               	bcf	status, 5	;RP0=0, select bank0
+   327  0644  1303               	bcf	status, 6	;RP1=0, select bank0
+   328  0645  1107               	bcf	(58/8),(58)&7
+   329                           	line	88
+   330                           	
+   331  0646                     l2064:	
+   332                           ;phonedialer.c: 88: _delay((unsigned long)((10)*(4000000/4000.0)));
+   333                           	opt asmopt_off
+   334  0646  300D               movlw	13
+   335  0647  00F7               movwf	((??_main+0)+0+1),f
+   336  0648  30FB               	movlw	251
+   337  0649  00F6               movwf	((??_main+0)+0),f
+   338  064A                     u2627:
+   339  064A  0BF6               	decfsz	((??_main+0)+0),f
+   340  064B  2E4A               	goto	u2627
+   341  064C  0BF7               	decfsz	((??_main+0)+0+1),f
+   342  064D  2E4A               	goto	u2627
+   343  064E  2E4F               	nop2
+   344                           opt asmopt_on
+   345                           
+   346  064F  2E50               	goto	l2066
+   347                           	line	90
+   348                           ;phonedialer.c: 90: while(1){
+   349                           	
+   350  0650                     l752:	
+   351                           	line	91
+   352                           	
+   353  0650                     l2066:	
+   354                           ;phonedialer.c: 91: if(RA2 == 0 && debounce == 1){
+   355  0650  1283               	bcf	status, 5	;RP0=0, select bank0
+   356  0651  1303               	bcf	status, 6	;RP1=0, select bank0
+   357  0652  1905               	btfsc	(42/8),(42)&7
+   358  0653  2E55               	goto	u2581
+   359  0654  2E56               	goto	u2580
+   360  0655                     u2581:
+   361  0655  2E69               	goto	l2074
+   362  0656                     u2580:
+   363                           	
+   364  0656                     l2068:	
+   365  0656  087A               	movf	(main@debounce),w
+   366  0657  3A01               	xorlw	01h
+   367  0658  1D03               	skipz
+   368  0659  2E5B               	goto	u2591
+   369  065A  2E5C               	goto	u2590
+   370  065B                     u2591:
+   371  065B  2E69               	goto	l2074
+   372  065C                     u2590:
+   373                           	line	92
+   374                           	
+   375  065C                     l2070:	
+   376                           ;phonedialer.c: 92: state = dialNumber(state);
+   377  065C  0879               	movf	(main@state),w
+   378  065D  118A  2677  118A   	fcall	_dialNumber
+   379  0660  00F6               	movwf	(??_main+0)+0
+   380  0661  0876               	movf	(??_main+0)+0,w
+   381  0662  00F9               	movwf	(main@state)
+   382                           	line	93
+   383                           	
+   384  0663                     l2072:	
+   385                           ;phonedialer.c: 93: debounce = 0;
+   386  0663  1003               	clrc
+   387  0664  3000               	movlw	0
+   388  0665  1803               	btfsc	status,0
+   389  0666  3001               	movlw	1
+   390  0667  00FA               	movwf	(main@debounce)
+   391  0668  2E69               	goto	l2074
+   392                           	line	94
+   393                           	
+   394  0669                     l753:	
+   395                           	line	95
+   396                           	
+   397  0669                     l2074:	
+   398                           ;phonedialer.c: 94: }
+   399                           ;phonedialer.c: 95: if(RA2 == 1){
+   400  0669  1283               	bcf	status, 5	;RP0=0, select bank0
+   401  066A  1303               	bcf	status, 6	;RP1=0, select bank0
+   402  066B  1D05               	btfss	(42/8),(42)&7
+   403  066C  2E6E               	goto	u2601
+   404  066D  2E6F               	goto	u2600
+   405  066E                     u2601:
+   406  066E  2E50               	goto	l2066
+   407  066F                     u2600:
+   408                           	line	96
+   409                           	
+   410  066F                     l2076:	
+   411                           ;phonedialer.c: 96: debounce = 1;
+   412  066F  01FA               	clrf	(main@debounce)
+   413  0670  1403               	bsf	status,0
+   414  0671  0DFA               	rlf	(main@debounce),f
+   415  0672  2E50               	goto	l2066
+   416                           	line	97
+   417                           	
+   418  0673                     l754:	
+   419  0673  2E50               	goto	l2066
+   420                           	line	98
+   421                           	
+   422  0674                     l755:	
+   423                           	line	90
+   424  0674  2E50               	goto	l2066
+   425                           	
+   426  0675                     l756:	
+   427                           	line	99
+   428                           	
+   429  0675                     l757:	
+   430                           	global	start
+   431  0675  118A  2800         	ljmp	start
+   432                           	opt stack 0
+   433                           GLOBAL	__end_of_main
+   434  0677                     	__end_of_main:
+   435 ;; =============== function _main ends ============
+   436                           
+   437                           	signat	_main,88
+   438                           	global	_dialNumber
+   439                           psect	text73,local,class=CODE,delta=2
+   440                           global __ptext73
+   441  0677                     __ptext73:
+   442                           
+   443 ;; *************** function _dialNumber *****************
+   444 ;; Defined at:
+   445 ;;		line 50 in file "C:\projects\PIC\phonedialer\phonedialer.c"
+   446 ;; Parameters:    Size  Location     Type
+   447 ;;  state           1    wreg     unsigned char 
+   448 ;; Auto vars:     Size  Location     Type
+   449 ;;  state           1    5[COMMON] unsigned char 
+   450 ;; Return value:  Size  Location     Type
+   451 ;;                  1    wreg      unsigned char 
+   452 ;; Registers used:
+   453 ;;		wreg, status,2, status,0, pclath, cstack
+   454 ;; Tracked objects:
+   455 ;;		On entry : 0/0
+   456 ;;		On exit  : 0/0
+   457 ;;		Unchanged: 0/0
+   458 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   459 ;;      Params:         0       0       0       0
+   460 ;;      Locals:         1       0       0       0
+   461 ;;      Temps:          1       0       0       0
+   462 ;;      Totals:         2       0       0       0
+   463 ;;Total ram usage:        2 bytes
+   464 ;; Hardware stack levels used:    1
+   465 ;; Hardware stack levels required when called:    2
+   466 ;; This function calls:
+   467 ;;		_playTone
+   468 ;; This function is called by:
+   469 ;;		_main
+   470 ;; This function uses a non-reentrant model
+   471 ;;
+   472                           psect	text73
+   473                           	file	"C:\projects\PIC\phonedialer\phonedialer.c"
+   474                           	line	50
+   475                           	global	__size_of_dialNumber
+   476  0060                     	__size_of_dialNumber	equ	__end_of_dialNumber-_dialNumber
+   477                           	
+   478  0677                     _dialNumber:	
+   479                           	opt	stack 5
+   480                           ; Regs used in _dialNumber: [wreg+status,2+status,0+pclath+cstack]
+   481                           ;dialNumber@state stored from wreg
+   482  0677  00F5               	movwf	(dialNumber@state)
+   483                           	line	51
+   484                           	
+   485  0678                     l2012:	
+   486                           ;phonedialer.c: 51: if(state == 0){
+   487  0678  08F5               	movf	(dialNumber@state),f
+   488  0679  1D03               	skipz
+   489  067A  2E7C               	goto	u2501
+   490  067B  2E7D               	goto	u2500
+   491  067C                     u2501:
+   492  067C  2E82               	goto	l2016
+   493  067D                     u2500:
+   494                           	line	52
+   495                           	
+   496  067D                     l2014:	
+   497                           ;phonedialer.c: 52: playTone(6);
+   498  067D  3006               	movlw	(06h)
+   499  067E  118A  26D7  118A   	fcall	_playTone
+   500  0681  2E82               	goto	l2016
+   501                           	line	53
+   502                           	
+   503  0682                     l741:	
+   504                           	line	54
+   505                           	
+   506  0682                     l2016:	
+   507                           ;phonedialer.c: 53: }
+   508                           ;phonedialer.c: 54: if(state == 1){
+   509  0682  0875               	movf	(dialNumber@state),w
+   510  0683  3A01               	xorlw	01h
+   511  0684  1D03               	skipz
+   512  0685  2E87               	goto	u2511
+   513  0686  2E88               	goto	u2510
+   514  0687                     u2511:
+   515  0687  2E8D               	goto	l2020
+   516  0688                     u2510:
+   517                           	line	55
+   518                           	
+   519  0688                     l2018:	
+   520                           ;phonedialer.c: 55: playTone(7);
+   521  0688  3007               	movlw	(07h)
+   522  0689  118A  26D7  118A   	fcall	_playTone
+   523  068C  2E8D               	goto	l2020
+   524                           	line	56
+   525                           	
+   526  068D                     l742:	
+   527                           	line	57
+   528                           	
+   529  068D                     l2020:	
+   530                           ;phonedialer.c: 56: }
+   531                           ;phonedialer.c: 57: if(state == 2){
+   532  068D  0875               	movf	(dialNumber@state),w
+   533  068E  3A02               	xorlw	02h
+   534  068F  1D03               	skipz
+   535  0690  2E92               	goto	u2521
+   536  0691  2E93               	goto	u2520
+   537  0692                     u2521:
+   538  0692  2E98               	goto	l2024
+   539  0693                     u2520:
+   540                           	line	58
+   541                           	
+   542  0693                     l2022:	
+   543                           ;phonedialer.c: 58: playTone(3);
+   544  0693  3003               	movlw	(03h)
+   545  0694  118A  26D7  118A   	fcall	_playTone
+   546  0697  2E98               	goto	l2024
+   547                           	line	59
+   548                           	
+   549  0698                     l743:	
+   550                           	line	60
+   551                           	
+   552  0698                     l2024:	
+   553                           ;phonedialer.c: 59: }
+   554                           ;phonedialer.c: 60: if(state == 3){
+   555  0698  0875               	movf	(dialNumber@state),w
+   556  0699  3A03               	xorlw	03h
+   557  069A  1D03               	skipz
+   558  069B  2E9D               	goto	u2531
+   559  069C  2E9E               	goto	u2530
+   560  069D                     u2531:
+   561  069D  2EA3               	goto	l2028
+   562  069E                     u2530:
+   563                           	line	61
+   564                           	
+   565  069E                     l2026:	
+   566                           ;phonedialer.c: 61: playTone(3);
+   567  069E  3003               	movlw	(03h)
+   568  069F  118A  26D7  118A   	fcall	_playTone
+   569  06A2  2EA3               	goto	l2028
+   570                           	line	62
+   571                           	
+   572  06A3                     l744:	
+   573                           	line	63
+   574                           	
+   575  06A3                     l2028:	
+   576                           ;phonedialer.c: 62: }
+   577                           ;phonedialer.c: 63: if(state == 4){
+   578  06A3  0875               	movf	(dialNumber@state),w
+   579  06A4  3A04               	xorlw	04h
+   580  06A5  1D03               	skipz
+   581  06A6  2EA8               	goto	u2541
+   582  06A7  2EA9               	goto	u2540
+   583  06A8                     u2541:
+   584  06A8  2EAE               	goto	l2032
+   585  06A9                     u2540:
+   586                           	line	64
+   587                           	
+   588  06A9                     l2030:	
+   589                           ;phonedialer.c: 64: playTone(8);
+   590  06A9  3008               	movlw	(08h)
+   591  06AA  118A  26D7  118A   	fcall	_playTone
+   592  06AD  2EAE               	goto	l2032
+   593                           	line	65
+   594                           	
+   595  06AE                     l745:	
+   596                           	line	66
+   597                           	
+   598  06AE                     l2032:	
+   599                           ;phonedialer.c: 65: }
+   600                           ;phonedialer.c: 66: if(state == 5){
+   601  06AE  0875               	movf	(dialNumber@state),w
+   602  06AF  3A05               	xorlw	05h
+   603  06B0  1D03               	skipz
+   604  06B1  2EB3               	goto	u2551
+   605  06B2  2EB4               	goto	u2550
+   606  06B3                     u2551:
+   607  06B3  2EB9               	goto	l2036
+   608  06B4                     u2550:
+   609                           	line	67
+   610                           	
+   611  06B4                     l2034:	
+   612                           ;phonedialer.c: 67: playTone(6);
+   613  06B4  3006               	movlw	(06h)
+   614  06B5  118A  26D7  118A   	fcall	_playTone
+   615  06B8  2EB9               	goto	l2036
+   616                           	line	68
+   617                           	
+   618  06B9                     l746:	
+   619                           	line	69
+   620                           	
+   621  06B9                     l2036:	
+   622                           ;phonedialer.c: 68: }
+   623                           ;phonedialer.c: 69: if(state == 6){
+   624  06B9  0875               	movf	(dialNumber@state),w
+   625  06BA  3A06               	xorlw	06h
+   626  06BB  1D03               	skipz
+   627  06BC  2EBE               	goto	u2561
+   628  06BD  2EBF               	goto	u2560
+   629  06BE                     u2561:
+   630  06BE  2EC4               	goto	l2040
+   631  06BF                     u2560:
+   632                           	line	70
+   633                           	
+   634  06BF                     l2038:	
+   635                           ;phonedialer.c: 70: playTone(9);
+   636  06BF  3009               	movlw	(09h)
+   637  06C0  118A  26D7  118A   	fcall	_playTone
+   638  06C3  2EC4               	goto	l2040
+   639                           	line	71
+   640                           	
+   641  06C4                     l747:	
+   642                           	line	72
+   643                           	
+   644  06C4                     l2040:	
+   645                           ;phonedialer.c: 71: }
+   646                           ;phonedialer.c: 72: state++;
+   647  06C4  3001               	movlw	(01h)
+   648  06C5  00F4               	movwf	(??_dialNumber+0)+0
+   649  06C6  0874               	movf	(??_dialNumber+0)+0,w
+   650  06C7  07F5               	addwf	(dialNumber@state),f
+   651                           	line	73
+   652                           	
+   653  06C8                     l2042:	
+   654                           ;phonedialer.c: 73: if(state > 6)
+   655  06C8  3007               	movlw	(07h)
+   656  06C9  0275               	subwf	(dialNumber@state),w
+   657  06CA  1C03               	skipc
+   658  06CB  2ECD               	goto	u2571
+   659  06CC  2ECE               	goto	u2570
+   660  06CD                     u2571:
+   661  06CD  2ED4               	goto	l2046
+   662  06CE                     u2570:
+   663                           	line	74
+   664                           	
+   665  06CE                     l2044:	
+   666                           ;phonedialer.c: 74: state = 0;
+   667  06CE  1003               	clrc
+   668  06CF  3000               	movlw	0
+   669  06D0  1803               	btfsc	status,0
+   670  06D1  3001               	movlw	1
+   671  06D2  00F5               	movwf	(dialNumber@state)
+   672  06D3  2ED4               	goto	l2046
+   673                           	
+   674  06D4                     l748:	
+   675                           	line	75
+   676                           	
+   677  06D4                     l2046:	
+   678                           ;phonedialer.c: 75: return state;
+   679  06D4  0875               	movf	(dialNumber@state),w
+   680  06D5  2ED6               	goto	l749
+   681                           	
+   682  06D6                     l2048:	
+   683                           	line	76
+   684                           	
+   685  06D6                     l749:	
+   686  06D6  0008               	return
+   687                           	opt stack 0
+   688                           GLOBAL	__end_of_dialNumber
+   689  06D7                     	__end_of_dialNumber:
+   690 ;; =============== function _dialNumber ends ============
+   691                           
+   692                           	signat	_dialNumber,4217
+   693                           	global	_playTone
+   694                           psect	text74,local,class=CODE,delta=2
+   695                           global __ptext74
+   696  06D7                     __ptext74:
+   697                           
+   698 ;; *************** function _playTone *****************
+   699 ;; Defined at:
+   700 ;;		line 17 in file "C:\projects\PIC\phonedialer\phonedialer.c"
+   701 ;; Parameters:    Size  Location     Type
+   702 ;;  tone            1    wreg     unsigned char 
+   703 ;; Auto vars:     Size  Location     Type
+   704 ;;  tone            1    3[COMMON] unsigned char 
+   705 ;;  i               1    2[COMMON] unsigned char 
+   706 ;; Return value:  Size  Location     Type
+   707 ;;		None               void
+   708 ;; Registers used:
+   709 ;;		wreg, status,2, status,0, pclath, cstack
+   710 ;; Tracked objects:
+   711 ;;		On entry : 0/0
+   712 ;;		On exit  : 0/0
+   713 ;;		Unchanged: 0/0
+   714 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   715 ;;      Params:         0       0       0       0
+   716 ;;      Locals:         2       0       0       0
+   717 ;;      Temps:          2       0       0       0
+   718 ;;      Totals:         4       0       0       0
+   719 ;;Total ram usage:        4 bytes
+   720 ;; Hardware stack levels used:    1
+   721 ;; Hardware stack levels required when called:    1
+   722 ;; This function calls:
+   723 ;;		_pulse
+   724 ;; This function is called by:
+   725 ;;		_dialNumber
+   726 ;; This function uses a non-reentrant model
+   727 ;;
+   728                           psect	text74
+   729                           	file	"C:\projects\PIC\phonedialer\phonedialer.c"
+   730                           	line	17
+   731                           	global	__size_of_playTone
+   732  0129                     	__size_of_playTone	equ	__end_of_playTone-_playTone
+   733                           	
+   734  06D7                     _playTone:	
+   735                           	opt	stack 5
+   736                           ; Regs used in _playTone: [wreg+status,2+status,0+pclath+cstack]
+   737                           ;playTone@tone stored from wreg
+   738                           	line	19
+   739  06D7  00F3               	movwf	(playTone@tone)
+   740                           	
+   741  06D8                     l1914:	
+   742                           ;phonedialer.c: 18: char i;
+   743                           ;phonedialer.c: 19: if(tone == 1 || tone == 3 || tone == 5 || tone == 7 || tone == 9)
+   744  06D8  0873               	movf	(playTone@tone),w
+   745  06D9  3A01               	xorlw	01h
+   746  06DA  1903               	skipnz
+   747  06DB  2EDD               	goto	u2141
+   748  06DC  2EDE               	goto	u2140
+   749  06DD                     u2141:
+   750  06DD  2EF6               	goto	l716
+   751  06DE                     u2140:
+   752                           	
+   753  06DE                     l1916:	
+   754  06DE  0873               	movf	(playTone@tone),w
+   755  06DF  3A03               	xorlw	03h
+   756  06E0  1903               	skipnz
+   757  06E1  2EE3               	goto	u2151
+   758  06E2  2EE4               	goto	u2150
+   759  06E3                     u2151:
+   760  06E3  2EF6               	goto	l716
+   761  06E4                     u2150:
+   762                           	
+   763  06E4                     l1918:	
+   764  06E4  0873               	movf	(playTone@tone),w
+   765  06E5  3A05               	xorlw	05h
+   766  06E6  1903               	skipnz
+   767  06E7  2EE9               	goto	u2161
+   768  06E8  2EEA               	goto	u2160
+   769  06E9                     u2161:
+   770  06E9  2EF6               	goto	l716
+   771  06EA                     u2160:
+   772                           	
+   773  06EA                     l1920:	
+   774  06EA  0873               	movf	(playTone@tone),w
+   775  06EB  3A07               	xorlw	07h
+   776  06EC  1903               	skipnz
+   777  06ED  2EEF               	goto	u2171
+   778  06EE  2EF0               	goto	u2170
+   779  06EF                     u2171:
+   780  06EF  2EF6               	goto	l716
+   781  06F0                     u2170:
+   782                           	
+   783  06F0                     l1922:	
+   784  06F0  0873               	movf	(playTone@tone),w
+   785  06F1  3A09               	xorlw	09h
+   786  06F2  1D03               	skipz
+   787  06F3  2EF5               	goto	u2181
+   788  06F4  2EF6               	goto	u2180
+   789  06F5                     u2181:
+   790  06F5  2EFA               	goto	l1924
+   791  06F6                     u2180:
+   792                           	
+   793  06F6                     l716:	
+   794                           	line	20
+   795                           ;phonedialer.c: 20: RC4 = 1;
+   796  06F6  1283               	bcf	status, 5	;RP0=0, select bank0
+   797  06F7  1303               	bcf	status, 6	;RP1=0, select bank0
+   798  06F8  1607               	bsf	(60/8),(60)&7
+   799  06F9  2EFA               	goto	l1924
+   800                           	
+   801  06FA                     l714:	
+   802                           	line	21
+   803                           	
+   804  06FA                     l1924:	
+   805                           ;phonedialer.c: 21: if(tone == 0 || tone == 2 || tone == 4 || tone == 6 || tone == 8)
+   806  06FA  0873               	movf	(playTone@tone),w
+   807  06FB  1D03               	skipz
+   808  06FC  2EFE               	goto	u2190
+   809  06FD  2F16               	goto	l719
+   810  06FE                     u2190:
+   811                           	
+   812  06FE                     l1926:	
+   813  06FE  0873               	movf	(playTone@tone),w
+   814  06FF  3A02               	xorlw	02h
+   815  0700  1903               	skipnz
+   816  0701  2F03               	goto	u2201
+   817  0702  2F04               	goto	u2200
+   818  0703                     u2201:
+   819  0703  2F16               	goto	l719
+   820  0704                     u2200:
+   821                           	
+   822  0704                     l1928:	
+   823  0704  0873               	movf	(playTone@tone),w
+   824  0705  3A04               	xorlw	04h
+   825  0706  1903               	skipnz
+   826  0707  2F09               	goto	u2211
+   827  0708  2F0A               	goto	u2210
+   828  0709                     u2211:
+   829  0709  2F16               	goto	l719
+   830  070A                     u2210:
+   831                           	
+   832  070A                     l1930:	
+   833  070A  0873               	movf	(playTone@tone),w
+   834  070B  3A06               	xorlw	06h
+   835  070C  1903               	skipnz
+   836  070D  2F0F               	goto	u2221
+   837  070E  2F10               	goto	u2220
+   838  070F                     u2221:
+   839  070F  2F16               	goto	l719
+   840  0710                     u2220:
+   841                           	
+   842  0710                     l1932:	
+   843  0710  0873               	movf	(playTone@tone),w
+   844  0711  3A08               	xorlw	08h
+   845  0712  1D03               	skipz
+   846  0713  2F15               	goto	u2231
+   847  0714  2F16               	goto	u2230
+   848  0715                     u2231:
+   849  0715  2F1A               	goto	l1934
+   850  0716                     u2230:
+   851                           	
+   852  0716                     l719:	
+   853                           	line	22
+   854                           ;phonedialer.c: 22: RC4 = 0;
+   855  0716  1283               	bcf	status, 5	;RP0=0, select bank0
+   856  0717  1303               	bcf	status, 6	;RP1=0, select bank0
+   857  0718  1207               	bcf	(60/8),(60)&7
+   858  0719  2F1A               	goto	l1934
+   859                           	
+   860  071A                     l717:	
+   861                           	line	23
+   862                           	
+   863  071A                     l1934:	
+   864                           ;phonedialer.c: 23: pulse();
+   865  071A  118A  2619  118A   	fcall	_pulse
+   866                           	line	24
+   867                           	
+   868  071D                     l1936:	
+   869                           ;phonedialer.c: 24: if(tone == 0 || tone == 2 || tone == 3 || tone == 6 || tone == 7)
+   870  071D  0873               	movf	(playTone@tone),w
+   871  071E  1D03               	skipz
+   872  071F  2F21               	goto	u2240
+   873  0720  2F39               	goto	l722
+   874  0721                     u2240:
+   875                           	
+   876  0721                     l1938:	
+   877  0721  0873               	movf	(playTone@tone),w
+   878  0722  3A02               	xorlw	02h
+   879  0723  1903               	skipnz
+   880  0724  2F26               	goto	u2251
+   881  0725  2F27               	goto	u2250
+   882  0726                     u2251:
+   883  0726  2F39               	goto	l722
+   884  0727                     u2250:
+   885                           	
+   886  0727                     l1940:	
+   887  0727  0873               	movf	(playTone@tone),w
+   888  0728  3A03               	xorlw	03h
+   889  0729  1903               	skipnz
+   890  072A  2F2C               	goto	u2261
+   891  072B  2F2D               	goto	u2260
+   892  072C                     u2261:
+   893  072C  2F39               	goto	l722
+   894  072D                     u2260:
+   895                           	
+   896  072D                     l1942:	
+   897  072D  0873               	movf	(playTone@tone),w
+   898  072E  3A06               	xorlw	06h
+   899  072F  1903               	skipnz
+   900  0730  2F32               	goto	u2271
+   901  0731  2F33               	goto	u2270
+   902  0732                     u2271:
+   903  0732  2F39               	goto	l722
+   904  0733                     u2270:
+   905                           	
+   906  0733                     l1944:	
+   907  0733  0873               	movf	(playTone@tone),w
+   908  0734  3A07               	xorlw	07h
+   909  0735  1D03               	skipz
+   910  0736  2F38               	goto	u2281
+   911  0737  2F39               	goto	u2280
+   912  0738                     u2281:
+   913  0738  2F3D               	goto	l1946
+   914  0739                     u2280:
+   915                           	
+   916  0739                     l722:	
+   917                           	line	25
+   918                           ;phonedialer.c: 25: RC4 = 1;
+   919  0739  1283               	bcf	status, 5	;RP0=0, select bank0
+   920  073A  1303               	bcf	status, 6	;RP1=0, select bank0
+   921  073B  1607               	bsf	(60/8),(60)&7
+   922  073C  2F3D               	goto	l1946
+   923                           	
+   924  073D                     l720:	
+   925                           	line	26
+   926                           	
+   927  073D                     l1946:	
+   928                           ;phonedialer.c: 26: if(tone == 1 || tone == 4 || tone == 5 || tone == 8 || tone == 9)
+   929  073D  0873               	movf	(playTone@tone),w
+   930  073E  3A01               	xorlw	01h
+   931  073F  1903               	skipnz
+   932  0740  2F42               	goto	u2291
+   933  0741  2F43               	goto	u2290
+   934  0742                     u2291:
+   935  0742  2F5B               	goto	l725
+   936  0743                     u2290:
+   937                           	
+   938  0743                     l1948:	
+   939  0743  0873               	movf	(playTone@tone),w
+   940  0744  3A04               	xorlw	04h
+   941  0745  1903               	skipnz
+   942  0746  2F48               	goto	u2301
+   943  0747  2F49               	goto	u2300
+   944  0748                     u2301:
+   945  0748  2F5B               	goto	l725
+   946  0749                     u2300:
+   947                           	
+   948  0749                     l1950:	
+   949  0749  0873               	movf	(playTone@tone),w
+   950  074A  3A05               	xorlw	05h
+   951  074B  1903               	skipnz
+   952  074C  2F4E               	goto	u2311
+   953  074D  2F4F               	goto	u2310
+   954  074E                     u2311:
+   955  074E  2F5B               	goto	l725
+   956  074F                     u2310:
+   957                           	
+   958  074F                     l1952:	
+   959  074F  0873               	movf	(playTone@tone),w
+   960  0750  3A08               	xorlw	08h
+   961  0751  1903               	skipnz
+   962  0752  2F54               	goto	u2321
+   963  0753  2F55               	goto	u2320
+   964  0754                     u2321:
+   965  0754  2F5B               	goto	l725
+   966  0755                     u2320:
+   967                           	
+   968  0755                     l1954:	
+   969  0755  0873               	movf	(playTone@tone),w
+   970  0756  3A09               	xorlw	09h
+   971  0757  1D03               	skipz
+   972  0758  2F5A               	goto	u2331
+   973  0759  2F5B               	goto	u2330
+   974  075A                     u2331:
+   975  075A  2F5F               	goto	l1956
+   976  075B                     u2330:
+   977                           	
+   978  075B                     l725:	
+   979                           	line	27
+   980                           ;phonedialer.c: 27: RC4 = 0;
+   981  075B  1283               	bcf	status, 5	;RP0=0, select bank0
+   982  075C  1303               	bcf	status, 6	;RP1=0, select bank0
+   983  075D  1207               	bcf	(60/8),(60)&7
+   984  075E  2F5F               	goto	l1956
+   985                           	
+   986  075F                     l723:	
+   987                           	line	28
+   988                           	
+   989  075F                     l1956:	
+   990                           ;phonedialer.c: 28: pulse();
+   991  075F  118A  2619  118A   	fcall	_pulse
+   992                           	line	29
+   993                           	
+   994  0762                     l1958:	
+   995                           ;phonedialer.c: 29: if(tone == 4 || tone == 5 || tone == 6 || tone == 7)
+   996  0762  0873               	movf	(playTone@tone),w
+   997  0763  3A04               	xorlw	04h
+   998  0764  1903               	skipnz
+   999  0765  2F67               	goto	u2341
+  1000  0766  2F68               	goto	u2340
+  1001  0767                     u2341:
+  1002  0767  2F7A               	goto	l728
+  1003  0768                     u2340:
+  1004                           	
+  1005  0768                     l1960:	
+  1006  0768  0873               	movf	(playTone@tone),w
+  1007  0769  3A05               	xorlw	05h
+  1008  076A  1903               	skipnz
+  1009  076B  2F6D               	goto	u2351
+  1010  076C  2F6E               	goto	u2350
+  1011  076D                     u2351:
+  1012  076D  2F7A               	goto	l728
+  1013  076E                     u2350:
+  1014                           	
+  1015  076E                     l1962:	
+  1016  076E  0873               	movf	(playTone@tone),w
+  1017  076F  3A06               	xorlw	06h
+  1018  0770  1903               	skipnz
+  1019  0771  2F73               	goto	u2361
+  1020  0772  2F74               	goto	u2360
+  1021  0773                     u2361:
+  1022  0773  2F7A               	goto	l728
+  1023  0774                     u2360:
+  1024                           	
+  1025  0774                     l1964:	
+  1026  0774  0873               	movf	(playTone@tone),w
+  1027  0775  3A07               	xorlw	07h
+  1028  0776  1D03               	skipz
+  1029  0777  2F79               	goto	u2371
+  1030  0778  2F7A               	goto	u2370
+  1031  0779                     u2371:
+  1032  0779  2F7E               	goto	l1966
+  1033  077A                     u2370:
+  1034                           	
+  1035  077A                     l728:	
+  1036                           	line	30
+  1037                           ;phonedialer.c: 30: RC4 = 1;
+  1038  077A  1283               	bcf	status, 5	;RP0=0, select bank0
+  1039  077B  1303               	bcf	status, 6	;RP1=0, select bank0
+  1040  077C  1607               	bsf	(60/8),(60)&7
+  1041  077D  2F7E               	goto	l1966
+  1042                           	
+  1043  077E                     l726:	
+  1044                           	line	31
+  1045                           	
+  1046  077E                     l1966:	
+  1047                           ;phonedialer.c: 31: if(tone == 0 || tone == 1 || tone == 2 || tone == 3 || tone == 8 || 
+                                 tone == 9)
+  1048  077E  0873               	movf	(playTone@tone),w
+  1049  077F  1D03               	skipz
+  1050  0780  2F82               	goto	u2380
+  1051  0781  2FA0               	goto	l731
+  1052  0782                     u2380:
+  1053                           	
+  1054  0782                     l1968:	
+  1055  0782  0873               	movf	(playTone@tone),w
+  1056  0783  3A01               	xorlw	01h
+  1057  0784  1903               	skipnz
+  1058  0785  2F87               	goto	u2391
+  1059  0786  2F88               	goto	u2390
+  1060  0787                     u2391:
+  1061  0787  2FA0               	goto	l731
+  1062  0788                     u2390:
+  1063                           	
+  1064  0788                     l1970:	
+  1065  0788  0873               	movf	(playTone@tone),w
+  1066  0789  3A02               	xorlw	02h
+  1067  078A  1903               	skipnz
+  1068  078B  2F8D               	goto	u2401
+  1069  078C  2F8E               	goto	u2400
+  1070  078D                     u2401:
+  1071  078D  2FA0               	goto	l731
+  1072  078E                     u2400:
+  1073                           	
+  1074  078E                     l1972:	
+  1075  078E  0873               	movf	(playTone@tone),w
+  1076  078F  3A03               	xorlw	03h
+  1077  0790  1903               	skipnz
+  1078  0791  2F93               	goto	u2411
+  1079  0792  2F94               	goto	u2410
+  1080  0793                     u2411:
+  1081  0793  2FA0               	goto	l731
+  1082  0794                     u2410:
+  1083                           	
+  1084  0794                     l1974:	
+  1085  0794  0873               	movf	(playTone@tone),w
+  1086  0795  3A08               	xorlw	08h
+  1087  0796  1903               	skipnz
+  1088  0797  2F99               	goto	u2421
+  1089  0798  2F9A               	goto	u2420
+  1090  0799                     u2421:
+  1091  0799  2FA0               	goto	l731
+  1092  079A                     u2420:
+  1093                           	
+  1094  079A                     l1976:	
+  1095  079A  0873               	movf	(playTone@tone),w
+  1096  079B  3A09               	xorlw	09h
+  1097  079C  1D03               	skipz
+  1098  079D  2F9F               	goto	u2431
+  1099  079E  2FA0               	goto	u2430
+  1100  079F                     u2431:
+  1101  079F  2FA4               	goto	l1978
+  1102  07A0                     u2430:
+  1103                           	
+  1104  07A0                     l731:	
+  1105                           	line	32
+  1106                           ;phonedialer.c: 32: RC4 = 0;
+  1107  07A0  1283               	bcf	status, 5	;RP0=0, select bank0
+  1108  07A1  1303               	bcf	status, 6	;RP1=0, select bank0
+  1109  07A2  1207               	bcf	(60/8),(60)&7
+  1110  07A3  2FA4               	goto	l1978
+  1111                           	
+  1112  07A4                     l729:	
+  1113                           	line	33
+  1114                           	
+  1115  07A4                     l1978:	
+  1116                           ;phonedialer.c: 33: pulse();
+  1117  07A4  118A  2619  118A   	fcall	_pulse
+  1118                           	line	34
+  1119                           	
+  1120  07A7                     l1980:	
+  1121                           ;phonedialer.c: 34: if(tone == 8 || tone == 9 || tone == 0)
+  1122  07A7  0873               	movf	(playTone@tone),w
+  1123  07A8  3A08               	xorlw	08h
+  1124  07A9  1903               	skipnz
+  1125  07AA  2FAC               	goto	u2441
+  1126  07AB  2FAD               	goto	u2440
+  1127  07AC                     u2441:
+  1128  07AC  2FB8               	goto	l734
+  1129  07AD                     u2440:
+  1130                           	
+  1131  07AD                     l1982:	
+  1132  07AD  0873               	movf	(playTone@tone),w
+  1133  07AE  3A09               	xorlw	09h
+  1134  07AF  1903               	skipnz
+  1135  07B0  2FB2               	goto	u2451
+  1136  07B1  2FB3               	goto	u2450
+  1137  07B2                     u2451:
+  1138  07B2  2FB8               	goto	l734
+  1139  07B3                     u2450:
+  1140                           	
+  1141  07B3                     l1984:	
+  1142  07B3  08F3               	movf	(playTone@tone),f
+  1143  07B4  1D03               	skipz
+  1144  07B5  2FB7               	goto	u2461
+  1145  07B6  2FB8               	goto	u2460
+  1146  07B7                     u2461:
+  1147  07B7  2FBC               	goto	l1986
+  1148  07B8                     u2460:
+  1149                           	
+  1150  07B8                     l734:	
+  1151                           	line	35
+  1152                           ;phonedialer.c: 35: RC4 = 1;
+  1153  07B8  1283               	bcf	status, 5	;RP0=0, select bank0
+  1154  07B9  1303               	bcf	status, 6	;RP1=0, select bank0
+  1155  07BA  1607               	bsf	(60/8),(60)&7
+  1156  07BB  2FBC               	goto	l1986
+  1157                           	
+  1158  07BC                     l732:	
+  1159                           	line	36
+  1160                           	
+  1161  07BC                     l1986:	
+  1162                           ;phonedialer.c: 36: if(tone < 8)
+  1163  07BC  3008               	movlw	(08h)
+  1164  07BD  0273               	subwf	(playTone@tone),w
+  1165  07BE  1803               	skipnc
+  1166  07BF  2FC1               	goto	u2471
+  1167  07C0  2FC2               	goto	u2470
+  1168  07C1                     u2471:
+  1169  07C1  2FC6               	goto	l1990
+  1170  07C2                     u2470:
+  1171                           	line	37
+  1172                           	
+  1173  07C2                     l1988:	
+  1174                           ;phonedialer.c: 37: RC4 = 0;
+  1175  07C2  1283               	bcf	status, 5	;RP0=0, select bank0
+  1176  07C3  1303               	bcf	status, 6	;RP1=0, select bank0
+  1177  07C4  1207               	bcf	(60/8),(60)&7
+  1178  07C5  2FC6               	goto	l1990
+  1179                           	
+  1180  07C6                     l735:	
+  1181                           	line	38
+  1182                           	
+  1183  07C6                     l1990:	
+  1184                           ;phonedialer.c: 38: pulse();
+  1185  07C6  118A  2619  118A   	fcall	_pulse
+  1186                           	line	39
+  1187                           	
+  1188  07C9                     l1992:	
+  1189                           ;phonedialer.c: 39: RC4 = 0;
+  1190  07C9  1283               	bcf	status, 5	;RP0=0, select bank0
+  1191  07CA  1303               	bcf	status, 6	;RP1=0, select bank0
+  1192  07CB  1207               	bcf	(60/8),(60)&7
+  1193                           	line	40
+  1194                           ;phonedialer.c: 40: pulse();
+  1195  07CC  118A  2619  118A   	fcall	_pulse
+  1196                           	line	42
+  1197                           	
+  1198  07CF                     l1994:	
+  1199                           ;phonedialer.c: 42: _delay((unsigned long)((195)*(4000000/4000.0)));
+  1200                           	opt asmopt_off
+  1201  07CF  30FE               movlw	254
+  1202  07D0  00F1               movwf	((??_playTone+0)+0+1),f
+  1203  07D1  303D               	movlw	61
+  1204  07D2  00F0               movwf	((??_playTone+0)+0),f
+  1205  07D3                     u2637:
+  1206  07D3  0BF0               	decfsz	((??_playTone+0)+0),f
+  1207  07D4  2FD3               	goto	u2637
+  1208  07D5  0BF1               	decfsz	((??_playTone+0)+0+1),f
+  1209  07D6  2FD3               	goto	u2637
+  1210  07D7  2FD8               	nop2
+  1211                           opt asmopt_on
+  1212                           
+  1213                           	line	43
+  1214                           	
+  1215  07D8                     l1996:	
+  1216                           ;phonedialer.c: 43: RC4 = 1;
+  1217  07D8  1283               	bcf	status, 5	;RP0=0, select bank0
+  1218  07D9  1303               	bcf	status, 6	;RP1=0, select bank0
+  1219  07DA  1607               	bsf	(60/8),(60)&7
+  1220                           	line	44
+  1221                           	
+  1222  07DB                     l1998:	
+  1223                           ;phonedialer.c: 44: for (i = 0; i < 5; i++)
+  1224  07DB  1003               	clrc
+  1225  07DC  3000               	movlw	0
+  1226  07DD  1803               	btfsc	status,0
+  1227  07DE  3001               	movlw	1
+  1228  07DF  00F2               	movwf	(playTone@i)
+  1229                           	
+  1230  07E0                     l2000:	
+  1231  07E0  3005               	movlw	(05h)
+  1232  07E1  0272               	subwf	(playTone@i),w
+  1233  07E2  1C03               	skipc
+  1234  07E3  2FE5               	goto	u2481
+  1235  07E4  2FE6               	goto	u2480
+  1236  07E5                     u2481:
+  1237  07E5  2FE8               	goto	l2004
+  1238  07E6                     u2480:
+  1239  07E6  2FF6               	goto	l2010
+  1240                           	
+  1241  07E7                     l2002:	
+  1242  07E7  2FF6               	goto	l2010
+  1243                           	line	45
+  1244                           	
+  1245  07E8                     l736:	
+  1246                           	
+  1247  07E8                     l2004:	
+  1248                           ;phonedialer.c: 45: pulse();
+  1249  07E8  118A  2619  118A   	fcall	_pulse
+  1250                           	line	44
+  1251                           	
+  1252  07EB                     l2006:	
+  1253  07EB  3001               	movlw	(01h)
+  1254  07EC  00F0               	movwf	(??_playTone+0)+0
+  1255  07ED  0870               	movf	(??_playTone+0)+0,w
+  1256  07EE  07F2               	addwf	(playTone@i),f
+  1257                           	
+  1258  07EF                     l2008:	
+  1259  07EF  3005               	movlw	(05h)
+  1260  07F0  0272               	subwf	(playTone@i),w
+  1261  07F1  1C03               	skipc
+  1262  07F2  2FF4               	goto	u2491
+  1263  07F3  2FF5               	goto	u2490
+  1264  07F4                     u2491:
+  1265  07F4  2FE8               	goto	l2004
+  1266  07F5                     u2490:
+  1267  07F5  2FF6               	goto	l2010
+  1268                           	
+  1269  07F6                     l737:	
+  1270                           	line	46
+  1271                           	
+  1272  07F6                     l2010:	
+  1273                           ;phonedialer.c: 46: _delay((unsigned long)((195)*(4000000/4000.0)));
+  1274                           	opt asmopt_off
+  1275  07F6  30FE               movlw	254
+  1276  07F7  00F1               movwf	((??_playTone+0)+0+1),f
+  1277  07F8  303D               	movlw	61
+  1278  07F9  00F0               movwf	((??_playTone+0)+0),f
+  1279  07FA                     u2647:
+  1280  07FA  0BF0               	decfsz	((??_playTone+0)+0),f
+  1281  07FB  2FFA               	goto	u2647
+  1282  07FC  0BF1               	decfsz	((??_playTone+0)+0+1),f
+  1283  07FD  2FFA               	goto	u2647
+  1284  07FE  2FFF               	nop2
+  1285                           opt asmopt_on
+  1286                           
+  1287                           	line	48
+  1288                           	
+  1289  07FF                     l738:	
+  1290  07FF  0008               	return
+  1291                           	opt stack 0
+  1292                           GLOBAL	__end_of_playTone
+  1293  0800                     	__end_of_playTone:
+  1294 ;; =============== function _playTone ends ============
+  1295                           
+  1296                           	signat	_playTone,4216
+  1297                           	global	_pulse
+  1298                           psect	text75,local,class=CODE,delta=2
+  1299                           global __ptext75
+  1300  0619                     __ptext75:
+  1301                           
+  1302 ;; *************** function _pulse *****************
+  1303 ;; Defined at:
+  1304 ;;		line 10 in file "C:\projects\PIC\phonedialer\phonedialer.c"
+  1305 ;; Parameters:    Size  Location     Type
+  1306 ;;		None
+  1307 ;; Auto vars:     Size  Location     Type
+  1308 ;;		None
+  1309 ;; Return value:  Size  Location     Type
+  1310 ;;		None               void
+  1311 ;; Registers used:
+  1312 ;;		None
+  1313 ;; Tracked objects:
+  1314 ;;		On entry : 0/0
+  1315 ;;		On exit  : 0/0
+  1316 ;;		Unchanged: 0/0
+  1317 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1318 ;;      Params:         0       0       0       0
+  1319 ;;      Locals:         0       0       0       0
+  1320 ;;      Temps:          0       0       0       0
+  1321 ;;      Totals:         0       0       0       0
+  1322 ;;Total ram usage:        0 bytes
+  1323 ;; Hardware stack levels used:    1
+  1324 ;; This function calls:
+  1325 ;;		Nothing
+  1326 ;; This function is called by:
+  1327 ;;		_playTone
+  1328 ;; This function uses a non-reentrant model
+  1329 ;;
+  1330                           psect	text75
+  1331                           	file	"C:\projects\PIC\phonedialer\phonedialer.c"
+  1332                           	line	10
+  1333                           	global	__size_of_pulse
+  1334  000D                     	__size_of_pulse	equ	__end_of_pulse-_pulse
+  1335                           	
+  1336  0619                     _pulse:	
+  1337                           	opt	stack 5
+  1338                           ; Regs used in _pulse: []
+  1339                           	line	11
+  1340                           	
+  1341  0619                     l1912:	
+  1342                           ;phonedialer.c: 11: RC7 = 0;
+  1343  0619  1283               	bcf	status, 5	;RP0=0, select bank0
+  1344  061A  1303               	bcf	status, 6	;RP1=0, select bank0
+  1345  061B  1387               	bcf	(63/8),(63)&7
+  1346                           	line	12
+  1347                           ;phonedialer.c: 12: _delay((unsigned long)((5)*(4000000/4000000.0)));
+  1348                           		opt asmopt_off
+  1349  061C  2E1D               	nop2	;2 cycle nop
+  1350                           	opt asmopt_on
+  1351                           	opt asmopt_off
+  1352  061D  2E1E               	nop2	;2 cycle nop
+  1353                           	opt asmopt_on
+  1354                           	opt asmopt_off
+  1355  061E  0064               	clrwdt
+  1356                           	opt asmopt_on
+  1357                           
+  1358                           	line	13
+  1359                           ;phonedialer.c: 13: RC7 = 1;
+  1360  061F  1283               	bcf	status, 5	;RP0=0, select bank0
+  1361  0620  1303               	bcf	status, 6	;RP1=0, select bank0
+  1362  0621  1787               	bsf	(63/8),(63)&7
+  1363                           	line	14
+  1364                           ;phonedialer.c: 14: _delay((unsigned long)((5)*(4000000/4000000.0)));
+  1365                           		opt asmopt_off
+  1366  0622  2E23               	nop2	;2 cycle nop
+  1367                           	opt asmopt_on
+  1368                           	opt asmopt_off
+  1369  0623  2E24               	nop2	;2 cycle nop
+  1370                           	opt asmopt_on
+  1371                           	opt asmopt_off
+  1372  0624  0064               	clrwdt
+  1373                           	opt asmopt_on
+  1374                           
+  1375                           	line	15
+  1376                           	
+  1377  0625                     l711:	
+  1378  0625  0008               	return
+  1379                           	opt stack 0
+  1380                           GLOBAL	__end_of_pulse
+  1381  0626                     	__end_of_pulse:
+  1382 ;; =============== function _pulse ends ============
+  1383                           
+  1384                           	signat	_pulse,88
+  1385                           psect	text76,local,class=CODE,delta=2
+  1386                           global __ptext76
+  1387  0000                     __ptext76:
+  1388                           	global	btemp
+  1389  007E                     	btemp set 07Eh
+  1390                           
+  1391                           	DABS	1,126,2	;btemp
+  1392                           	global	wtemp0
+  1393  007E                     	wtemp0 set btemp
+
+
+HI-TECH Software PICC Macro Assembler V9.80 build 6738 
+Symbol Table                                                                                   Tue Apr 05 17:03:52 2011
+
+                 l711 0625                   l720 073D                   l722 0739                   l714 06FA  
+                 l731 07A0                   l723 075F                   l732 07BC                   l716 06F6  
+                 l725 075B                   l717 071A                   l741 0682                   l734 07B8  
+                 l726 077E                   l742 068D                   l735 07C6                   l719 0716  
+                 l743 0698                   l736 07E8                   l728 077A                   l744 06A3  
+                 l752 0650                   l737 07F6                   l729 07A4                   l745 06AE  
+                 l753 0669                   l738 07FF                   l746 06B9                   l754 0673  
+                 l747 06C4                   l755 0674                   l748 06D4                   l756 0675  
+                 l749 06D6                   l757 0675                   _RA2 002A                   _RC2 003A  
+                 _RC4 003C                   _RC7 003F                  l2000 07E0                  l2002 07E7  
+                l2010 07F6                  l2004 07E8                  l2020 068D                  l2012 0678  
+                l2006 07EB                  l2030 06A9                  l2022 0693                  l2014 067D  
+                l2008 07EF                  l2040 06C4                  l2032 06AE                  l2024 0698  
+                l2016 0682                  l2042 06C8                  l2034 06B4                  l2026 069E  
+                l2018 0688                  l2050 0626                  l2044 06CE                  l2036 06B9  
+                l2028 06A3                  l2060 063A                  l2052 062C                  l2046 06D4  
+                l2038 06BF                  l2070 065C                  l2062 0643                  l2054 0630  
+                l2048 06D6                  l2072 0663                  l2064 0646                  l2056 0635  
+                l2074 0669                  l2066 0650                  l2058 0636                  l2076 066F  
+                l2068 0656                  l1912 0619                  l1920 06EA                  l1930 070A  
+                l1922 06F0                  l1914 06D8                  l1940 0727                  l1932 0710  
+                l1924 06FA                  l1916 06DE                  l1950 0749                  l1942 072D  
+                l1934 071A                  l1926 06FE                  l1918 06E4                  l1960 0768  
+                l1952 074F                  l1944 0733                  l1936 071D                  l1928 0704  
+                l1970 0788                  l1962 076E                  l1954 0755                  l1946 073D  
+                l1938 0721                  l1980 07A7                  l1972 078E                  l1964 0774  
+                l1956 075F                  l1948 0743                  l1990 07C6                  l1982 07AD  
+                l1974 0794                  l1966 077E                  l1958 0762                  l1992 07C9  
+                l1984 07B3                  l1976 079A                  l1968 0782                  l1994 07CF  
+                l1986 07BC                  l1978 07A4                  l1996 07D8                  l1988 07C2  
+                l1998 07DB                  u2200 0704                  u2201 0703                  u2210 070A  
+                u2211 0709                  u2300 0749                  u2220 0710                  u2140 06DE  
+                u2301 0748                  u2221 070F                  u2141 06DD                  u2310 074F  
+                u2230 0716                  u2150 06E4                  u2311 074E                  u2231 0715  
+                u2151 06E3                  u2400 078E                  u2320 0755                  u2240 0721  
+                u2160 06EA                  u2401 078D                  u2321 0754                  u2161 06E9  
+                u2410 0794                  u2330 075B                  u2250 0727                  u2170 06F0  
+                u2411 0793                  u2331 075A                  u2251 0726                  u2171 06EF  
+                u2420 079A                  u2340 0768                  u2260 072D                  u2180 06F6  
+                u2500 067D                  u2421 0799                  u2341 0767                  u2261 072C  
+                u2181 06F5                  u2501 067C                  u2430 07A0                  u2350 076E  
+                u2270 0733                  u2190 06FE                  u2510 0688                  u2431 079F  
+                u2351 076D                  u2271 0732                  u2511 0687                  u2440 07AD  
+                u2360 0774                  u2280 0739                  u2520 0693                  u2600 066F  
+                u2441 07AC                  u2361 0773                  u2281 0738                  u2521 0692  
+                u2601 066E                  u2450 07B3                  u2370 077A                  u2290 0743  
+                u2530 069E                  u2451 07B2                  u2371 0779                  u2291 0742  
+                u2531 069D                  u2460 07B8                  u2380 0782                  u2540 06A9  
+                u2461 07B7                  u2541 06A8                  u2470 07C2                  u2390 0788  
+                u2550 06B4                  u2471 07C1                  u2391 0787                  u2551 06B3  
+                u2480 07E6                  u2560 06BF                  u2481 07E5                  u2561 06BE  
+                u2617 063E                  u2490 07F5                  u2570 06CE                  u2491 07F4  
+                u2571 06CD                  u2627 064A                  u2580 0656                  u2637 07D3  
+                u2581 0655                  u2590 065C                  u2647 07FA                  u2591 065B  
+                _main 0626                  btemp 007E                  start 0000          main@debounce 007A  
+               ?_main 0070                 _ANSEL 011E                 _PORTC 0007                 _TRISA 0085  
+               _TRISC 0087                 _pulse 0619                 main@i 0078                 status 0003  
+               wtemp0 007E          __end_of_main 0677                ??_main 0076                ?_pulse 0070  
+              _ANSELH 011F                _OPTION 0081      __end_of_playTone 0800        __pcstackCOMMON 0070  
+       __end_of_pulse 0626               ??_pulse 0070            _dialNumber 0677            __pmaintext 0626  
+           ?_playTone 0070       dialNumber@state 0075  end_of_initialization 0616           ?_dialNumber 0070  
+          ??_playTone 0070   __size_of_dialNumber 0060   start_initialization 0616     __size_of_playTone 0129  
+      __size_of_pulse 000D          playTone@tone 0073          ??_dialNumber 0074    __end_of_dialNumber 06D7  
+           main@state 0079              __ptext72 0000              __ptext73 0677              __ptext74 06D7  
+            __ptext75 0619              __ptext76 0000             playTone@i 0072         __size_of_main 0051  
+            _playTone 06D7  
