@@ -1,0 +1,84 @@
+/* Robert Szkutak - Midterm */
+
+body
+{
+	background-image:url("tile.jpg");
+}
+
+div.content
+{
+	margin-top:10%;
+	margin-left:25%;
+	margin-right:25%;
+	margin-bottom:0%;
+	border: 15px;
+	border-color: black;
+	border-style: solid;
+	background-color: white;
+	text-align:center;
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+h1
+{
+	font-family:Georgia;
+	font-size:24pt;
+	font-weight:bold;
+	text-align:center;
+}
+
+h2
+{
+	font-family:Georgia;
+	font-size:18pt;
+	text-align:center;
+}
+
+table
+{
+	text-align:center;
+	width:100%;
+	table-layout:fixed;
+}
+
+p
+{
+	margin-top: 0;
+	font-family: Gergia;
+	font-size: 11pt;
+	text-align:justify;
+	margin-left: 25px;
+	margin-right: 25px;
+}
+
+a
+{
+	color:black;
+	text-decoration:none;
+	font-weight:normal;
+	font-family:Georgia;
+	font-size:14pt;
+}
+
+a:hover
+{
+	text-decoration:underline;
+}
+
+a:visited
+{
+	color:black;
+}
+
+a:active
+{
+	font-weight:bold;
+}
+
+ul
+{
+	text-align:left;
+	font-family: Gergia;
+	font-size: 11pt;
+}

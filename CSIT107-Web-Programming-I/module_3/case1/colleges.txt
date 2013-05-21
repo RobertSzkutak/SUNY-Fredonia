@@ -1,0 +1,64 @@
+Wisconsin Private Colleges and Universities
+===========================================
+
+Alverno College                        http://www.alverno.edu
+Beloit College                         http://www.beloit.edu
+Cardinal Stritch University            http://www.stritch.edu
+Carroll College                        http://www.cc.edu
+Concordia University Wisconsin         http://www.cuw.edu
+Edgewood College                       http://www.edgewood.edu
+Lakeland College                       http://www.lakeland.edu
+Lawrence University                    http://www.lawrence.edu
+Marian College                         http://www.mariancollege.edu
+Medical College of Wisconsin           http://www.mcw.edu
+Milwaukee Institute of Art and Design  http://www.miad.edu
+Milwaukee School of Engineering        http://www.msoe.edu
+Mount Mary College                     http://www.mtmary.edu
+Marquette University                   http://www.mu.edu
+Marquette University Law School        http://www.mu.edu
+Nashotah House                         http://www.nashotah.edu
+Northland Baptist Bible College        http://www.nbbc.edu
+Northland College                      http://www.northland.edu
+Ripon College                          http://www.ripon.edu
+Sacred Heart School of Theology        http://www.shst.edu
+Silver Lake College                    http://www.sl.edu
+St. Norbert College                    http://www.snc.edu
+Viterbo University                     http://www.viterbo.edu
+Wisconsin Lutheran College             http://www.wlc.edu
+
+
+Wisconsin Technical College System
+==================================
+
+Blackhawk Technical College            http://www.blackhawk.edu
+Chippewa Valley Technical College      http://www.cvtc.edu
+Fox Valley Technical College           http://www.fvtc.edu
+Gateway Technical College              http://www.gtc.edu
+Lakeshore Technical College            http://www.gotoltc.edu
+Madison Area Technical College         http://matcmadison.edu
+Mid-State Technical College            http://www.mstc.edu
+Milwaukee Area Technical College       http://www.matc.edu
+Moraine Park Technical College         http://www.morainepark.edu
+Nicolet Area Technical College         http://www.nicoletcollege.edu
+Northcentral Technical College         http://www.ntc.edu
+Northeast Wisconsin Technical College  http://www.nwtc.edu
+Southwest Wisconsin Technical College  http://www.swtc.edu
+Waukesha County Technical College      http://www.wctc.edu
+Western Technical College              http://www.westerntc.edu
+Wisconsin Indianhead Technical College http://www.witc.edu
+
+University of Wisconsin System
+==============================
+
+UW-Green Bay                           http://www.uwgb.edu
+UW-La Crosse                           http://www.uwlax.edu
+UW-Madison                             http://www.wisc.edu
+UW-Milwaukee                           http://www.uwm.edu
+UW-Oshkosh                             http://www.uwosh.edu
+UW-Parkside                            http://www.uwp.edu
+UW-Platteville                         http://www.uwplatt.edu
+UW-River Falls                         http://www.uwrf.edu
+UW-Stevens Point                       http://www.uwsp.edu
+UW-Stout                               http://www.uwstout.edu
+UW-Superior                            http://www.uwsuper.edu
+UW-Whitewater                          http://www.uww.edu

@@ -1,0 +1,94 @@
+/*
+   New Perspectives on HTML and CSS
+   Tutorial 5
+   Review Assignment
+
+   Programming Table Style Sheet
+   Author: Robert Szkutak
+   Date: 4/23/2013 
+
+   Filename:         programs.css
+   Supporting Files: 
+
+*/
+
+table.programs {
+	width: 100%;
+	border: 2px solid black;
+	border-collapse: collapse;
+	font-family: Arial, Verdana, sans-serif;
+}
+
+table.programs caption {
+        caption-side: bottom;
+	text-align: left;
+	font-size: 0.8em;
+}
+
+table.programs tbody td {
+	font-size: 0.7em;
+	vertical-align: top;
+	border: 1px solid gray;
+	padding: 2px 2px 2px 2px;
+}
+
+table.programs tr {
+	height: 25px;
+}
+
+table.programs thead {
+	color: white;
+	background: rgb(105, 177, 60);
+}
+
+table.programs thead th {
+	font-size: 0.7em;
+	border: 1px solid gray;
+}
+
+table.programs thead th:first-of-type {
+	background: rgb(153, 86, 7);
+}
+
+table.programs thead th:nth-of-type(7), th:nth-of-type(8) {
+	background: rgb(153, 0, 153);
+}
+
+table.programs colgroup col.timeColumn {
+	width: 10%;
+	background: rgb(215, 205, 152);
+}
+
+table.programs colgroup col.wDayColumns {
+	width: 11%;
+	background: rgb(236, 255, 211);
+}
+
+table.programs colgroup col.wEndColumns {
+	width: 17%;
+	background: rgb(255, 231, 255);
+}
+
+table.topTable {
+	padding: 10px auto 10px auto;
+}
+table.topTable td {
+	vertical-align: top;
+	text-align: left;
+}
+
+table.topTable td:first-of-type {
+	vertical-align: top;
+	padding-right: 10px;
+}
+
+table.topTable td:nth-of-type(2) {
+	padding:auto 10px auto 10px;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	text-align: center;
+}
+
+table.topTable td:last-of-type {
+	padding-left: 10px;
+}

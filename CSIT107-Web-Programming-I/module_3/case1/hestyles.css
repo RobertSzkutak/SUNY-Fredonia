@@ -1,0 +1,84 @@
+﻿/*
+   New Perspectives on HTML
+   Tutorial 2
+   Case Problem 1
+
+   Higher Ed Style Sheet
+   Author: Adella Coronel
+   Date:   3/1/2014
+
+   Filename:         hestyles.css
+   Supporting Files: none
+
+*/
+
+/* Section Styles */
+
+body {
+margin: 0px auto;
+padding: 0px;
+line-height: 1.5em;
+width: 98%;
+max-width: 780px;
+min-width: 250px;
+font-family: Verdana, Geneva, sans-serif
+}
+
+header {
+width: 100%;
+text-align: left;
+}
+
+h1 {
+font-weight: normal;
+font-size: 2.5em;
+color: red;
+}
+
+h2 {
+font-weight: normal;
+font-size: 1.5em;
+color: red;
+}
+
+section nav {
+clear: left;
+display: block;
+width: 100%;
+margin-bottom: 30px;
+}
+
+section nav ul {
+list-style-type: none;
+margin: 0px;
+padding: 0px;
+font-size: 0.8em;
+}
+
+section nav ul li {
+display: block;
+float: left;
+width: 32%;
+font-size: 1em;
+height: 3em;
+text-align: center;
+border: 1px solid red;
+background-color: #ffffc0;
+line-height: 3em;
+margin: 0px 4px 25px 0px;
+}
+
+section ul {
+list-style-type: none;
+}
+
+footer {
+display: block;
+width: 100%;
+font-size: 0.8em;
+text-align: center;
+font-variant: small-caps;
+color: red;
+border-top: 1px solid red;
+
+}

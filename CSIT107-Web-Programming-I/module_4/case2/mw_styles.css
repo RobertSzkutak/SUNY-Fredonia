@@ -1,0 +1,103 @@
+﻿/*
+   New Perspectives on HTML and CSS
+   Tutorial 3
+   Case Problem 2
+
+   Mountain Wheels Text and Color Style
+   Author: Robert Szkutak
+   Date:   4/14/2013
+
+   Filename:         mw_layout.css
+   Supporting Files: none
+
+*/
+
+body {
+	font-family: Tahoma, Geneva, sans-serif;
+}
+
+header#articleheader {
+	font-size: 18px;
+	text-decoration: none;
+	letter-spacing: 7px;
+	text-align: center;
+}
+
+nav {
+	background: rgb(125, 120, 89);
+	line-height: 3em;
+}
+
+nav ul {
+	list-style: none;
+}
+
+nav a {
+	color: white;
+	color: rgba(255,255,255,0.5);
+	text-decoration: none;
+}
+
+nav a:hover {
+	background-color: rgb(131, 121, 36);
+	color: yellow;
+	color: rgba(255, 255, 255, 1);
+}
+	
+nav ul li:hover {
+	list-style-image: url(wheelmarker.png);
+}
+
+section#leftsection p {
+	font-size: 22px;
+}
+
+section#leftsection > p:first-of-type:first-line {
+	text-transform: uppercase;
+}
+
+blockquote {
+	background-color: rgb(131, 121, 36);
+	color: white;
+	font-size: 16px;
+	font-family: 'Comic Sans MS', Times, cursive;
+}
+
+section#leftsection > blockquote p {
+	background-color: rgb(131, 121, 36);
+	color: white;
+	font-size: 16px;
+	font-family: "Comic Sans MS", Times, cursive;
+}
+
+blockquote p:before { 
+	content: open-quote 
+}
+blockquote p:after { 
+	content: close-quote 
+}
+
+section#rightsection > h1 {
+	font-size: 22px;
+	letter-spacing: 3px;
+	font-weight: normal;
+	text-align: center;
+}
+
+section#rightsection > h2 {
+	font-size: 18px;
+	font-weight: normal;
+	text-align: right;
+}
+
+section#rightsection > p {
+	color: gray;
+	font-size: 14px;
+	text-align: justify;
+}
+
+address {
+	font-size: 16px;
+	font-style: normal;
+	text-align: center;
+}

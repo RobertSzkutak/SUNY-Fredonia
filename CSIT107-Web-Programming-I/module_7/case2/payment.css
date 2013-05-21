@@ -1,0 +1,138 @@
+/*
+   New Perspectives on HTML and CSS
+   Tutorial 6
+   Case Problem 2
+
+   The Spice Bowl Payment Form Style Sheet
+   Author: Robert Szkutak
+   Date:   4/23/2013
+
+   Filename:         payment.css
+   Supporting Files: go.png, stop.png
+
+*/
+
+
+fieldset
+{
+  border-width: 0px;
+  margin: 5px;
+}
+
+legend
+{
+  background-color: rgb(239, 198, 145);
+  color: black;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-indent: 20px;
+  width: 100%;
+  border-radius: 10px 10px 10px 10px;
+}
+
+label
+{
+  display: block;
+  margin: clear;
+  float: left;
+  font-size: 0.8em;
+  text-align: right;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 25%;
+}
+
+input
+{
+  display: block;
+  float: left;
+  font-size: 0.9em;
+  width: 60%;
+  margin-top: 2px;
+  margin-bottom: 2px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+select
+{
+  display: block;
+  float: left;
+  font-size: 0.9em;
+  margin: 2px;
+}
+
+
+textarea
+{
+  display: block;
+  float: left;
+  font-size: 0.9em;
+  height: 75px;
+  width: 60%
+}
+
+fieldset.optionGroup
+{
+  margin-left: 25%;
+}
+  
+fieldset.optionGroup label
+{
+  display: inline;
+  float: none;
+  width: 100px;
+}
+
+fieldset.optionGroup label input
+{
+  display: inline;
+  float: none;
+  margin: 0px;
+  width: 20px;
+}
+
+input#csc
+{
+  width: 50px;
+}
+
+input[type="submit"]
+{
+  background-color: rgb(239, 198, 145);
+  float: none;
+  width: 150px;
+  height: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 15px 15px 15px 15px;
+}
+
+input:focus, select:focus, textarea:focus
+{
+  background-color: rgb(255, 218, 165);
+}
+
+input:focus:valid
+{
+  background: rgb(215, 255, 215) url(go.png) bottom right no-repeat;
+
+  -o-background-size: contain;
+  -moz-background-size: contain;
+  -webkit-background-size: contain;
+  background-size: contain;
+}
+
+input:focus:invalid
+{
+  background: rgb(255, 245, 215) url(stop.png) bottom right no-repeat;
+
+  -o-background-size: contain;
+  -moz-background-size: contain;
+  -webkit-background-size: contain;
+  background-size: contain;
+}

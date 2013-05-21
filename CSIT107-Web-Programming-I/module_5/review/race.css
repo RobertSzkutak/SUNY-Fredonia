@@ -1,0 +1,189 @@
+/*
+   New Perspectives on HTML and CSS
+   Tutorial 4
+   Review Assignment
+
+   Cycle Pathology Style Sheet
+   Author: Robert Szkutak
+   Date: 4/14/2013 
+
+   Filename:         race.css
+   Supporting Files: 
+
+*/
+
+header, article, aside, figure, figcaption, hgroup, section, nav {
+	display: block;
+}
+
+body * {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 100%;
+	padding: 0px;
+	margin: 0px;
+}
+
+nav a {
+	text-decoration: none;
+}
+
+body {
+	position: relative;
+	width: 98%;
+	min-width: 1000px;
+	max-width: 1400px;
+}
+
+header {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 20%;
+	background-color: black;
+	padding-bottom: 500px;
+}
+
+header img {
+	width: 100%;
+}
+
+nav.horizontal {
+	width: 80%;
+	margin-left: 20%;
+}
+
+nav.horizontal li {
+	display: block;
+	float: left;
+	width: 20%;
+	background-color: rgb(49, 38, 31);
+	padding-top: 5px;
+	padding-bottom: 5px;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 85%;
+}
+
+nav.horizontal a {
+	color: white;
+}
+
+nav.horizontal a:hover {
+	color: rgb(215, 181, 151);
+}
+
+nav.vertical li {
+	font-size: 85%;
+	list-style-type: none;
+}
+
+nav.vertical li.newsgroup {
+	padding-top: 25px;
+}
+
+nav.vertical a {
+	display: block;
+	text-indent: 10px;
+	color: white;
+}
+
+nav.vertical a:hover {
+	background-color: rgb(51, 51, 51);
+	outline: rgb(215, 181, 151) solid 2px;
+}
+
+#main {
+	clear: left;
+	float: left;
+	margin-left: 21%;
+	margin-top: 20px;
+	width: 49%;
+}
+
+#main>h1 {
+	color: rgb(181, 131, 82);
+	font-size: 180%;
+	font-weight: normal;
+	letter-spacing: 5px;
+}
+
+#main p {
+	margin: 15px 15px 15px 15px;
+}
+
+#main ul {
+	list-style-type: disc;
+	margin: 25px 25px 25px 25px;
+}
+
+#main ul li {
+	margin-bottom: 10px;
+}
+
+aside {
+	border: 3px solid rgb(149, 91, 42);
+	color: rgb(149, 91, 42);
+	margin: 10px 10px 10px 10px;
+	float: right;
+	width: 50%;
+	border-radius: 30px 30px 30px 30px;
+}
+
+article {
+	float: left;
+	width: 29%;
+	margin-left: 1%;
+	background-color: rgb(215, 181, 151);
+}
+
+article hgroup {
+	background-color: rgb(189, 131, 82);
+	background-image: url(../Images/alisha.png);
+	background-position: right bottom;
+	background-repeat: no-repeat;
+	margin-bottom: 10px;
+	height: 60px;
+	color: rgb(215, 181, 151);
+	text-indent: 20px;
+}
+
+article hgroup h1 {
+	font-size: 150%;
+	font-weight: normal;
+}
+
+article hgroup h2 {
+	font-size: 110%;
+	font-weight: normal;
+}
+
+article p {
+	font-size: 90%;
+	margin: 15px 15px 15px 15px;
+}
+
+figure {
+	clear: left;
+	float: left;
+	margin-left: 21%;
+	width: 79%;
+	background-color: rgb(149, 91, 42);
+}
+
+figure div {
+	overflow: auto;
+	white-space: nowrap;
+}
+
+figure img {
+	margin: 10px 10px 10px 10px;
+	border-radius: 10px 10px 10px 10px;
+}
+
+figure figcaption {
+	background-color: white;
+	font-size: 80%;
+	font: italic 80%;
+	text-align: center;
+	margin-top: 5px;
+}

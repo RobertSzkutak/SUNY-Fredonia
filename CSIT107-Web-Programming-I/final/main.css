@@ -1,0 +1,146 @@
+body
+{
+	background-image:url('bg.jpg');
+	Margin:0;
+	padding:0;
+}
+
+div.page
+{
+	width:75%;
+	text-align:center;
+	margin: 0 auto;
+}
+
+div.header
+{
+	background-image:url('header.jpg');
+	text-align:center;
+	color:white;
+	font-family:Georgia;
+	font-size:28pt;
+}
+
+div.slogan
+{
+	text-align:center;
+	color:white;
+	font-family:Georgia;
+	font-size:16pt;
+	margin-top:12px;
+	padding-bottom:4px;
+}
+
+div.content
+{
+	border:15px;
+	border-style:solid;
+	border-color:black;
+	background-color:white;
+	height:auto;
+	margin-bottom:14px;
+	padding-top:25px;
+}
+
+div.footer
+{
+	font-family:Georgia;
+	font-size:8pt;
+	font-weight:bold;
+	text-align:center;
+	color:black;
+}
+
+a
+{
+	color:black;
+	font-size:14pt;
+	font-family:Georgia;
+	text-decoration:none;
+	font-weight:normal;
+	margin-left:50px;
+	margin-right:50px;
+}
+
+a:hover
+{
+	text-decoration:underline;
+}
+
+a:active
+{
+	font-weight:bold;
+}
+
+a:visited
+{
+	color:black;
+}
+
+table
+{
+	width:100%;
+	table-layout:fixed;
+	
+}
+
+td
+{
+	vertical-align:top;
+}
+
+h1
+{
+	font-family:Georgia;
+	font-size:26pt;
+	font-weight:normal;
+}
+
+p
+{
+	text-align: justify;
+	font-family:Georgia;
+}
+
+ul
+{
+	text-align:left;
+	font-family:Georgia;
+}
+
+form
+{
+	margin-top:25px;
+}
+
+input
+{
+	width:25%;
+}
+
+textarea
+{
+	width:30%;
+}
+
+div.member
+{
+	border:5px;
+	border-color:black;
+	border-style:solid;
+	border-left:none;
+	border-right:none;
+	font-family:Georgia;
+	font-size:16pt;
+	text-align:justify;
+	margin-left:50px;
+	margin-right:50px;
+}
+
+h2
+{
+	font-family:Georgia;
+	font-size:22pt;
+	font-weight:normal;
+	text-align:center;
+}
